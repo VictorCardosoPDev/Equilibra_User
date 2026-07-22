@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-br"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>equilibra - Gestão da Biblioteca</title>
+<link href="../styles/dark-mode.css" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Lexend:wght@300;400;500;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Plus+Jakarta+Sans:wght@100..900&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed-variant": "#264191",
+                    "on-surface-variant": "#444651",
+                    "tertiary-container": "#3c4144",
+                    "on-secondary": "#ffffff",
+                    "primary-fixed": "#dce1ff",
+                    "inverse-primary": "#b6c4ff",
+                    "secondary-fixed-dim": "#a4c9ff",
+                    "secondary": "#0060ac",
+                    "surface-dim": "#cbdbf5",
+                    "on-error": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-fixed-variant": "#43474b",
+                    "secondary-container": "#64a8fe",
+                    "surface-bright": "#f8f9ff",
+                    "on-tertiary-fixed": "#171c1f",
+                    "on-secondary-fixed-variant": "#004883",
+                    "on-primary-fixed": "#00164e",
+                    "error": "#ba1a1a",
+                    "on-tertiary": "#ffffff",
+                    "surface-container": "#e5eeff",
+                    "on-error-container": "#93000a",
+                    "error-container": "#ffdad6",
+                    "surface-container-low": "#eff4ff",
+                    "on-tertiary-container": "#a8adb1",
+                    "inverse-on-surface": "#eaf1ff",
+                    "on-secondary-fixed": "#001c39",
+                    "on-secondary-container": "#003c70",
+                    "surface": "#f8f9ff",
+                    "primary-container": "#1e3a8a",
+                    "outline": "#757682",
+                    "secondary-fixed": "#d4e3ff",
+                    "background": "#f8f9ff",
+                    "surface-container-highest": "#d3e4fe",
+                    "on-primary-container": "#90a8ff",
+                    "tertiary-fixed-dim": "#c3c7cb",
+                    "surface-variant": "#d3e4fe",
+                    "inverse-surface": "#213145",
+                    "on-surface": "#0b1c30",
+                    "outline-variant": "#c5c5d3",
+                    "surface-container-high": "#dce9ff",
+                    "on-background": "#0b1c30",
+                    "tertiary-fixed": "#dfe3e7",
+                    "tertiary": "#262b2e",
+                    "primary-fixed-dim": "#b6c4ff",
+                    "on-primary": "#ffffff",
+                    "primary": "#00236f",
+                    "surface-tint": "#4059aa"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-sm": "12px",
+                    "stack-lg": "48px",
+                    "gutter": "24px",
+                    "container-max-width": "1200px",
+                    "margin-mobile": "16px",
+                    "margin-desktop": "40px",
+                    "stack-md": "24px",
+                    "unit": "8px"
+            },
+            "fontFamily": {
+                    "body-sm": ["Lexend"],
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "label-sm": ["Lexend"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "body-md": ["Lexend"],
+                    "headline-xl": ["Plus Jakarta Sans"],
+                    "label-md": ["Lexend"],
+                    "body-lg": ["Lexend"]
+            },
+            "fontSize": {
+                    "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "1.2", "letterSpacing": "0.04em", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-xl": ["40px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .btn-hover-effect:hover {
+            box-shadow: 0 4px 12px rgba(30, 58, 138, 0.15);
+            transform: translateY(-1px);
+        }
+        .card-shadow {
+            box-shadow: 0 4px 20px rgba(30, 58, 138, 0.05);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-background font-body-md text-on-background min-h-screen pb-12">
+<!-- TopAppBar -->
+<header class=" bg-[#0B4D86] fixed top-0 left-0 right-0 z-50">
+<div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 max-w-container-max-width mx-auto">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container overflow-hidden">
+<img alt="User profile photo" class="w-full h-full object-cover" data-alt="A close-up professional headshot of a friendly educator with a warm smile, set against a soft-focus classroom background. The lighting is bright and natural, reflecting a clean, light-mode aesthetic with soft blue and white tones that align with a serene educational environment." src="../assets/imagens/logo_Equilibra.png">
+</div>
+<h1 class="font-headline-md text-headline-md font-bold text-[#6EAF8B]">equilibra</h1>
+</div>
+</header>
+<main class="max-w-[1200px] mx-auto px-margin-mobile md:px-margin-desktop mt-8 space-y-stack-lg">
+<!-- Form Section -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<div class="lg:col-span-12">
+<div class="bg-white rounded-xl card-shadow border border-surface-container overflow-hidden">
+<div class="p-6 border-b border-surface-container-low flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">add_circle</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Novo Conteúdo</h3>
+</div>
+<form class="p-6 lg:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Thumbnail Column -->
+<div class="lg:col-span-4 space-y-4">
+<label class="block text-label-md font-label-md text-on-surface-variant">Capa do Conteúdo</label>
+<div onclick="document.getElementById('thumbnailInput').click()" class="relative group cursor-pointer border-2 border-dashed border-outline-variant rounded-xl aspect-[3/4] flex flex-col items-center justify-center bg-surface-container-lowest hover:bg-surface-container-low transition-all">
+<img alt="Preview" class="absolute inset-0 w-full h-full object-cover rounded-xl opacity-40 group-hover:opacity-60 transition-opacity" data-alt="A placeholder image for a book cover or academic article. The style is minimalist with abstract geometric shapes in soothing shades of blue and soft green. The background is a clean white textured paper, conveying a sense of calm and professional academic excellence." id="cover-preview" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDinLs-8LKGokSdNic90_LOm6ARVuudOJQUAdfmsgIsvkXNXUlYmJu2dymPVd4yNImXHKzVrhBpKrwjGcGoxzB4kEz-6ywp4H8dxyQ3vRJEMlOXiQjwHumkiBghEeHDtw10qDMrajcr-2Xc_nMlbpWDnDSq8G3OlzSmaMFYAPkEPnNdaOpIA_-t1hXpxA1PC4Ixuks1Qooj7vu9ka25gEtq5f6pkEdIdFGn1a8wtOfNIvba0BMRQMGe5N6IPc-bpERB43Cth8WpcJj2"/>
+<div class="z-10 flex flex-col items-center text-on-surface-variant">
+<span class="material-symbols-outlined text-4xl mb-2">image</span>
+<span class="font-body-sm text-body-sm">Clique para upload</span>
+<span class="text-xs text-outline">JPG, PNG (Máx. 2MB)</span>
+</div>
+<input
+    id="thumbnailInput"
+    accept="image/*"
+    class="hidden"
+    type="file"/></div>
+</div>
+<!-- Fields Column -->
+<div class="lg:col-span-8 space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="block text-label-md font-label-md text-on-surface-variant">Título do Conteúdo</label>
+<input
+    id= "title" class="w-full rounded-lg"
+    placeholder="Ex: Guia de Resiliência para Professores"
+    type="text"/></div>
+<div class="space-y-2">
+<label class="block text-label-md font-label-md text-on-surface-variant">Autor(es)</label>
+<input
+    id="autores"
+    class="w-full rounded-lg ..."
+    placeholder="Ex: Dr. Silva, Prof. Maria"
+    type="text"/></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label  class="block text-label-md font-label-md text-on-surface-variant">Categoria</label>
+<select id="categoria" class="w-full rounded-lg border-outline-variant focus:border-secondary focus:ring-1 focus:ring-secondary py-3 px-4 text-body-md appearance-none">
+<option>Saúde Mental</option>
+<option>Autocuidado</option>
+<option>Burnout</option>
+</select>
+</div>
+<div class="space-y-2">
+<label class="block text-label-md font-label-md text-on-surface-variant">Tipo de Conteúdo</label>
+<div class="flex bg-surface-container-low p-1 rounded-lg">
+<label class="flex-1 cursor-pointer">
+<input
+    checked
+    class="hidden peer"
+    name="content_type"
+    value="Artigo"
+    type="radio"/>
+    <div class="text-center py-2 rounded-md peer-checked:bg-white peer-checked:text-primary peer-checked:shadow-sm transition-all font-label-md text-on-surface-variant">Artigo</div>
+</label>
+<label class="flex-1 cursor-pointer">
+<input
+    class="hidden peer"
+    name="content_type"
+    value="Cartilha"
+    type="radio"/>
+    <div class="text-center py-2 rounded-md peer-checked:bg-white peer-checked:text-primary peer-checked:shadow-sm transition-all font-label-md text-on-surface-variant">Cartilha</div>
+</label>
+</div>
+</div>
+</div>
+
+<div class="space-y-2">
+<label class="block text-label-md font-label-md text-on-surface-variant">Resumo / Descrição</label>
+<textarea id="resumo" class="w-full rounded-lg border-outline-variant focus:border-secondary focus:ring-1 focus:ring-secondary py-3 px-4 text-body-md" placeholder="Descreva brevemente o conteúdo para os usuários..." rows="4"></textarea>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="block text-label-md font-label-md text-on-surface-variant">Arquivo PDF</label>
+<div class="flex items-center gap-3">
+<!-- Input oculto -->
+<input
+    id="pdfInput"
+    type="file"
+    accept=".pdf"
+    class="hidden">
+
+<!-- Botão original -->
+<button
+    type="button"
+    onclick="document.getElementById('pdfInput').click()"
+    class="flex items-center gap-2 px-4 py-2 border border-outline-variant rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors">
+
+    <span class="material-symbols-outlined">
+        upload_file
+    </span>
+
+    Selecionar PDF
+
+</button>
+
+<!-- Nome do arquivo -->
+<span
+    id="pdfFileName"
+    class="text-xs text-outline">
+
+    Nenhum arquivo...
+
+</span>
+</div>
+</div>
+<div class="space-y-2">
+</div>
+</div>
+<div class="pt-4 flex justify-end">
+<button id="btnPublicar" type="button" onclick="uploadPdf()" class="bg-primary text-white px-8 py-3 rounded-full font-label-md btn-hover-effect transition-all flex items-center gap-2" type="submit">
+<span class="material-symbols-outlined">publish</span>
+                                    Publicar Conteúdo
+                                </button>
+</div>
+</div>
+</form>
+</div>
+</div>
+</section>
+<!-- List Section -->
+<section class="space-y-stack-md">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-md text-headline-md text-on-surface">Conteúdos Publicados</h3>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="pl-10 pr-4 py-2 rounded-full border-outline-variant focus:border-secondary focus:ring-1 focus:ring-secondary text-body-sm w-64" placeholder="Buscar na biblioteca..." type="text"/>
+</div>
+</div>
+<div class="bg-white rounded-xl card-shadow border border-surface-container overflow-hidden">
+<div class="overflow-x-auto custom-scrollbar">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-surface-container">
+<th class="px-6 py-4 font-label-md text-on-surface-variant w-24">Capa</th>
+<th class="px-6 py-4 font-label-md text-on-surface-variant">Título / Autor</th>
+<th class="px-6 py-4 font-label-md text-on-surface-variant">Tipo</th>
+<th class="px-6 py-4 font-label-md text-on-surface-variant">Categoria</th>
+<th class="px-6 py-4 font-label-md text-on-surface-variant">Publicação</th>
+<th class="px-6 py-4 font-label-md text-on-surface-variant text-right">Ações</th>
+</tr>
+</thead>
+<tbody id="conteudosTable" class="divide-y divide-surface-container-low"></tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="p-4 bg-surface-container-lowest border-t border-surface-container flex items-center justify-between">
+<span
+    id="totalConteudos"
+    class="text-body-sm text-on-surface-variant">
+
+    Carregando...
+
+</span><div class="flex gap-1">
+
+</section>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 py-3 bg-surface-container-lowest dark:bg-inverse-surface rounded-t-xl shadow-[0_-4px_12px_rgba(0,35,111,0.05)]">
+<a href="../index.html" class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-container px-4 py-1 hover:text-primary dark:hover:text-primary-fixed transition-all duration-300 active:scale-90" >
+<span class="material-symbols-outlined" data-icon="home" style="font-variation-settings: 'FILL' 0;">home</span>
+<span class="font-label-sm text-label-sm">Início</span>
+</a>
+<a href="ajuda.html" class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-container px-4 py-1 hover:text-primary dark:hover:text-primary-fixed transition-colors active:scale-90 duration-150" >
+<span class="material-symbols-outlined">
+            volunteer_activism
+        </span><span class="font-label-sm text-label-sm"><span class="" style="letter-spacing: 0.48px; text-align: center;">Ajuda</span></span>
+</a>
+
+<a href="informativo.html" class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-container px-4 py-1 hover:text-primary dark:hover:text-primary-fixed transition-colors active:scale-90 duration-150" >
+<span class="material-symbols-outlined" data-icon="menu_book">menu</span>
+<span class="font-label-sm text-label-sm">Informativo</span>
+</a>
+<!-- Biblioteca -->
+    <a href="./biblioteca.html"
+       class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-container px-4 py-1 hover:text-primary dark:hover:text-primary-fixed transition-all duration-300 active:scale-90">
+
+        <span class="material-symbols-outlined">
+            menu_book
+        </span>
+
+        <span class="font-label-sm text-label-sm">
+            Biblioteca
+        </span>
+
+    </a>
+<!-- Jornada -->
+    <a href="jornada.html"
+   class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-container px-4 py-1 hover:text-primary dark:hover:text-primary-fixed transition-all duration-300 active:scale-90">
+
+    <span class="material-symbols-outlined"
+          style="font-variation-settings: 'FILL' 0;">
+
+        directions_walk
+
+    </span>
+
+    <span class="font-label-sm text-label-sm">
+        Jornada
+    </span>
+</a>
+</nav>
+</main>
+<script>
+        // Micro-interactions and animations
+        document.querySelectorAll('button, a').forEach(elem => {
+            elem.addEventListener('mousedown', () => {
+                elem.classList.add('scale-95');
+            });
+            elem.addEventListener('mouseup', () => {
+                elem.classList.remove('scale-95');
+            });
+            elem.addEventListener('mouseleave', () => {
+                elem.classList.remove('scale-95');
+            });
+        });
+
+        // Simple form validation visual feedback and upload
+        const form = document.querySelector('form');
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Publicando...';
+            btn.disabled = true;
+            btn.classList.add('opacity-70');
+
+            const success = await uploadPdf();
+
+            if (!success) {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                btn.classList.remove('opacity-70');
+                return;
+            }
+
+            btn.innerHTML = '<span class="material-symbols-outlined">check_circle</span> Publicado!';
+            btn.classList.remove('bg-primary');
+            btn.classList.add('bg-green-600');
+            
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.classList.remove('bg-green-600');
+                btn.classList.add('bg-primary');
+                btn.disabled = false;
+                btn.classList.remove('opacity-70');
+                form.reset();
+            }, 2000);
+        });
+
+        // Drop shadow lift on card hover
+        document.querySelectorAll('.card-shadow').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.classList.remove('card-shadow');
+                card.style.boxShadow = '0 10px 30px rgba(30, 58, 138, 0.1)';
+                card.style.transform = 'translateY(-2px)';
+                card.style.transition = 'all 0.3s ease';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.boxShadow = '';
+                card.style.transform = '';
+                card.classList.add('card-shadow');
+            });
+        });
+        document
+    .getElementById("pdfInput")
+    .addEventListener("change", function () {
+
+        const file = this.files[0];
+
+        document
+            .getElementById("pdfFileName")
+            .textContent = file
+                ? file.name
+                : "Nenhum arquivo...";
+    });
+
+    document
+    .getElementById("thumbnailInput")
+    .addEventListener("change", function () {
+
+        const file = this.files[0];
+
+        if (!file) return;
+
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+
+            document
+                .getElementById("cover-preview")
+                .src = e.target.result;
+        };
+
+        reader.readAsDataURL(file);
+    });
+const supabaseUrl =
+    "https://xashpazesqmnqsmxtedk.supabase.co";
+
+const supabaseKey =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhhc2hwYXplc3FtbnFzbXh0ZWRrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxMTE5MjAsImV4cCI6MjA5NDY4NzkyMH0.7XUkPo3WmPGPMiBhs2i2pKPVuWBsQHH8hGoBne53cTg";
+
+const supabaseClient =
+    window.supabase.createClient(
+        supabaseUrl,
+        supabaseKey
+    );
+let pdfAtual = "";
+let thumbnailAtual = "";
+let conteudoEditando = null;
+
+async function editarConteudo(id){
+
+
+    const { data, error } =
+        await supabaseClient
+            .from("conteudos")
+            .select("*")
+            .eq("id", id)
+            .single();
+
+    if(error){
+
+        console.error(error);
+
+        return;
+
+    }
+
+    conteudoEditando = id;
+    let pdfAtual = data.pdf_url;
+    let thumbnailAtual = data.thumbnail_url;
+
+    document.getElementById("title").value =
+        data.title;
+
+    document.getElementById("autores").value =
+        data.autores;
+
+    document.getElementById("categoria").value =
+        data.categoria;
+
+    document.getElementById("resumo").value =
+        data.resumo;
+
+    document.querySelector(
+        `input[name="content_type"][value="${data.tipo}"]`
+    ).checked = true;
+
+    document.getElementById("cover-preview").src =
+        data.thumbnail_url;
+
+    document.getElementById("pdfFileName")
+        .textContent =
+        "PDF já cadastrado";
+
+    const botao =
+        document.getElementById("btnPublicar");
+
+    botao.innerHTML = `
+        <span class="material-symbols-outlined">
+            save
+        </span>
+
+        Salvar Alterações
+    `;
+
+    botao.onclick =
+        salvarEdicao;
+
+    window.scrollTo({
+
+        top:0,
+
+        behavior:"smooth"
+
+    });
+
+}
+async function salvarEdicao(){
+
+    const title =
+        document.getElementById("title").value;
+
+    const autores =
+        document.getElementById("autores").value;
+
+    const categoria =
+        document.getElementById("categoria").value;
+
+    const resumo =
+        document.getElementById("resumo").value;
+
+    const tipo =
+        document.querySelector(
+            'input[name="content_type"]:checked'
+        ).value;
+    console.log("ID:", conteudoEditando);
+
+console.log({
+    title,
+    autores,
+    categoria,
+    resumo,
+    tipo
+});
+let pdfUrl = pdfAtual;
+let thumbnailUrl = thumbnailAtual;
+    const { error } =
+        await supabaseClient
+            .from("conteudos")
+            .update({
+
+                title,
+
+                autores,
+
+                categoria,
+
+                resumo,
+
+                tipo,
+                
+                pdf_url: pdfUrl,
+
+                thumbnail_url: thumbnailUrl
+
+            })
+            .eq(
+                "id",
+                conteudoEditando
+            );
+            
+    if(error){
+
+        console.error(error);
+
+        alert("Erro ao atualizar.");
+
+        return;
+
+    }
+
+    alert("Conteúdo atualizado!");
+
+    const novoPdf =
+    document.getElementById("pdfInput").files[0];
+
+if (novoPdf) {
+
+    const extensao =
+        novoPdf.name.split(".").pop();
+
+    const nomeArquivo =
+        `${Date.now()}.${extensao}`;
+
+    const { error } =
+        await supabaseClient.storage
+            .from("biblioteca-pdfs")
+            .upload(
+                nomeArquivo,
+                novoPdf
+            );
+
+    if (error) {
+
+        console.error(error);
+
+        alert("Erro ao enviar PDF.");
+
+        return;
+
+    }
+
+    pdfUrl =
+        supabaseClient.storage
+            .from("biblioteca-pdfs")
+            .getPublicUrl(nomeArquivo)
+            .data.publicUrl;
+
+}
+const novaThumbnail =
+    document
+        .getElementById("thumbnailInput")
+        .files[0];
+
+if (novaThumbnail) {
+
+    thumbnailUrl =
+        await uploadThumbnail();
+
+}
+
+    conteudoEditando = null;
+
+    document.querySelector("form")
+        .reset();
+
+    document.getElementById("cover-preview").src =
+        "https://lh3.googleusercontent.com/aida-public/AB6AXuDinLs-8LKGokSdNic90_LOm6ARVuudOJQUAdfmsgIsvkXNXUlYmJu2dymPVd4yNImXHKzVrhBpKrwjGcGoxzB4kEz-6ywp4H8dxyQ3vRJEMlOXiQjwHumkiBghEeHDtw10qDMrajcr-2Xc_nMlbpWDnDSq8G3OlzSmaMFYAPkEPnNdaOpIA_-t1hXpxA1PC4Ixuks1Qooj7vu9ka25gEtq5f6pkEdIdFGn1a8wtOfNIvba0BMRQMGe5N6IPc-bpERB43Cth8WpcJj2";
+
+    document.getElementById("pdfFileName")
+        .textContent =
+        "Nenhum arquivo...";
+
+    const botao =
+        document.getElementById("btnPublicar");
+
+    botao.innerHTML = `
+        <span class="material-symbols-outlined">
+            publish
+        </span>
+
+        Publicar Conteúdo
+    `;
+
+    botao.onclick =
+        uploadPdf;
+
+    carregarConteudos();
+
+}
+async function uploadPdf() {
+
+    const pdfInput =
+        document.getElementById("pdfInput");
+
+    const file =
+        pdfInput.files[0];
+
+    if (!file) {
+
+        alert("Selecione um PDF.");
+
+        return false;
+    }
+    const extension =
+    file.name.split(".").pop();
+
+    const fileName =
+        `${Date.now()}.${extension}`;
+
+    const { data, error } =
+        await supabaseClient.storage
+            .from("biblioteca-pdfs")
+            .upload(fileName, file);
+
+    if (error) {
+
+        console.error(error);
+
+        alert("Erro ao enviar PDF.");
+
+        return false;
+    }
+
+
+    const { data: publicUrlData } =
+    supabaseClient.storage
+        .from("biblioteca-pdfs")
+        .getPublicUrl(fileName);
+
+    const thumbnailUrl =
+    await uploadThumbnail();
+    console.log(
+    "Thumbnail URL:",
+    thumbnailUrl
+);
+
+    console.log("title:", document.getElementById("title"));
+    console.log("autores:", document.getElementById("autores"));
+    console.log("categoria:", document.getElementById("categoria"));
+    console.log("resumo:", document.getElementById("resumo"));
+
+    const title =
+        document.getElementById("title").value;
+
+    const autores =
+        document.getElementById("autores").value;
+
+    const categoria =
+        document.getElementById("categoria").value;
+    
+    const tipo =
+    document.querySelector(
+        'input[name="content_type"]:checked'
+    )?.value || "";
+
+    const resumo =
+        document.getElementById("resumo").value;
+
+    const { error: insertError } =
+        await supabaseClient
+            .from("conteudos")
+            .insert({
+                title,
+                autores,
+                categoria,
+                tipo,
+                resumo,
+                thumbnail_url: thumbnailUrl,
+                pdf_url: publicUrlData.publicUrl
+            });
+
+    if (insertError) {
+
+        console.error(insertError);
+
+        alert(
+            "PDF enviado, mas houve erro ao salvar no banco."
+        );
+
+        return false;
+    }
+
+    alert("Conteúdo publicado com sucesso!");
+    return true;
+}
+async function uploadThumbnail() {
+
+    const thumbnailInput =
+        document.getElementById("thumbnailInput");
+
+    const file =
+        thumbnailInput.files[0];
+
+    if (!file) {
+
+        console.log("Nenhuma thumbnail selecionada");
+
+        return null;
+    }
+
+    const extension =
+        file.name.split(".").pop();
+
+    const fileName =
+        `${Date.now()}.${extension}`;
+
+    const { error } =
+        await supabaseClient.storage
+            .from("biblioteca-thumbnails")
+            .upload(fileName, file);
+
+    if (error) {
+
+        console.error(
+            "ERRO THUMBNAIL:",
+            error
+        );
+
+        alert(
+            "Erro ao enviar thumbnail: " +
+            error.message
+        );
+
+        return null;
+    }
+
+    const { data } =
+        supabaseClient.storage
+            .from("biblioteca-thumbnails")
+            .getPublicUrl(fileName);
+
+    console.log(
+        "Thumbnail enviada:",
+        data.publicUrl
+    );
+
+    return data.publicUrl;
+}
+async function carregarConteudos() {
+
+    const { data, error } =
+        await supabaseClient
+            .from("conteudos")
+            .select("*")
+            .order(
+                "created_at",
+                {
+                    ascending: false
+                }
+            );
+                console.log("DATA:", data);
+                console.log("ERROR:", error);
+    if (error) {
+
+        console.error(error);
+
+        return;
+    }
+
+    const table =
+        document.getElementById(
+            "conteudosTable"
+        );
+
+    table.innerHTML = "";
+
+    document.getElementById(
+        "totalConteudos"
+    ).textContent =
+        `Mostrando ${data.length} resultado(s)`;
+
+    data.forEach(
+        conteudo => {
+
+        const dataFormatada =
+            new Date(
+                conteudo.created_at
+            ).toLocaleDateString(
+                "pt-BR"
+            );
+
+        table.innerHTML += `
+
+        <tr class="hover:bg-surface-container-lowest transition-colors group">
+
+            <td class="px-6 py-4">
+
+                <div class="w-12 h-16 rounded overflow-hidden shadow-sm">
+
+                    <img
+                        src="${
+                            conteudo.thumbnail_url
+                        }"
+                        class="w-full h-full object-cover">
+
+                </div>
+
+            </td>
+
+            <td class="px-6 py-4">
+
+                <div class="flex flex-col">
+
+                    <span class="font-label-md text-on-surface">
+
+                        ${conteudo.title}
+
+                    </span>
+
+                    <span class="text-xs text-outline">
+
+                        ${conteudo.autores}
+
+                    </span>
+
+                </div>
+
+            </td>
+
+            <td class="px-6 py-4">
+
+                <span class="px-3 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant text-xs font-label-md">
+
+                    ${conteudo.tipo}
+
+                </span>
+
+            </td>
+
+            <td class="px-6 py-4">
+
+                <span class="text-body-sm text-on-surface-variant">
+
+                    ${conteudo.categoria}
+
+                </span>
+
+            </td>
+
+            <td class="px-6 py-4">
+
+                <span class="text-body-sm text-outline">
+
+                    ${dataFormatada}
+
+                </span>
+
+            </td>
+
+            <td class="px-6 py-4 text-right">
+
+                <div class="flex justify-end gap-2">
+
+                    <a
+                        href="${
+                            conteudo.pdf_url
+                        }"
+                        target="_blank"
+                        class="p-2 text-primary hover:bg-primary-fixed rounded-lg transition-colors">
+
+                        <span class="material-symbols-outlined">
+
+                            visibility
+
+                        </span>
+
+                    </a>
+                    <button
+                        onclick="excluirConteudo(${conteudo.id})"
+                        class="p-2 text-red-600">
+
+                        <span class="material-symbols-outlined">
+                            delete
+                        </span>
+
+                    </button>
+                    <button
+                        onclick="editarConteudo(${conteudo.id})"
+                        class="p-2 text-blue-600 hover:bg-blue-100 rounded-lg">
+
+                        <span class="material-symbols-outlined">
+                            edit
+                        </span>
+
+                    </button>
+                </div>
+
+            </td>
+
+        </tr>
+
+        `;
+    });
+}
+carregarConteudos();
+async function excluirConteudo(id) {
+
+    const confirmar =
+        confirm(
+            "Deseja realmente excluir este conteúdo?"
+        );
+
+    if (!confirmar) return;
+
+    const { error } =
+        await supabaseClient
+            .from("conteudos")
+            .delete()
+            .eq("id", id);
+
+    if (error) {
+
+        console.error(error);
+
+        alert(
+            "Erro ao excluir conteúdo."
+        );
+
+        return;
+    }
+
+    alert(
+        "Conteúdo excluído!"
+    );
+
+    carregarConteudos();
+}
+</script>
+<script src="../scripts/theme.js"></script>
+</body></html>

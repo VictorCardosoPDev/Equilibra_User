@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>equilibra - Biblioteca</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="../styles/dark-mode.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@600;700&amp;family=Manrope:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#89f5e7",
+                        "on-surface-variant": "#444651",
+                        "on-primary-container": "#90a8ff",
+                        "tertiary-fixed-dim": "#b7c8e1",
+                        "inverse-surface": "#2d3133",
+                        "surface-dim": "#d8dadc",
+                        "outline-variant": "#c5c5d3",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed-variant": "#38485d",
+                        "on-secondary-container": "#006f66",
+                        "secondary-container": "#86f2e4",
+                        "primary-container": "#1e3a8a",
+                        "surface": "#FAF6EF",
+                        "inverse-primary": "#b6c4ff",
+                        "surface-variant": "#e0e3e5",
+                        "surface-container": "#eceef0",
+                        "on-tertiary-container": "#9dadc6",
+                        "on-secondary-fixed": "#00201d",
+                        "on-error-container": "#93000a",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed-variant": "#005049",
+                        "primary": "#00236f",
+                        "on-tertiary": "#ffffff",
+                        "surface-tint": "#4059aa",
+                        "background": "#f7f9fb",
+                        "primary-fixed": "#dce1ff",
+                        "primary-fixed-dim": "#b6c4ff",
+                        "outline": "#757682",
+                        "on-primary-fixed-variant": "#264191",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed": "#0b1c30",
+                        "tertiary-fixed": "#d3e4fe",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#6bd8cb",
+                        "surface-container-low": "#f2f4f6",
+                        "on-surface": "#191c1e",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-background": "#191c1e",
+                        "secondary": "#006a61",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed": "#00164e",
+                        "tertiary": "#1b2b3f",
+                        "surface-bright": "#FAF6EF",
+                        "tertiary-container": "#314156",
+                        "inverse-on-surface": "#eff1f3",
+                        "surface-container-high": "#e6e8ea"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "lg": "48px",
+                        "margin-desktop": "64px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "md": "24px",
+                        "base": "8px",
+                        "xl": "80px",
+                        "sm": "12px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Source Serif 4"],
+                        "body-md": ["Manrope"],
+                        "body-lg": ["Manrope"],
+                        "label-sm": ["Manrope"],
+                        "headline-xl": ["Source Serif 4"],
+                        "headline-lg": ["Source Serif 4"],
+                        "label-md": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-xl": ["40px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    const searchInput =
+    document.getElementById(
+        "searchInput"
+    );
+
+searchInput.addEventListener(
+    "input",
+    () => {
+
+        const termo =
+            searchInput.value
+                .toLowerCase();
+
+        document
+            .querySelectorAll(
+                ".content-item"
+            )
+            .forEach(item => {
+
+                const texto =
+                    item.innerText
+                        .toLowerCase();
+
+                item.style.display =
+                    texto.includes(
+                        termo
+                    )
+                    ? ""
+                    : "none";
+            });
+    }
+
+);      
+document
+    .querySelectorAll(
+        "[data-filter]"
+    )
+    .forEach(btn => {
+
+        btn.addEventListener(
+            "click",
+            () => {
+
+                const filtro =
+                    btn.dataset.filter;
+
+                document
+                    .querySelectorAll(
+                        ".content-item"
+                    )
+                    .forEach(item => {
+
+                        if (
+                            filtro === "all"
+                        ) {
+
+                            item.style.display = "";
+
+                            return;
+                        }
+
+                        const texto =
+                            item.innerText
+                                .toLowerCase();
+
+                        item.style.display =
+                            texto.includes(
+                                filtro
+                            )
+                            ? ""
+                            : "none";
+                    });
+            }
+        );
+    });
+    </script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 bg-[#0B4D86]">
+
+    <div class="flex justify-between items-center w-full max-w-6xl mx-auto px-margin-mobile md:px-margin-desktop py-4">
+
+        <div class="flex items-center gap-3">
+            
+            <img
+                src="../assets/imagens/logo_Equilibra.png"
+                alt="Logo Equilibra"
+                class="w-10 h-10 object-contain">
+
+            <span class="font-headline-md text-headline-md font-bold text-[#6EAF8B]">
+                equilibra
+            </span>
+
+        </div>
+
+        <button
+            onclick="window.location.href='bibliotecaAdmin.html'"
+            class="w-10 h-10 flex items-center justify-center hover:bg-white/10 rounded-full transition-colors">
+
+            <span class="material-symbols-outlined text-[#FAF6EF]">
+                settings
+            </span>
+
+        </button>
+
+    </div>
+
+</header>
+<main class="pt-20 pb-24 px-margin-mobile md:px-margin-desktop max-w-7xl mx-auto">
+<!-- Search Bar -->
+<section class="mb-8">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input id="searchInput" class="w-full h-14 pl-12 pr-4 bg-surface-container-lowest border-2 border-transparent focus:border-primary-container focus:ring-0 rounded-xl font-body-md text-on-surface transition-all shadow-sm" placeholder="Buscar artigos, cartilhas e diretrizes..." type="text"/>
+</div>
+</section>
+<!-- Categories/Tabs -->
+<section class="mb-10 overflow-x-auto hide-scrollbar -mx-margin-mobile px-margin-mobile">
+<div class="flex gap-3 whitespace-nowrap">
+<button id="filter-all"class="px-6 py-2.5 bg-primary text-on-primary rounded-full font-label-md transition-transform active:scale-95" >Tudo</button>
+
+<button id="filter-artigos" class="px-6 py-2.5 bg-surface-container-low text-on-surface-variant border border-outline-variant rounded-full font-label-md hover:bg-surface-container-high transition-all">
+    Artigos
+</button>
+
+<button id="filter-cartilhas" class="px-6 py-2.5 bg-surface-container-low text-on-surface-variant border border-outline-variant rounded-full font-label-md hover:bg-surface-container-high transition-all">
+    Cartilhas
+</button>
+
+<button id="filter-saude" class="px-6 py-2.5 bg-surface-container-low text-on-surface-variant border border-outline-variant rounded-full font-label-md hover:bg-surface-container-high transition-all">
+    Saúde Mental
+</button>
+
+<button id="filter-burnout" class="px-6 py-2.5 bg-surface-container-low text-on-surface-variant border border-outline-variant rounded-full font-label-md hover:bg-surface-container-high transition-all">
+    Burnout
+</button>
+</div>
+</section>
+
+<!-- List Section: Artigos Recentes -->
+<section class="mb-12">
+<div class="flex items-center justify-between mb-6">
+<h2 class="font-headline-md text-headline-md text-on-surface border-l-4 border-primary pl-4">Artigos</h2>
+</div>
+<div id="artigosContainer" class="space-y-2">
+<!-- Accordion Item 1 -->
+
+<!-- Accordion Item 2 -->
+
+<!-- Accordion Item 3 -->
+
+</div>
+</section>
+<!-- List Section: Cartilhas Educativas (Horizontal Layout) -->
+<section class="mb-12">
+<div class="flex items-center justify-between mb-6">
+<h2 class="font-headline-md text-headline-md text-on-surface border-l-4 border-secondary pl-4">Cartilhas Educativas</h2>
+</div>
+<div id="cartilhasContainer" class="space-y-2">
+<!-- Booklet Accordion 1 -->
+
+<!-- Booklet Accordion 2 -->
+
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 py-3 bg-surface-container-lowest dark:bg-inverse-surface rounded-t-xl shadow-[0_-4px_12px_rgba(0,35,111,0.05)]">
+<a href="../index.html" class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-container px-4 py-1 hover:text-primary dark:hover:text-primary-fixed transition-all duration-300 active:scale-90" >
+<span class="material-symbols-outlined" data-icon="home" style="font-variation-settings: 'FILL' 0;">home</span>
+<span class="font-label-sm text-label-sm">Início</span>
+</a>
+<a href="ajuda.html" class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-container px-4 py-1 hover:text-primary dark:hover:text-primary-fixed transition-colors active:scale-90 duration-150" >
+<span class="material-symbols-outlined">
+            volunteer_activism
+        </span><span class="font-label-sm text-label-sm"><span class="" style="letter-spacing: 0.48px; text-align: center;">Ajuda</span></span>
+</a>
+
+<a href="informativo.html" class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-container px-4 py-1 hover:text-primary dark:hover:text-primary-fixed transition-colors active:scale-90 duration-150" >
+<span class="material-symbols-outlined" data-icon="menu_book">menu</span>
+<span class="font-label-sm text-label-sm">Informativo</span>
+</a>
+<!-- Biblioteca -->
+    <a href="biblioteca.html"
+       class="bg-[#6FA8FF] rounded-full flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-container px-4 py-1 hover:text-primary dark:hover:text-primary-fixed transition-colors active:scale-90 duration-150">
+
+        <span class="material-symbols-outlined">
+            menu_book
+        </span>
+
+        <span class="font-label-sm text-label-sm">
+            Biblioteca
+        </span>
+
+    </a>
+<!-- Jornada -->
+    <a href="jornada.html"
+   class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-container px-4 py-1 hover:text-primary dark:hover:text-primary-fixed transition-all duration-300 active:scale-90">
+
+    <span class="material-symbols-outlined"
+          style="font-variation-settings: 'FILL' 0;">
+
+        directions_walk
+
+    </span>
+
+    <span class="font-label-sm text-label-sm">
+        Jornada
+    </span>
+</a>
+</nav>
+<script>
+    const supabaseUrl =
+    "https://xashpazesqmnqsmxtedk.supabase.co";
+
+const supabaseKey =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhhc2hwYXplc3FtbnFzbXh0ZWRrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxMTE5MjAsImV4cCI6MjA5NDY4NzkyMH0.7XUkPo3WmPGPMiBhs2i2pKPVuWBsQHH8hGoBne53cTg";
+
+const supabaseClient =
+    window.supabase.createClient(
+        supabaseUrl,
+        supabaseKey
+    );
+        // Simple micro-interaction for category tabs
+        const tabs = document.querySelectorAll('button.rounded-full');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => {
+                    t.classList.remove('bg-primary', 'text-on-primary');
+                    t.classList.add('bg-surface-container-low', 'text-on-surface-variant', 'border', 'border-outline-variant');
+                });
+                tab.classList.remove('bg-surface-container-low', 'text-on-surface-variant', 'border', 'border-outline-variant');
+                tab.classList.add('bg-primary', 'text-on-primary');
+            });
+        });
+
+        function filterContent(category) {
+
+    const items =
+        document.querySelectorAll(
+            ".content-item"
+        );
+
+    items.forEach(item => {
+
+        item.style.display = "none";
+
+        if (category === "all") {
+
+            item.style.display = "";
+
+            return;
+        }
+
+        if (
+            item.classList.contains(
+                category
+            )
+        ) {
+
+            item.style.display = "";
+        }
+    });
+}
+
+document.getElementById("filter-all")
+    .addEventListener("click", () => filterContent("all"));
+
+document.getElementById("filter-artigos")
+    .addEventListener("click", () => filterContent("artigo"));
+
+document.getElementById("filter-cartilhas")
+    .addEventListener("click", () => filterContent("cartilha"));
+
+document.getElementById("filter-saude")
+    .addEventListener("click", () => filterContent("saude-mental"));
+
+document.getElementById("filter-burnout")
+    .addEventListener("click", () => filterContent("burnout"));
+
+async function carregarBiblioteca() {
+
+    const { data, error } =
+        await supabaseClient
+            .from("conteudos")
+            .select("*")
+            .order(
+                "created_at",
+                {
+                    ascending: false
+                }
+            );
+
+    if (error) {
+
+        console.error(error);
+
+        return;
+    }
+
+    const artigos =
+        document.getElementById(
+            "artigosContainer"
+        );
+
+    const cartilhas =
+        document.getElementById(
+            "cartilhasContainer"
+        );
+
+    artigos.innerHTML = "";
+    cartilhas.innerHTML = "";
+
+    data.forEach(item => {
+
+        const card = `
+        <details
+            class="
+                content-item
+                ${(item.tipo || "")
+                    .toLowerCase()}
+                ${(item.categoria || "")
+                    .toLowerCase()
+                    .normalize('NFD')
+                    .replace(/[\u0300-\u036f]/g, '')
+                    .replaceAll(' ', '-')}
+                group
+                bg-surface-container-lowest
+                border
+                border-outline-variant
+                rounded-xl
+                overflow-hidden">
+
+            <summary class="flex items-center justify-between p-4 cursor-pointer list-none">
+
+                <div class="flex flex-col">
+
+                    <span class="text-[10px] text-primary font-bold uppercase tracking-wider mb-1">
+
+                        #${item.categoria}
+
+                    </span>
+
+                    <h4 class="font-label-md text-on-surface">
+
+                        ${item.title}
+
+                    </h4>
+
+                </div>
+
+                <span class="material-symbols-outlined">
+
+                    expand_more
+
+                </span>
+
+            </summary>
+
+            <div class="p-4 pt-0 border-t border-outline-variant/30">
+
+                <div class="flex flex-col md:flex-row gap-4 mt-4">
+
+                    <img
+                        src="${item.thumbnail_url}"
+                        class="w-full md:w-32 h-32 object-cover rounded-lg">
+
+                    <div class="flex-1 flex flex-col">
+
+                        <p class="font-body-md text-sm text-on-surface-variant mb-4">
+
+                            ${item.resumo}
+
+                        </p>
+
+                        <div class="mt-auto flex items-center justify-between">
+
+                            <span class="text-xs text-outline">
+
+                                ${item.autores}
+
+                            </span>
+
+                            <a
+                                href="${item.pdf_url}"
+                                target="_blank"
+                                class="bg-primary text-on-primary px-4 py-2 rounded-lg text-sm">
+
+                                Ler Agora
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </details>
+        `;
+
+        if (
+            item.tipo
+                .toLowerCase()
+                .includes(
+                    "cartilha"
+                )
+        ) {
+
+            cartilhas.innerHTML += card;
+
+        } else {
+
+            artigos.innerHTML += card;
+        }
+    });
+}
+carregarBiblioteca();
+document
+    .getElementById("searchInput")
+    .addEventListener(
+        "input",
+        function () {
+
+            const termo =
+                this.value
+                    .toLowerCase();
+
+            document
+                .querySelectorAll(
+                    ".content-item"
+                )
+                .forEach(item => {
+
+                    const texto =
+                        item.innerText
+                            .toLowerCase();
+
+                    item.style.display =
+                        texto.includes(
+                            termo
+                        )
+                        ? ""
+                        : "none";
+                });
+        }
+    );
+</script>
+<!-- Modal de Avaliação -->
+
+<button
+
+    id="themeButton"
+
+    onclick="alternarModoNoturno()"
+
+    class="fixed bottom-24 right-5 z-50 w-14 h-14 rounded-full bg-surface shadow-xl flex items-center justify-center transition-all duration-300">
+
+    <img
+
+        id="iconeTema"
+
+        src="assets/imagens/moon.png"
+
+        alt="Modo Escuro"
+
+        class="w-8 h-8 transition-all duration-300">
+
+</button>
+<script src="../scripts/theme.js"></script>
+<script src="../scripts/global.js"></script>
+</body></html>

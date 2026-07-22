@@ -1,0 +1,1539 @@
+﻿<!DOCTYPE html><html lang="pt-BR"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>equilibra - Ajuda</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../scripts/supabase.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&amp;family=Lexend:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="../styles/dark-mode.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary-container": "#a8adb1",
+                      "error": "#ba1a1a",
+                      "tertiary-container": "#3c4144",
+                      "error-container": "#ffdad6",
+                      "surface-container-low": "#eff4ff",
+                      "outline-variant": "#c5c5d3",
+                      "on-primary-container": "#90a8ff",
+                      "on-secondary-fixed-variant": "#004883",
+                      "on-tertiary-fixed-variant": "#43474b",
+                      "background": "#f8f9ff",
+                      "surface-container-highest": "#d3e4fe",
+                      "on-tertiary-fixed": "#171c1f",
+                      "on-primary-fixed": "#00164e",
+                      "on-secondary-container": "#003c70",
+                      "tertiary-fixed": "#dfe3e7",
+                      "inverse-on-surface": "#eaf1ff",
+                      "on-surface": "#0b1c30",
+                      "on-primary": "#ffffff",
+                      "surface-container": "#e5eeff",
+                      "secondary": "#0060ac",
+                      "surface-variant": "#d3e4fe",
+                      "secondary-fixed": "#d4e3ff",
+                      "on-error-container": "#93000a",
+                      "inverse-primary": "#b6c4ff",
+                      "surface-container-high": "#dce9ff",
+                      "surface-tint": "#4059aa",
+                      "surface": "#f8f9ff",
+                      "on-background": "#0b1c30",
+                      "secondary-container": "#64a8fe",
+                      "inverse-surface": "#213145",
+                      "secondary-fixed-dim": "#a4c9ff",
+                      "surface-bright": "#f8f9ff",
+                      "primary": "#00236f",
+                      "on-error": "#ffffff",
+                      "primary-fixed": "#dce1ff",
+                      "outline": "#757682",
+                      "on-primary-fixed-variant": "#264191",
+                      "tertiary": "#262b2e",
+                      "tertiary-fixed-dim": "#c3c7cb",
+                      "on-surface-variant": "#444651",
+                      "primary-fixed-dim": "#b6c4ff",
+                      "on-secondary": "#ffffff",
+                      "on-tertiary": "#ffffff",
+                      "primary-container": "#1e3a8a",
+                      "surface-dim": "#cbdbf5",
+                      "on-secondary-fixed": "#001c39",
+                      "surface-container-lowest": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "stack-md": "24px",
+                      "stack-lg": "48px",
+                      "stack-sm": "12px",
+                      "gutter": "24px",
+                      "unit": "8px",
+                      "margin-mobile": "16px",
+                      "container-max-width": "1200px",
+                      "margin-desktop": "40px"
+              },
+              "fontFamily": {
+                      "headline-xl": ["Plus Jakarta Sans"],
+                      "body-sm": ["Lexend"],
+                      "headline-md": ["Plus Jakarta Sans"],
+                      "body-md": ["Lexend"],
+                      "label-md": ["Lexend"],
+                      "body-lg": ["Lexend"],
+                      "label-sm": ["Lexend"],
+                      "headline-lg": ["Plus Jakarta Sans"]
+              },
+              "fontSize": {
+                      "headline-xl": ["40px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                      "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "label-md": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "1.2", "letterSpacing": "0.04em", "fontWeight": "500"}],
+                      "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+        
+        function openVideoModal() {
+
+        document
+            .getElementById("videoModal")
+            .classList.remove("hidden");
+    }
+
+    function closeVideoModal() {
+
+        document
+            .getElementById("videoModal")
+            .classList.add("hidden");
+    }
+ function openMeditacaoModal() {
+
+    document
+        .getElementById("meditacaoModal")
+        .classList.remove("hidden");
+}
+
+function closeMeditacaoModal() {
+
+    document
+        .getElementById("meditacaoModal")
+        .classList.add("hidden");
+}
+
+let breathingInterval;
+let currentTechnique = null;
+
+function openBreathingModal() {
+
+    document
+        .getElementById("breathingModal")
+        .classList.remove("hidden");
+}
+
+function closeBreathingModal() {
+
+    document
+        .getElementById("breathingModal")
+        .classList.add("hidden");
+}
+
+function closeExerciseModal() {
+
+    clearInterval(breathingInterval);
+
+    document
+        .getElementById("exerciseModal")
+        .classList.add("hidden");
+
+        openFeedbackModal();
+}
+function startTechnique(type) {
+
+    currentTechnique = type;
+    closeBreathingModal();
+
+    document
+        .getElementById("exerciseModal")
+        .classList.remove("hidden");
+
+    let phases = [];
+    let title = "";
+    let images = {};
+
+    if (type === "diafragmatica") {
+
+        title = "Exercício Diafragmático";
+
+        phases = [
+
+            { text: "Inspire", seconds: 3, scale: "scale-125" },
+
+            { text: "Segure", seconds: 3, scale: "scale-125" },
+
+            { text: "Expire", seconds: 6, scale: "scale-100" }
+
+        ];
+
+        images = {
+
+            "Inspire": "../assets/imagens/inspire.png",
+
+            "Segure": "../assets/imagens/inspire.png",
+
+            "Expire": "../assets/imagens/expire.png"
+
+        };
+    }
+
+    if (type === "kumbhaka") {
+
+        title = "Kumbhaka";
+
+        phases = [
+
+            { text: "Inspire", seconds: 4, scale: "scale-125" },
+
+            { text: "Segure", seconds: 16, scale: "scale-125" },
+
+            { text: "Expire", seconds: 8, scale: "scale-100" }
+
+        ];
+
+        images = {
+
+            "Inspire": "../assets/imagens/kumbhaka-inspire.png",
+
+            "Segure": "../assets/imagens/kumbhaka-segure.png",
+
+            "Expire": "../assets/imagens/kumbhaka-expire.png"
+
+        };
+    }
+
+    if (type === "narinas") {
+
+        title = "Narinas Alternadas";
+
+        phases = [
+
+            { text: "Narina Esquerda", seconds: 4, scale: "scale-125" },
+
+            { text: "Segure", seconds: 4, scale: "scale-125" },
+
+            { text: "Narina Direita", seconds: 4, scale: "scale-100" }
+
+        ];
+
+        images = {
+
+            "Narina Esquerda": "../assets/imagens/narina-esquerda.png",
+
+            "Segure": "../assets/imagens/narina-segure.png",
+
+            "Narina Direita": "../assets/imagens/narina-direita.png"
+
+        };
+    }
+
+    document
+        .getElementById("exerciseTitle")
+        .innerText = title;
+
+    runBreathing(phases, images);
+}
+const breathingImages = {
+
+    "Inspire": "../assets/imagens/inspire.png",
+
+    "Expire": "../assets/imagens/expire.png",
+
+    "Segure": "../assets/imagens/segure.png",
+
+    "Narina Esquerda": "../assets/imagens/narina-esquerda.png",
+
+    "Narina Direita": "../assets/imagens/narina-direita.png"
+
+};
+function runBreathing(phases, images) {
+
+    clearInterval(breathingInterval);
+
+    const counter =
+        document.getElementById("breathingCounter");
+
+    const instruction =
+        document.getElementById("breathingInstruction");
+
+    const circle =
+        document.getElementById("breathingCircle");
+
+    const image =
+        document.getElementById("breathingImage");
+
+    let phaseIndex = 0;
+    let timeLeft = phases[0].seconds;
+
+    instruction.innerText =
+        phases[0].text;
+
+    counter.innerText =
+        timeLeft;
+
+    image.src =
+        images[phases[0].text];
+
+    image.style.opacity = "1";
+
+    breathingInterval =
+        setInterval(() => {
+
+            timeLeft--;
+
+            counter.innerText =
+                timeLeft;
+
+            if (timeLeft <= 0) {
+
+                phaseIndex =
+                    (phaseIndex + 1) % phases.length;
+
+                const phase =
+                    phases[phaseIndex];
+
+                instruction.innerText =
+                    phase.text;
+
+                counter.innerText =
+                    phase.seconds;
+
+                timeLeft =
+                    phase.seconds;
+
+                circle.className =
+                    `w-40 h-40 mx-auto rounded-full border-4 border-primary bg-primary/10 flex items-center justify-center transition-all duration-1000 ${phase.scale}`;
+
+                image.style.opacity = "0";
+
+                setTimeout(() => {
+
+                    image.src =
+                        images[phase.text];
+
+                    if (phase.text === "Expire") {
+
+                        image.style.transform =
+                            "scale(0.95)";
+                    }
+
+                    else if (phase.text === "Narina Esquerda") {
+
+                        image.style.transform =
+                            "translateX(-10px) scale(1.05)";
+                    }
+
+                    else if (phase.text === "Narina Direita") {
+
+                        image.style.transform =
+                            "translateX(10px) scale(1.05)";
+                    }
+
+                    else {
+
+                        image.style.transform =
+                            "scale(1.08)";
+                    }
+
+                    image.style.opacity = "1";
+
+                }, 300);
+            }
+
+        }, 1000);
+}
+function closeTechniqueInfoModal() {
+
+    document
+        .getElementById("techniqueInfoModal")
+        .classList.add("hidden");
+}
+function openTechniqueInfo(type) {
+
+    const modal =
+        document.getElementById("techniqueInfoModal");
+
+    const image =
+        document.getElementById("techniqueImage");
+
+    const title =
+        document.getElementById("techniqueTitle");
+
+    const benefits =
+        document.getElementById("techniqueBenefits");
+
+    const steps =
+        document.getElementById("techniqueSteps");
+
+    const button =
+        document.getElementById("startTechniqueBtn");
+
+    if (type === "diafragmatica") {
+
+        image.src =
+            "../assets/imagens/diafragmatica-capa.png";
+
+        title.innerText =
+            "Exercício Diafragmático";
+
+        benefits.innerHTML = `
+            <strong>Benefícios</strong><br>
+            • Reduz ansiedade<br>
+            • Promove relaxamento<br>
+            • Auxilia no controle emocional
+        `;
+
+        steps.innerHTML = `
+            <strong>Como fazer:</strong><br><br>
+
+            1. Sente-se confortavelmente.<br>
+            2. Coloque as mãos sobre o abdômen.<br>
+            3. Inspire expandindo o abdômen.<br>
+            4. Expire lentamente.
+        `;
+    }
+
+    if (type === "narinas") {
+
+        image.src =
+            "../assets/imagens/narina-capa.png";
+
+        title.innerText =
+            "Narinas Alternadas";
+
+        benefits.innerHTML = `
+            <strong>Benefícios</strong><br>
+            • Melhora concentração<br>
+            • Promove equilíbrio emocional<br>
+            • Reduz tensão mental
+        `;
+
+        steps.innerHTML = `
+            <strong>Como fazer:</strong><br><br>
+
+            1. Feche uma narina.<br>
+            2. Inspire pela outra.<br>
+            3. Segure o ar.<br>
+            4. Alterne as narinas.
+        `;
+    }
+
+    if (type === "kumbhaka") {
+
+        image.src =
+            "../assets/imagens/kumbhaka-capa.png";
+
+        title.innerText =
+            "Kumbhaka";
+
+        benefits.innerHTML = `
+            <strong>Benefícios</strong><br>
+            • Aumenta foco<br>
+            • Desenvolve autocontrole<br>
+            • Relaxamento profundo<br>
+            • Proporciona tranquilização do sistema
+                nervoso e da frequência cardíaca, além
+                de proporcionar calma e
+                harmonização consigo mesmo.
+        `;
+
+        steps.innerHTML = `
+            <strong>Como fazer:</strong><br><br>
+
+            1. Inspire profundamente.<br>
+            2. Retenha o ar.<br>
+            3. Expire lentamente.
+        `;
+    }
+
+    button.onclick = () => {
+
+        closeTechniqueInfoModal();
+
+        startTechnique(type);
+    };
+
+    modal.classList.remove("hidden");
+}
+function openFeedbackModal() {
+
+    document
+        .getElementById("feedbackModal")
+        .classList.remove("hidden");
+}
+
+function closeFeedbackModal() {
+
+    document
+        .getElementById("feedbackModal")
+        .classList.add("hidden");
+}
+
+function showFeedbackResult(type) {
+
+    closeFeedbackModal();
+
+    const title =
+        document.getElementById("feedbackTitle");
+
+    const message =
+        document.getElementById("feedbackMessage");
+
+    const buttons =
+        document.getElementById("feedbackButtons");
+
+    if (type === "melhor") {
+
+        title.innerText =
+            "Que bom!";
+
+        message.innerText =
+            "Ficamos felizes que a atividade tenha ajudado. Continue utilizando as técnicas sempre que precisar.";
+
+        buttons.innerHTML = `
+            <button
+                onclick="closeFeedbackResultModal()"
+                class="w-full bg-primary text-white py-3 rounded-xl">
+
+                Encerrar
+
+            </button>
+        `;
+    }
+
+    if (type === "parcial") {
+
+        title.innerText =
+            "Houve uma melhora";
+
+        message.innerText =
+            "Deseja repetir esta técnica para aprofundar o relaxamento?";
+
+        buttons.innerHTML = `
+            <div class="flex gap-3">
+
+                <button
+                    onclick="closeFeedbackResultModal()"
+                    class="flex-1 border border-primary text-primary py-3 rounded-xl">
+
+                    Encerrar
+
+                </button>
+
+                <button
+                    onclick="repeatExercise()"
+                    class="flex-1 bg-primary text-white py-3 rounded-xl">
+
+                    Repetir
+
+                </button>
+
+            </div>
+        `;
+    }
+
+    if (type === "nao") {
+
+    title.innerText =
+        "Atividade Recomendada";
+
+    let recommendationTitle = "";
+    let recommendationText = "";
+    let recommendationButton = "";
+
+    if (currentTechnique === "diafragmatica") {
+
+        recommendationTitle =
+            "Narinas Alternadas";
+
+        recommendationText =
+            "Esta técnica auxilia no equilíbrio emocional e na concentração.";
+
+        recommendationButton =
+            "Iniciar Narinas Alternadas";
+    }
+
+    else if (currentTechnique === "narinas") {
+
+        recommendationTitle =
+            "Kumbhaka";
+
+        recommendationText =
+            "A retenção consciente da respiração pode ajudar a aumentar o foco e promover relaxamento.";
+
+        recommendationButton =
+            "Iniciar Kumbhaka";
+    }
+
+    else if (currentTechnique === "kumbhaka") {
+
+        recommendationTitle =
+            "Meditação Rápida";
+
+        recommendationText =
+            "Uma sessão guiada pode ajudar a restaurar a calma e reduzir pensamentos acelerados.";
+
+        recommendationButton =
+            "Iniciar Meditação";
+    }
+
+    message.innerHTML = `
+        <strong>${recommendationTitle}</strong>
+        <br><br>
+        ${recommendationText}
+    `;
+
+    buttons.innerHTML = `
+        <button
+            onclick="openSuggestedTechnique()"
+            class="w-full bg-primary text-white py-3 rounded-xl">
+
+            ${recommendationButton}
+
+        </button>
+    `;
+}
+
+    document
+        .getElementById("feedbackResultModal")
+        .classList.remove("hidden");
+}
+    
+
+function closeFeedbackResultModal() {
+
+    document
+        .getElementById("feedbackResultModal")
+        .classList.add("hidden");
+}
+
+function repeatExercise() {
+
+    closeFeedbackResultModal();
+
+    if (currentTechnique) {
+
+        startTechnique(currentTechnique);
+
+    }
+}
+function openSuggestedTechnique() {
+
+    closeFeedbackResultModal();
+
+    if (currentTechnique === "diafragmatica") {
+
+        startTechnique("narinas");
+
+    }
+
+    else if (currentTechnique === "narinas") {
+
+        startTechnique("kumbhaka");
+
+    }
+
+    else if (currentTechnique === "kumbhaka") {
+
+        openMeditacaoModal();
+
+    }
+const stars =
+    document.querySelectorAll(".star");
+
+const ratingText =
+    document.getElementById("ratingText");
+
+let rating = 0;
+
+const textos = {
+
+    1:"Muito ruim",
+
+    2:"Ruim",
+
+    3:"Regular",
+
+    4:"Bom",
+
+    5:"Excelente"
+
+};
+
+stars.forEach(star=>{
+
+    star.addEventListener("click",()=>{
+
+        rating =
+            Number(
+                star.dataset.rating
+            );
+
+        stars.forEach(s=>{
+
+            s.classList.remove("active");
+
+        });
+
+        stars.forEach(s=>{
+
+            if(
+                Number(s.dataset.rating)<=rating
+            ){
+
+                s.classList.add("active");
+
+            }
+
+        });
+
+        ratingText.innerHTML=
+            `Você avaliou este exercício com <strong>${rating}</strong> estrela(s): <strong>${textos[rating]}</strong>.`;
+
+    });
+
+});
+}
+</script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #FAF6EF;
+            color: #0b1c30;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(211, 228, 254, 0.5);
+        }
+        .star{
+
+    font-size:38px;
+
+    cursor:pointer;
+
+    color:#d1d5db;
+
+    transition:.25s;
+
+}
+
+.star:hover{
+
+    transform:scale(1.15);
+
+}
+
+.star.active{
+
+    color:#fbbf24;
+
+}
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}[type='text'],input:where(:not([type])),[type='email'],[type='url'],[type='password'],[type='number'],[type='date'],[type='datetime-local'],[type='month'],[type='search'],[type='tel'],[type='time'],[type='week'],[multiple],textarea,select{-webkit-appearance:none;appearance:none;background-color:#fff;border-color:#6b7280;border-width:1px;border-radius:0px;padding-top:0.5rem;padding-right:0.75rem;padding-bottom:0.5rem;padding-left:0.75rem;font-size:1rem;line-height:1.5rem;--tw-shadow:0 0 #0000;}[type='text']:focus, input:where(:not([type])):focus, [type='email']:focus, [type='url']:focus, [type='password']:focus, [type='number']:focus, [type='date']:focus, [type='datetime-local']:focus, [type='month']:focus, [type='search']:focus, [type='tel']:focus, [type='time']:focus, [type='week']:focus, [multiple]:focus, textarea:focus, select:focus{outline:2px solid transparent;outline-offset:2px;--tw-ring-inset:var(--tw-empty,/*!*/ /*!*/);--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:#2563eb;--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);border-color:#2563eb}input::placeholder,textarea::placeholder{color:#6b7280;opacity:1}::-webkit-datetime-edit-fields-wrapper{padding:0}::-webkit-date-and-time-value{min-height:1.5em;text-align:inherit}::-webkit-datetime-edit{display:inline-flex}::-webkit-datetime-edit,::-webkit-datetime-edit-year-field,::-webkit-datetime-edit-month-field,::-webkit-datetime-edit-day-field,::-webkit-datetime-edit-hour-field,::-webkit-datetime-edit-minute-field,::-webkit-datetime-edit-second-field,::-webkit-datetime-edit-millisecond-field,::-webkit-datetime-edit-meridiem-field{padding-top:0;padding-bottom:0}select{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");background-position:right 0.5rem center;background-repeat:no-repeat;background-size:1.5em 1.5em;padding-right:2.5rem;print-color-adjust:exact}[multiple],[size]:where(select:not([size="1"])){background-image:initial;background-position:initial;background-repeat:unset;background-size:initial;padding-right:0.75rem;print-color-adjust:unset}[type='checkbox'],[type='radio']{-webkit-appearance:none;appearance:none;padding:0;print-color-adjust:exact;display:inline-block;vertical-align:middle;background-origin:border-box;-webkit-user-select:none;user-select:none;flex-shrink:0;height:1rem;width:1rem;color:#2563eb;background-color:#fff;border-color:#6b7280;border-width:1px;--tw-shadow:0 0 #0000}[type='checkbox']{border-radius:0px}[type='radio']{border-radius:100%}[type='checkbox']:focus,[type='radio']:focus{outline:2px solid transparent;outline-offset:2px;--tw-ring-inset:var(--tw-empty,/*!*/ /*!*/);--tw-ring-offset-width:2px;--tw-ring-offset-color:#fff;--tw-ring-color:#2563eb;--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow)}[type='checkbox']:checked,[type='radio']:checked{border-color:transparent;background-color:currentColor;background-size:100% 100%;background-position:center;background-repeat:no-repeat}[type='checkbox']:checked{background-image:url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");}@media (forced-colors: active) {[type='checkbox']:checked{-webkit-appearance:auto;appearance:auto}}[type='radio']:checked{background-image:url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='8' cy='8' r='3'/%3e%3c/svg%3e");}@media (forced-colors: active) {[type='radio']:checked{-webkit-appearance:auto;appearance:auto}}[type='checkbox']:checked:hover,[type='checkbox']:checked:focus,[type='radio']:checked:hover,[type='radio']:checked:focus{border-color:transparent;background-color:currentColor}[type='checkbox']:indeterminate{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 16 16'%3e%3cpath stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 8h8'/%3e%3c/svg%3e");border-color:transparent;background-color:currentColor;background-size:100% 100%;background-position:center;background-repeat:no-repeat;}@media (forced-colors: active) {[type='checkbox']:indeterminate{-webkit-appearance:auto;appearance:auto}}[type='checkbox']:indeterminate:hover,[type='checkbox']:indeterminate:focus{border-color:transparent;background-color:currentColor}[type='file']{background:unset;border-color:inherit;border-width:0;border-radius:0;padding:0;font-size:unset;line-height:inherit}[type='file']:focus{outline:1px solid ButtonText;outline:1px auto -webkit-focus-ring-color}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.inset-0{inset:0px}.bottom-0{bottom:0px}.left-0{left:0px}.left-3{left:0.75rem}.right-0{right:0px}.top-0{top:0px}.top-1\/2{top:50%}.z-0{z-index:0}.z-10{z-index:10}.z-50{z-index:50}.mx-auto{margin-left:auto;margin-right:auto}.mb-2{margin-bottom:0.5rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}.mb-stack-lg{margin-bottom:48px}.mb-stack-md{margin-bottom:24px}.mb-stack-sm{margin-bottom:12px}.mt-2{margin-top:0.5rem}.flex{display:flex}.grid{display:grid}.h-1\.5{height:0.375rem}.h-10{height:2.5rem}.h-16{height:4rem}.h-64{height:16rem}.h-full{height:100%}.w-10{width:2.5rem}.w-16{width:4rem}.w-full{width:100%}.max-w-container-max-width{max-width:1200px}.max-w-lg{max-width:32rem}.flex-shrink-0{flex-shrink:0}.flex-grow{flex-grow:1}.-translate-y-1\/2{--tw-translate-y:-50%;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.cursor-pointer{cursor:pointer}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.flex-col{flex-direction:column}.items-start{align-items:flex-start}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.justify-around{justify-content:space-around}.gap-1{gap:0.25rem}.gap-2{gap:0.5rem}.gap-3{gap:0.75rem}.gap-4{gap:1rem}.gap-gutter{gap:24px}.gap-stack-sm{gap:12px}.overflow-hidden{overflow:hidden}.overflow-x-auto{overflow-x:auto}.rounded{border-radius:0.25rem}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:0.5rem}.rounded-xl{border-radius:0.75rem}.rounded-t-xl{border-top-left-radius:0.75rem;border-top-right-radius:0.75rem}.border{border-width:1px}.border-outline-variant{--tw-border-opacity:1;border-color:rgb(197 197 211 / var(--tw-border-opacity, 1))}.border-surface-container{--tw-border-opacity:1;border-color:rgb(229 238 255 / var(--tw-border-opacity, 1))}.border-surface-container-highest{--tw-border-opacity:1;border-color:rgb(211 228 254 / var(--tw-border-opacity, 1))}.bg-background{--tw-bg-opacity:1;background-color:rgb(248 249 255 / var(--tw-bg-opacity, 1))}.bg-black\/20{background-color:rgb(0 0 0 / 0.2)}.bg-primary{--tw-bg-opacity:1;background-color:rgb(0 35 111 / var(--tw-bg-opacity, 1))}.bg-secondary{--tw-bg-opacity:1;background-color:rgb(0 96 172 / var(--tw-bg-opacity, 1))}.bg-secondary-container{--tw-bg-opacity:1;background-color:rgb(100 168 254 / var(--tw-bg-opacity, 1))}.bg-secondary-fixed{--tw-bg-opacity:1;background-color:rgb(212 227 255 / var(--tw-bg-opacity, 1))}.bg-secondary-fixed-dim{--tw-bg-opacity:1;background-color:rgb(164 201 255 / var(--tw-bg-opacity, 1))}.bg-surface-container{--tw-bg-opacity:1;background-color:rgb(229 238 255 / var(--tw-bg-opacity, 1))}.bg-surface-container-highest{--tw-bg-opacity:1;background-color:rgb(211 228 254 / var(--tw-bg-opacity, 1))}.bg-surface-container-low{--tw-bg-opacity:1;background-color:rgb(239 244 255 / var(--tw-bg-opacity, 1))}.bg-surface-container-lowest{--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity, 1))}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity, 1))}.bg-gradient-to-r{background-image:linear-gradient(to right, var(--tw-gradient-stops))}.from-primary\/40{--tw-gradient-from:rgb(0 35 111 / 0.4) var(--tw-gradient-from-position);--tw-gradient-to:rgb(0 35 111 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.to-transparent{--tw-gradient-to:transparent var(--tw-gradient-to-position)}.object-cover{object-fit:cover}.p-2{padding:0.5rem}.p-3{padding:0.75rem}.p-4{padding:1rem}.p-6{padding:1.5rem}.p-8{padding:2rem}.px-2{padding-left:0.5rem;padding-right:0.5rem}.px-4{padding-left:1rem;padding-right:1rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.px-margin-mobile{padding-left:16px;padding-right:16px}.py-0\.5{padding-top:0.125rem;padding-bottom:0.125rem}.py-1{padding-top:0.25rem;padding-bottom:0.25rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.py-4{padding-top:1rem;padding-bottom:1rem}.pb-2{padding-bottom:0.5rem}.pb-24{padding-bottom:6rem}.pl-10{padding-left:2.5rem}.pr-4{padding-right:1rem}.pt-24{padding-top:6rem}.font-body-lg{font-family:Lexend}.font-body-md{font-family:Lexend}.font-body-sm{font-family:Lexend}.font-headline-lg{font-family:Plus Jakarta Sans}.font-headline-md{font-family:Plus Jakarta Sans}.font-label-md{font-family:Lexend}.font-label-sm{font-family:Lexend}.text-\[10px\]{font-size:10px}.text-\[18px\]{font-size:18px}.text-body-md{font-size:16px;line-height:1.6;font-weight:400}.text-headline-lg{font-size:32px;line-height:1.3;font-weight:600}.text-headline-md{font-size:24px;line-height:1.4;font-weight:600}.text-label-sm{font-size:12px;line-height:1.2;letter-spacing:0.04em;font-weight:500}.font-bold{font-weight:700}.uppercase{text-transform:uppercase}.tracking-wider{letter-spacing:0.05em}.text-on-primary{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.text-on-secondary-container{--tw-text-opacity:1;color:rgb(0 60 112 / var(--tw-text-opacity, 1))}.text-on-secondary-fixed-variant{--tw-text-opacity:1;color:rgb(0 72 131 / var(--tw-text-opacity, 1))}.text-on-surface{--tw-text-opacity:1;color:rgb(11 28 48 / var(--tw-text-opacity, 1))}.text-on-surface-variant{--tw-text-opacity:1;color:rgb(68 70 81 / var(--tw-text-opacity, 1))}.text-outline{--tw-text-opacity:1;color:rgb(117 118 130 / var(--tw-text-opacity, 1))}.text-primary{--tw-text-opacity:1;color:rgb(0 35 111 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.opacity-0{opacity:0}.opacity-90{opacity:0.9}.shadow-\[0_-4px_12px_rgba\(0\2c 35\2c 111\2c 0\.05\)\]{--tw-shadow:0 -4px 12px rgba(0,35,111,0.05);--tw-shadow-colored:0 -4px 12px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-sm{--tw-shadow:0 1px 2px 0 rgb(0 0 0 / 0.05);--tw-shadow-colored:0 1px 2px 0 var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.outline-none{outline:2px solid transparent;outline-offset:2px}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-colors{transition-property:color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-opacity{transition-property:opacity;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.duration-150{transition-duration:150ms}.duration-200{transition-duration:200ms}.placeholder\:text-outline\/60::placeholder{color:rgb(117 118 130 / 0.6)}.hover\:bg-surface-container-high:hover{--tw-bg-opacity:1;background-color:rgb(220 233 255 / var(--tw-bg-opacity, 1))}.hover\:bg-surface-container-low:hover{--tw-bg-opacity:1;background-color:rgb(239 244 255 / var(--tw-bg-opacity, 1))}.hover\:text-primary:hover{--tw-text-opacity:1;color:rgb(0 35 111 / var(--tw-text-opacity, 1))}.focus\:border-secondary:focus{--tw-border-opacity:1;border-color:rgb(0 96 172 / var(--tw-border-opacity, 1))}.focus\:ring-2:focus{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)}.focus\:ring-secondary-container:focus{--tw-ring-opacity:1;--tw-ring-color:rgb(100 168 254 / var(--tw-ring-opacity, 1))}.active\:scale-90:active{--tw-scale-x:.9;--tw-scale-y:.9;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.active\:scale-95:active{--tw-scale-x:.95;--tw-scale-y:.95;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.group:hover .group-hover\:bg-primary-container{--tw-bg-opacity:1;background-color:rgb(30 58 138 / var(--tw-bg-opacity, 1))}.group:hover .group-hover\:opacity-100{opacity:1}@media (min-width: 768px){.md\:h-80{height:20rem}.md\:w-64{width:16rem}.md\:w-auto{width:auto}.md\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.md\:flex-row{flex-direction:row}.md\:items-center{align-items:center}.md\:px-margin-desktop{padding-left:40px;padding-right:40px}}@media (min-width: 1024px){.lg\:grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}}</style><style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}[type='text'],input:where(:not([type])),[type='email'],[type='url'],[type='password'],[type='number'],[type='date'],[type='datetime-local'],[type='month'],[type='search'],[type='tel'],[type='time'],[type='week'],[multiple],textarea,select{-webkit-appearance:none;appearance:none;background-color:#fff;border-color:#6b7280;border-width:1px;border-radius:0px;padding-top:0.5rem;padding-right:0.75rem;padding-bottom:0.5rem;padding-left:0.75rem;font-size:1rem;line-height:1.5rem;--tw-shadow:0 0 #0000;}[type='text']:focus, input:where(:not([type])):focus, [type='email']:focus, [type='url']:focus, [type='password']:focus, [type='number']:focus, [type='date']:focus, [type='datetime-local']:focus, [type='month']:focus, [type='search']:focus, [type='tel']:focus, [type='time']:focus, [type='week']:focus, [multiple]:focus, textarea:focus, select:focus{outline:2px solid transparent;outline-offset:2px;--tw-ring-inset:var(--tw-empty,/*!*/ /*!*/);--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:#2563eb;--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);border-color:#2563eb}input::placeholder,textarea::placeholder{color:#6b7280;opacity:1}::-webkit-datetime-edit-fields-wrapper{padding:0}::-webkit-date-and-time-value{min-height:1.5em;text-align:inherit}::-webkit-datetime-edit{display:inline-flex}::-webkit-datetime-edit,::-webkit-datetime-edit-year-field,::-webkit-datetime-edit-month-field,::-webkit-datetime-edit-day-field,::-webkit-datetime-edit-hour-field,::-webkit-datetime-edit-minute-field,::-webkit-datetime-edit-second-field,::-webkit-datetime-edit-millisecond-field,::-webkit-datetime-edit-meridiem-field{padding-top:0;padding-bottom:0}select{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");background-position:right 0.5rem center;background-repeat:no-repeat;background-size:1.5em 1.5em;padding-right:2.5rem;print-color-adjust:exact}[multiple],[size]:where(select:not([size="1"])){background-image:initial;background-position:initial;background-repeat:unset;background-size:initial;padding-right:0.75rem;print-color-adjust:unset}[type='checkbox'],[type='radio']{-webkit-appearance:none;appearance:none;padding:0;print-color-adjust:exact;display:inline-block;vertical-align:middle;background-origin:border-box;-webkit-user-select:none;user-select:none;flex-shrink:0;height:1rem;width:1rem;color:#2563eb;background-color:#fff;border-color:#6b7280;border-width:1px;--tw-shadow:0 0 #0000}[type='checkbox']{border-radius:0px}[type='radio']{border-radius:100%}[type='checkbox']:focus,[type='radio']:focus{outline:2px solid transparent;outline-offset:2px;--tw-ring-inset:var(--tw-empty,/*!*/ /*!*/);--tw-ring-offset-width:2px;--tw-ring-offset-color:#fff;--tw-ring-color:#2563eb;--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow)}[type='checkbox']:checked,[type='radio']:checked{border-color:transparent;background-color:currentColor;background-size:100% 100%;background-position:center;background-repeat:no-repeat}[type='checkbox']:checked{background-image:url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");}@media (forced-colors: active) {[type='checkbox']:checked{-webkit-appearance:auto;appearance:auto}}[type='radio']:checked{background-image:url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='8' cy='8' r='3'/%3e%3c/svg%3e");}@media (forced-colors: active) {[type='radio']:checked{-webkit-appearance:auto;appearance:auto}}[type='checkbox']:checked:hover,[type='checkbox']:checked:focus,[type='radio']:checked:hover,[type='radio']:checked:focus{border-color:transparent;background-color:currentColor}[type='checkbox']:indeterminate{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 16 16'%3e%3cpath stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 8h8'/%3e%3c/svg%3e");border-color:transparent;background-color:currentColor;background-size:100% 100%;background-position:center;background-repeat:no-repeat;}@media (forced-colors: active) {[type='checkbox']:indeterminate{-webkit-appearance:auto;appearance:auto}}[type='checkbox']:indeterminate:hover,[type='checkbox']:indeterminate:focus{border-color:transparent;background-color:currentColor}[type='file']{background:unset;border-color:inherit;border-width:0;border-radius:0;padding:0;font-size:unset;line-height:inherit}[type='file']:focus{outline:1px solid ButtonText;outline:1px auto -webkit-focus-ring-color}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.inset-0{inset:0px}.bottom-0{bottom:0px}.left-0{left:0px}.left-3{left:0.75rem}.right-0{right:0px}.top-0{top:0px}.top-1\/2{top:50%}.z-0{z-index:0}.z-10{z-index:10}.z-50{z-index:50}.mx-auto{margin-left:auto;margin-right:auto}.mb-2{margin-bottom:0.5rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}.mb-stack-lg{margin-bottom:48px}.mb-stack-md{margin-bottom:24px}.mb-stack-sm{margin-bottom:12px}.mt-2{margin-top:0.5rem}.flex{display:flex}.grid{display:grid}.h-1\.5{height:0.375rem}.h-10{height:2.5rem}.h-16{height:4rem}.h-64{height:16rem}.h-full{height:100%}.w-10{width:2.5rem}.w-16{width:4rem}.w-full{width:100%}.max-w-container-max-width{max-width:1200px}.max-w-lg{max-width:32rem}.flex-shrink-0{flex-shrink:0}.flex-grow{flex-grow:1}.-translate-y-1\/2{--tw-translate-y:-50%;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.cursor-pointer{cursor:pointer}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.flex-col{flex-direction:column}.items-start{align-items:flex-start}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.justify-around{justify-content:space-around}.gap-1{gap:0.25rem}.gap-2{gap:0.5rem}.gap-3{gap:0.75rem}.gap-4{gap:1rem}.gap-gutter{gap:24px}.gap-stack-sm{gap:12px}.overflow-hidden{overflow:hidden}.overflow-x-auto{overflow-x:auto}.rounded{border-radius:0.25rem}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:0.5rem}.rounded-xl{border-radius:0.75rem}.rounded-t-xl{border-top-left-radius:0.75rem;border-top-right-radius:0.75rem}.border{border-width:1px}.border-outline-variant{--tw-border-opacity:1;border-color:rgb(197 197 211 / var(--tw-border-opacity, 1))}.border-surface-container{--tw-border-opacity:1;border-color:rgb(229 238 255 / var(--tw-border-opacity, 1))}.border-surface-container-highest{--tw-border-opacity:1;border-color:rgb(211 228 254 / var(--tw-border-opacity, 1))}.bg-background{--tw-bg-opacity:1;background-color:rgb(248 249 255 / var(--tw-bg-opacity, 1))}.bg-black\/20{background-color:rgb(0 0 0 / 0.2)}.bg-primary{--tw-bg-opacity:1;background-color:rgb(0 35 111 / var(--tw-bg-opacity, 1))}.bg-secondary{--tw-bg-opacity:1;background-color:rgb(0 96 172 / var(--tw-bg-opacity, 1))}.bg-secondary-container{--tw-bg-opacity:1;background-color:rgb(100 168 254 / var(--tw-bg-opacity, 1))}.bg-secondary-fixed{--tw-bg-opacity:1;background-color:rgb(212 227 255 / var(--tw-bg-opacity, 1))}.bg-secondary-fixed-dim{--tw-bg-opacity:1;background-color:rgb(164 201 255 / var(--tw-bg-opacity, 1))}.bg-surface-container{--tw-bg-opacity:1;background-color:rgb(229 238 255 / var(--tw-bg-opacity, 1))}.bg-surface-container-highest{--tw-bg-opacity:1;background-color:rgb(211 228 254 / var(--tw-bg-opacity, 1))}.bg-surface-container-low{--tw-bg-opacity:1;background-color:rgb(239 244 255 / var(--tw-bg-opacity, 1))}.bg-surface-container-lowest{--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity, 1))}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity, 1))}.bg-gradient-to-r{background-image:linear-gradient(to right, var(--tw-gradient-stops))}.from-primary\/40{--tw-gradient-from:rgb(0 35 111 / 0.4) var(--tw-gradient-from-position);--tw-gradient-to:rgb(0 35 111 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.to-transparent{--tw-gradient-to:transparent var(--tw-gradient-to-position)}.object-cover{object-fit:cover}.p-2{padding:0.5rem}.p-3{padding:0.75rem}.p-4{padding:1rem}.p-6{padding:1.5rem}.p-8{padding:2rem}.px-2{padding-left:0.5rem;padding-right:0.5rem}.px-4{padding-left:1rem;padding-right:1rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.px-margin-mobile{padding-left:16px;padding-right:16px}.py-0\.5{padding-top:0.125rem;padding-bottom:0.125rem}.py-1{padding-top:0.25rem;padding-bottom:0.25rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.py-4{padding-top:1rem;padding-bottom:1rem}.pb-2{padding-bottom:0.5rem}.pb-24{padding-bottom:6rem}.pl-10{padding-left:2.5rem}.pr-4{padding-right:1rem}.pt-24{padding-top:6rem}.font-body-lg{font-family:Lexend}.font-body-md{font-family:Lexend}.font-body-sm{font-family:Lexend}.font-headline-lg{font-family:Plus Jakarta Sans}.font-headline-md{font-family:Plus Jakarta Sans}.font-label-md{font-family:Lexend}.font-label-sm{font-family:Lexend}.text-\[10px\]{font-size:10px}.text-\[18px\]{font-size:18px}.text-body-md{font-size:16px;line-height:1.6;font-weight:400}.text-headline-lg{font-size:32px;line-height:1.3;font-weight:600}.text-headline-md{font-size:24px;line-height:1.4;font-weight:600}.text-label-sm{font-size:12px;line-height:1.2;letter-spacing:0.04em;font-weight:500}.font-bold{font-weight:700}.uppercase{text-transform:uppercase}.tracking-wider{letter-spacing:0.05em}.text-on-primary{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.text-on-secondary-container{--tw-text-opacity:1;color:rgb(0 60 112 / var(--tw-text-opacity, 1))}.text-on-secondary-fixed-variant{--tw-text-opacity:1;color:rgb(0 72 131 / var(--tw-text-opacity, 1))}.text-on-surface{--tw-text-opacity:1;color:rgb(11 28 48 / var(--tw-text-opacity, 1))}.text-on-surface-variant{--tw-text-opacity:1;color:rgb(68 70 81 / var(--tw-text-opacity, 1))}.text-outline{--tw-text-opacity:1;color:rgb(117 118 130 / var(--tw-text-opacity, 1))}.text-primary{--tw-text-opacity:1;color:rgb(0 35 111 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.opacity-0{opacity:0}.opacity-90{opacity:0.9}.shadow-\[0_-4px_12px_rgba\(0\2c 35\2c 111\2c 0\.05\)\]{--tw-shadow:0 -4px 12px rgba(0,35,111,0.05);--tw-shadow-colored:0 -4px 12px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-sm{--tw-shadow:0 1px 2px 0 rgb(0 0 0 / 0.05);--tw-shadow-colored:0 1px 2px 0 var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.outline-none{outline:2px solid transparent;outline-offset:2px}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-colors{transition-property:color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-opacity{transition-property:opacity;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.duration-150{transition-duration:150ms}.duration-200{transition-duration:200ms}.placeholder\:text-outline\/60::placeholder{color:rgb(117 118 130 / 0.6)}.hover\:bg-surface-container-high:hover{--tw-bg-opacity:1;background-color:rgb(220 233 255 / var(--tw-bg-opacity, 1))}.hover\:bg-surface-container-low:hover{--tw-bg-opacity:1;background-color:rgb(239 244 255 / var(--tw-bg-opacity, 1))}.hover\:text-primary:hover{--tw-text-opacity:1;color:rgb(0 35 111 / var(--tw-text-opacity, 1))}.focus\:border-secondary:focus{--tw-border-opacity:1;border-color:rgb(0 96 172 / var(--tw-border-opacity, 1))}.focus\:ring-2:focus{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)}.focus\:ring-secondary-container:focus{--tw-ring-opacity:1;--tw-ring-color:rgb(100 168 254 / var(--tw-ring-opacity, 1))}.active\:scale-90:active{--tw-scale-x:.9;--tw-scale-y:.9;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.active\:scale-95:active{--tw-scale-x:.95;--tw-scale-y:.95;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.group:hover .group-hover\:bg-primary-container{--tw-bg-opacity:1;background-color:rgb(30 58 138 / var(--tw-bg-opacity, 1))}.group:hover .group-hover\:opacity-100{opacity:1}@media (min-width: 768px){.md\:h-80{height:20rem}.md\:w-64{width:16rem}.md\:w-auto{width:auto}.md\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.md\:flex-row{flex-direction:row}.md\:items-center{align-items:center}.md\:px-margin-desktop{padding-left:40px;padding-right:40px}}@media (min-width: 1024px){.lg\:grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}}</style></head>
+<body class="font-body-md text-body-md pb-24" data-mode="connect">
+    
+<!-- TopAppBar -->
+<header class=" bg-[#0B4D86] fixed top-0 left-0 right-0 z-50">
+<div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 max-w-container-max-width mx-auto">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container overflow-hidden">
+<img alt="User profile photo" class="w-full h-full object-cover" data-alt="A close-up professional headshot of a friendly educator with a warm smile, set against a soft-focus classroom background. The lighting is bright and natural, reflecting a clean, light-mode aesthetic with soft blue and white tones that align with a serene educational environment." src="../assets/imagens/logo_Equilibra.png">
+</div>
+<h1 class="font-headline-md text-headline-md font-bold text-[#6EAF8B]">equilibra</h1>
+</div>
+
+</header>
+<main class="pt-24 px-margin-mobile md:px-margin-desktop max-w-container-max-width mx-auto">
+<!-- Hero Section -->
+<section class="mb-stack-lg">
+<div class="relative rounded-xl overflow-hidden h-64 md:h-80 flex items-center p-8 mb-stack-md">
+<div class="absolute inset-0 z-0">
+<img alt="Serene nature" class="w-full h-full object-cover" data-alt="A panoramic view of a calm, misty lake at dawn surrounded by soft green hills. The color palette is dominated by peaceful pale blues, soft whites, and gentle teals, creating a sense of absolute tranquility and emotional sanctuary. The lighting is ethereal and diffused, perfectly capturing a mindful, professional atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsSYHqdxS5okluFJv2FhcRw-CSEZvvoIGua2kTN5ZNcDRi0tj54jgDqlLPsRTcvFtgFYkNrE6v1U9_bQONdzK_LvNN8vJ0-p6aqFz21iAmio_mE5Yjw-yBDRBMRi_vBkyMzenXbo5WP6Y8O97_J9kRfW3NvFT6ablV4ENHXC0US-3ASCx6yQ1Oh7qI9ob8TcON671N58lNS216tP0maRNCMPg-_mkIip2zgyOWynyZZbaMmedZfddLeVj15F85eSl9KVuYs8bOgPb9">
+<div class="absolute inset-0 bg-gradient-to-r from-primary/40 to-transparent"></div>
+</div>
+<div class="relative z-10 max-w-lg">
+<h2 class="font-headline-lg text-headline-lg text-on-primary mb-2">Momento de Calma</h2>
+<p class="text-on-primary opacity-90 font-body-lg">Encontre equilíbrio e restaure sua energia com exercícios guiados.</p>
+</div>
+</div>
+</section>
+
+<!-- Featured Grid -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter mb-stack-lg" id="#calma">
+<!-- Respiração Guiada -->
+<div class="glass-card rounded-xl p-6 flex flex-col shadow-sm border border-surface-container-highest group">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-secondary-fixed rounded-xl text-on-secondary-fixed-variant">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">air</span>
+</div>
+<span class="font-label-sm text-on-surface-variant bg-surface-container px-2 py-1 rounded">5 min</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Respiração Guiada</h3>
+<p class="text-on-surface-variant font-body-sm mb-6 flex-grow">Técnica 4-7-8 para reduzir a ansiedade instantaneamente entre as aulas.</p>
+<div class="flex items-center justify-between">
+<div class="flex gap-1">
+<span class="px-2 py-0.5 bg-surface-container-low text-primary rounded-full text-[10px] font-bold uppercase tracking-wider">Calma</span>
+</div>
+<button
+    onclick="openBreathingModal()"
+    class="bg-primary text-on-primary px-6 py-2 rounded-full font-label-md flex items-center gap-2 group-hover:bg-primary-container transition-all active:scale-95">
+
+    <span
+        class="material-symbols-outlined text-[18px]"
+        style="font-variation-settings: 'FILL' 1;">
+
+        play_arrow
+
+    </span>
+
+    Começar
+
+</button>
+</div>
+</div>
+
+<div
+    id="breathingModal"
+    class="hidden fixed inset-0 z-[999] bg-black/70 flex items-center justify-center p-4">
+
+    <div class="bg-white rounded-[32px] p-6 w-full max-w-lg relative max-h-[85vh] overflow-y-auto">
+
+        <button
+            onclick="closeBreathingModal()"
+            class="absolute top-4 right-4">
+
+            <span class="material-symbols-outlined">
+
+                close
+
+            </span>
+
+        </button>
+        <img src="../assets/imagens/img_modalRespiracao.png" alt="" width="80%" class="mx-auto mb-4 border-surface-container-high">
+        <h2 class="text-headline-md text-primary mb-2">
+
+            Técnicas de Respiração
+
+        </h2>
+
+        <p class="text-on-surface-variant mb-6">
+
+            Escolha uma técnica para iniciar.
+
+        </p>
+
+        <div class="grid gap-4">
+
+            <!-- Diafragmática -->
+             
+            <button
+            
+                onclick="openTechniqueInfo('diafragmatica')"
+                class="text-left p-4 rounded-2xl border border-surface-container-high hover:bg-surface-container-low transition-all">
+
+                <h3 class="font-semibold text-primary">
+
+                    🫁 Exercício Diafragmático
+
+                </h3>
+                
+                <p class="text-sm text-on-surface-variant mt-1">
+                    
+
+                    Inspira 3 • Segura 3 • Expira 6
+
+                </p>
+                
+            </button>
+            
+
+</div>
+
+            <!-- Narinas Alternadas -->
+            <button
+                onclick="openTechniqueInfo('narinas')"
+                class="text-left p-4 rounded-2xl border border-surface-container-high hover:bg-surface-container-low transition-all">
+
+                <h3 class="font-semibold text-primary">
+
+                    🌬️ Narinas Alternadas
+
+                </h3>
+
+                <p class="text-sm text-on-surface-variant mt-1">
+
+                    Equilíbrio e concentração
+
+                </p>
+
+            </button>
+
+            <!-- Kumbhaka -->
+            <button
+                onclick="openTechniqueInfo('kumbhaka')"
+                class="text-left p-4 rounded-2xl border border-surface-container-high hover:bg-surface-container-low transition-all">
+
+                <h3 class="font-semibold text-primary">
+
+                    🧘 Kumbhaka
+
+                </h3>
+
+                <p class="text-sm text-on-surface-variant mt-1">
+
+                    Inspira 4 • Segura 16 • Expira 8
+
+                </p>
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+<div
+    id="techniqueInfoModal"
+    class="hidden fixed inset-0 z-[999] bg-black/70 flex items-center justify-center p-4">
+
+    <div
+        class="bg-white rounded-3xl p-6 w-full max-w-md max-h-[90vh] overflow-y-auto relative">
+
+        <button
+            onclick="closeTechniqueInfoModal()"
+            class="absolute top-4 right-4">
+
+            <span class="material-symbols-outlined">
+                close
+            </span>
+
+        </button>
+
+        <img
+            id="techniqueImage"
+            src=""
+            class="mx-auto h-40 w-auto mb-4">
+
+        <h3
+            id="techniqueTitle"
+            class="text-2xl font-bold text-primary mb-3">
+        </h3>
+
+        <p
+            id="techniqueBenefits"
+            class="text-on-surface-variant mb-4">
+        </p>
+
+        <div
+            id="techniqueSteps"
+            class="bg-green-50 p-4 rounded-xl mb-4">
+        </div>
+
+        <button
+            id="startTechniqueBtn"
+            class="w-full bg-primary text-white py-3 rounded-xl">
+
+            Começar Exercício
+
+        </button>
+
+    </div>
+
+</div>
+<div
+    id="exerciseModal"
+    class="hidden fixed inset-0 z-[999] bg-black/70 flex items-center justify-center p-4">
+
+    <div class="bg-white rounded-3xl p-6 w-full max-w-md">
+
+        <h3
+            id="exerciseTitle"
+            class="text-xl font-bold mb-4">
+
+            Exercício
+
+        </h3>
+
+        <!-- IMAGEM ANIMADA -->
+        <img
+            id="breathingImage"
+            src="../assets/imagens/inspire.png"
+            alt="Respiração"
+            class="mx-auto h-48 w-auto mb-4 transition-opacity duration-500">
+
+        <!-- CÍRCULO -->
+        <div
+            id="breathingCircle"
+            class="w-40 h-40 mx-auto rounded-full border-4 border-primary bg-primary/10 flex items-center justify-center">
+
+            <div class="text-center">
+
+                <p
+                    id="breathingInstruction"
+                    class="font-bold text-lg">
+
+                    Inspire
+
+                </p>
+
+                <p
+                    id="breathingCounter"
+                    class="text-3xl">
+
+                    4
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <button
+            onclick="closeExerciseModal()"
+            class="mt-6 w-full bg-primary text-white py-3 rounded-xl">
+
+            Encerrar
+        
+        </button>
+        
+    </div>
+
+</div>
+<div
+    id="feedbackModal"
+    class="hidden fixed inset-0 z-[1000] bg-black/70 flex items-center justify-center p-4">
+
+    <div class="bg-white rounded-[32px] p-6 w-full max-w-md shadow-2xl">
+
+        <h2 class="text-2xl font-bold text-primary mb-3">
+
+            Exercício Concluído
+
+        </h2>
+
+        <p class="text-on-surface-variant mb-6">
+
+            Como você está se sentindo agora?
+
+        </p>
+
+        <div class="space-y-3">
+
+            <button
+                onclick="showFeedbackResult('melhor')"
+                class="w-full border border-surface-container-high rounded-xl p-4 text-left hover:bg-surface-container">
+
+                Melhor
+
+            </button>
+
+            <button
+                onclick="showFeedbackResult('parcial')"
+                class="w-full border border-surface-container-high rounded-xl p-4 text-left hover:bg-surface-container">
+
+                Um Pouco Melhor
+
+            </button>
+
+            <button
+                onclick="showFeedbackResult('nao')"
+                class="w-full border border-surface-container-high rounded-xl p-4 text-left hover:bg-surface-container">
+
+                Ainda Não Me Sinto Bem
+
+            </button>
+
+        </div>
+        <div class="mt-8 p-6 bg-surface-container-low rounded-2xl border border-outline-variant">
+
+    <h3 class="font-semibold text-primary mb-2">
+        Como você avalia este exercício?
+    </h3>
+
+    <p class="text-sm text-on-surface-variant mb-5">
+        Sua avaliação nos ajuda a melhorar a experiência.
+    </p>
+
+    <div id="rating" class="flex gap-2">
+
+            <span class="star material-symbols-outlined"
+                data-rating="1">
+                star
+            </span>
+
+            <span class="star material-symbols-outlined"
+                data-rating="2">
+                star
+            </span>
+
+            <span class="star material-symbols-outlined"
+                data-rating="3">
+                star
+            </span>
+
+            <span class="star material-symbols-outlined"
+                data-rating="4">
+                star
+            </span>
+
+            <span class="star material-symbols-outlined"
+                data-rating="5">
+                star
+            </span>
+
+        </div>
+
+        <p id="ratingText"
+        class="mt-3 text-sm text-on-surface-variant">
+
+            Nenhuma avaliação ainda.
+
+        </p>
+
+    </div>
+    
+        <div class="mt-8 p-5 bg-surface-container-low rounded-xl border border-outline-variant">
+            
+            <h4 class="font-semibold text-primary mb-2">
+                Como foi sua experiência?
+            </h4>
+
+            <p class="text-sm text-on-surface-variant mb-4">
+                Sua opinião é muito importante para aprimorarmos os exercícios do Resilia.
+            </p>
+
+            <a
+                href="https://forms.gle/SEU_LINK_AQUI"
+                target="_blank"
+                class="inline-flex items-center gap-2 bg-primary text-white px-5 py-3 rounded-lg hover:opacity-90 transition">
+
+                <span class="material-symbols-outlined">
+                    rate_review
+                </span>
+
+                Avaliar este exercício
+
+            </a>
+
+        </div>
+    </div>
+    
+</div>
+<div
+    id="feedbackResultModal"
+    class="hidden fixed inset-0 z-[1001] bg-black/70 flex items-center justify-center p-4">
+
+    <div class="bg-white rounded-[32px] p-6 w-full max-w-md shadow-2xl">
+
+        <h2
+            id="feedbackTitle"
+            class="text-2xl font-bold text-primary mb-4">
+
+        </h2>
+
+        <p
+            id="feedbackMessage"
+            class="text-on-surface-variant mb-6">
+
+        </p>
+
+        <div id="feedbackButtons"></div>
+
+    </div>
+
+</div>
+
+<!-- Meditação Rápida -->
+<div
+    id="meditacaoModal"
+    class="hidden fixed inset-0 z-[999] bg-black/70 flex items-center justify-center p-4">
+
+    <div
+        class="bg-[#fbfbf8] rounded-[32px] p-4 w-full max-w-xl relative shadow-2xl overflow-y-auto max-h-[85vh]">
+
+        <!-- BOTÃO FECHAR -->
+        <button
+            onclick="closeMeditacaoModal()"
+            class="absolute top-4 right-4 w-10 h-10 rounded-full bg-surface-container flex items-center justify-center">
+
+            <span class="material-symbols-outlined">
+
+                close
+
+            </span>
+
+        </button>
+        
+        <div class="bg-[#fbfbf8] rounded-3xl p-6">
+
+    <!-- Ilustração -->
+    <div class=" rounded-2xl p-4 mb-6">
+
+        <img
+            src="../assets/imagens/img_modalMeditacao.png"
+            alt="Meditação"
+            class="mx-auto h-43 object-contain">
+
+    </div>
+
+    <!-- Título -->
+    <h2 class="text-3xl font-bold text-primary mb-2">
+
+        Meditação Rápida
+
+    </h2>
+
+    <!-- Tags -->
+        <div class="flex gap-2 mb-4 flex-wrap">
+
+            <span class="px-3 py-1 bg-surface-container rounded-full text-sm font-medium">
+
+                ⏱ 5 min
+
+            </span>
+
+            <span class="px-3 py-1 bg-surface-container rounded-full text-sm font-medium">
+
+                🧘 Relaxamento
+
+            </span>
+
+        </div>
+
+        <!-- Descrição -->
+        <div class="bg-green-50 rounded-2xl p-4 mb-6">
+
+            <h3 class="font-bold text-primary mb-2">
+
+                O que você vai praticar?
+
+            </h3>
+
+            <p class="text-on-surface-variant">
+
+                Esta meditação guiada ajuda a reduzir a ansiedade,
+                restaurar a calma e melhorar o foco em poucos minutos.
+
+            </p>
+
+        </div>
+
+        <!-- Sessão -->
+        <h3 class="font-bold text-primary text-lg mb-3">
+
+            ▶ Sessão Guiada
+
+        </h3>
+
+        <!-- Vídeo -->
+        <div class="overflow-hidden rounded-2xl mb-6">
+
+            <iframe
+                width="100%"
+                height="220"
+                src="https://www.youtube.com/embed/_19x_vCtb-E?si=Fr4O7GRm3HAxL-JT"
+                title="Meditação Guiada"
+                frameborder="0"
+                allowfullscreen>
+            </iframe>
+
+        </div>
+        <button
+    onclick="openFeedbackModal()"
+    class="w-full bg-primary text-white py-3 rounded-xl">
+
+    Concluir Sessão
+
+</button>
+        <!-- Rodapé decorativo -->
+        <img
+            src="../assets/imagens/flor-lotus.png"
+            alt=""
+            class="mx-auto w-24 opacity-20">
+
+    </div>
+        
+        <img src="../assets/imagens/petal.png" alt="" width="50%" class="mx-auto h-32 w-auto  mb-4 rounded-lg border-surface-container-high opacity-25">
+    </div>
+
+</div>
+<div class="glass-card rounded-xl p-6 flex flex-col shadow-sm border border-surface-container-highest group">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-surface-container-highest rounded-xl text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">self_care</span>
+</div>
+<span class="font-label-sm text-on-surface-variant bg-surface-container px-2 py-1 rounded">5 min</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Meditação Rápida</h3>
+<p class="text-on-surface-variant font-body-sm mb-6 flex-grow">Foco pleno no presente para organizar pensamentos durante o intervalo.</p>
+<div class="flex items-center justify-between">
+<div class="flex gap-1">
+<span class="px-2 py-0.5 bg-surface-container-low text-primary rounded-full text-[10px] font-bold uppercase tracking-wider">Foco</span>
+</div>
+
+<button class="bg-primary text-on-primary px-6 py-2 rounded-full font-label-md flex items-center gap-2 group-hover:bg-primary-container transition-all active:scale-95" onclick="openMeditacaoModal()">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+                        Começar
+                    </button>
+    
+</div>
+
+</div>
+<!-- Alongamento no Trabalho -->
+ <div
+    id="videoModal"
+    class="hidden fixed inset-0 z-[999] bg-black/70 flex items-center justify-center p-4">
+
+    <div
+        class="bg-white rounded-[32px] p-6 w-full max-w-xl relative shadow-2xl max-h-[90vh] overflow-y-auto">
+
+        <!-- BOTÃO FECHAR -->
+        <button
+            onclick="closeVideoModal()"
+            class="absolute top-4 right-4 w-10 h-10 rounded-full bg-surface-container flex items-center justify-center">
+
+            <span class="material-symbols-outlined">
+                close
+            </span>
+
+        </button>
+
+        <!-- ILUSTRAÇÃO -->
+        <div class=" rounded-2xl p-4 mb-6">
+
+            <img
+                src="../assets/imagens/alonga_trabalho.png"
+                alt="Alongamento no Trabalho"
+                class="mx-auto h-48 object-contain">
+
+        </div>
+
+        <!-- TÍTULO -->
+        <h2 class="text-3xl font-bold text-primary mb-3">
+
+            Alongamento no Trabalho
+
+        </h2>
+
+        <!-- TAGS -->
+        <div class="flex gap-2 flex-wrap mb-5">
+
+            <span class="px-3 py-1 bg-surface-container rounded-full text-sm font-medium">
+                ⏱ 1:44 min
+            </span>
+
+            <span class="px-3 py-1 bg-surface-container rounded-full text-sm font-medium">
+                💪 Alívio da Tensão
+            </span>
+
+        </div>
+
+        <!-- DESCRIÇÃO -->
+        <div class="bg-green-50 rounded-2xl p-4 mb-6">
+
+            <h3 class="font-bold text-primary mb-2">
+
+                O que você vai praticar?
+
+            </h3>
+
+            <p class="text-on-surface-variant">
+
+                Exercícios simples para aliviar a tensão muscular,
+                melhorar a postura, reduzir desconfortos causados
+                por longos períodos sentado e aumentar o bem-estar
+                durante o trabalho.
+
+            </p>
+
+        </div>
+
+        <!-- VÍDEO -->
+        <h3 class="font-bold text-primary text-lg mb-3">
+
+            ▶ Sessão Guiada
+
+        </h3>
+
+        <div class="overflow-hidden rounded-2xl shadow-sm mb-6">
+
+            <iframe
+                width="100%"
+                height="250"
+                src="https://www.youtube.com/embed/6-Mxh62G7a4?si=A4isr-CNVgWuoNo8"
+                title="Alongamento no Trabalho"
+                frameborder="0"
+                allowfullscreen>
+            </iframe>
+
+        </div>
+        <button
+    onclick="openFeedbackModal()"
+    class="w-full bg-primary text-white py-3 rounded-xl">
+
+    Concluir Sessão
+
+</button>
+        <!-- DECORAÇÃO -->
+        <img
+            src="../assets/imagens/flor_lotus.png"
+            alt=""
+            class="mx-auto w-24 opacity-20">
+
+    </div>
+
+</div>
+
+</div>
+<div class="glass-card rounded-xl p-6 flex flex-col shadow-sm border border-surface-container-highest group">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-secondary-fixed-dim rounded-xl text-on-secondary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">accessibility_new</span>
+</div>
+<span class="font-label-sm text-on-surface-variant bg-surface-container px-2 py-1 rounded">1 min</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Alongamento no Trabalho</h3>
+<p class="text-on-surface-variant font-body-sm mb-6 flex-grow">Movimentos simples para aliviar a tensão cervical e lombar acumulada.</p>
+<div class="flex items-center justify-between">
+<div class="flex gap-1">
+<span class="px-2 py-0.5 bg-surface-container-low text-primary rounded-full text-[10px] font-bold uppercase tracking-wider">Corpo</span>
+</div>
+<button class="bg-primary text-on-primary px-6 py-2 rounded-full font-label-md flex items-center gap-2 group-hover:bg-primary-container transition-all active:scale-95" onclick="openVideoModal()">
+    <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+    Começar
+</button>
+</div>
+</div>
+
+</section>
+<!-- Secondary Section: Recent Sessions -->
+<section class="mb-stack-lg">
+<h2 class="font-headline-md text-headline-md text-primary mb-stack-sm px-2">Playlist</h2>
+<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/episode/5l8SLXOEHAjo23EJmgkhKD?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+<div class="flex items-center gap-4 p-3 hover:bg-surface-container-low rounded-lg transition-colors cursor-pointer group">
+<div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 relative">
+</div>
+</div>
+</section>
+</main>
+
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 py-3 bg-surface-container-lowest dark:bg-inverse-surface rounded-t-xl shadow-[0_-4px_12px_rgba(0,35,111,0.05)]">
+
+    <!-- Início -->
+    <a href="../index.html"
+       class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-container px-4 py-1 hover:text-primary dark:hover:text-primary-fixed transition-all duration-300 active:scale-90">
+
+        <span class="material-symbols-outlined">
+            home
+        </span>
+
+        <span class="font-label-sm text-label-sm">
+            Início
+        </span>
+
+    </a>
+    <!-- Ajuda -->
+    <a href="ajuda.html"
+       class="flex flex-col items-center justify-center bg-secondary-container dark:bg-primary-container text-on-secondary-container dark:text-on-primary-container rounded-full px-5 py-2 shadow-sm ring-1 ring-primary/10 active:scale-90 transition-all duration-300">
+
+        <span class="material-symbols-outlined"
+              style="font-variation-settings: 'FILL' 1;">
+            volunteer_activism
+        </span>
+        <span class="font-label-sm text-label-sm">
+            Ajuda
+        </span>
+
+    </a>
+    <!-- Informativo -->
+    <a href="informativo.html"
+       class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-container px-4 py-1 hover:text-primary dark:hover:text-primary-fixed transition-all duration-300 active:scale-90">
+
+        <span class="material-symbols-outlined">
+            menu
+        </span>
+
+        <span class="font-label-sm text-label-sm">
+            Informativo
+        </span>
+
+    </a>
+    <!-- Biblioteca -->
+    <a href="biblioteca.html"
+       class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-container px-4 py-1 hover:text-primary dark:hover:text-primary-fixed transition-all duration-300 active:scale-90">
+
+        <span class="material-symbols-outlined">
+            menu_book
+        </span>
+
+        <span class="font-label-sm text-label-sm">
+            Biblioteca
+        </span>
+
+    </a>
+
+    <!-- Jornada -->
+    <a href="jornada.html"
+       class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-container px-4 py-1 hover:text-primary dark:hover:text-primary-fixed transition-all duration-300 active:scale-90">
+
+    <span class="material-symbols-outlined"
+          style="font-variation-settings: 'FILL' 0;">
+
+        directions_walk
+
+    </span>
+
+    <span class="font-label-sm text-label-sm">
+        Jornada
+    </span>
+</a>
+</nav>
+<button
+
+    id="themeButton"
+
+    onclick="alternarModoNoturno()"
+
+    class="fixed bottom-24 right-5 z-50 w-14 h-14 rounded-full bg-surface shadow-xl flex items-center justify-center transition-all duration-300">
+
+    <img
+
+        id="iconeTema"
+
+        src="assets/imagens/moon.png"
+
+        alt="Modo Escuro"
+
+        class="w-8 h-8 transition-all duration-300">
+
+</button>
+<script src="../scripts/theme.js"></script>
+<script src="../scripts/global.js"></script>
+</body></html>

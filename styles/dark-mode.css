@@ -1,0 +1,212 @@
+/* ======================================
+   DARK MODE RESILIA
+====================================== */
+
+body.night-mode{
+
+    background:#0f172a !important;
+
+}
+
+/* FUNDOS */
+
+body.night-mode .bg-background{
+    background:#0f172a !important;
+}
+
+body.night-mode .bg-surface{
+    background:#1e293b !important;
+}
+
+body.night-mode .bg-surface-container{
+    background:#263244 !important;
+}
+
+body.night-mode .bg-surface-container-low{
+    background:#2f3d52 !important;
+}
+
+body.night-mode .bg-surface-container-high{
+    background:#3a4961 !important;
+}
+
+body.night-mode .bg-surface-container-highest{
+    background:#45556f !important;
+}
+
+body.night-mode .bg-surface-variant{
+    background:#263244 !important;
+}
+body.night-mode .bg-surface-container-lowest{
+
+    background:#1E293B !important;
+
+}
+/* TEXTO */
+
+body.night-mode .text-on-surface{
+    color:#F8FAFC !important;
+}
+
+body.night-mode .text-on-background{
+    color:#F8FAFC !important;
+}
+
+body.night-mode .text-on-surface-variant{
+    color:#CBD5E1 !important;
+}
+
+body.night-mode .text-primary{
+    color:#7DB7FF !important;
+}
+
+/* INPUTS */
+
+body.night-mode input{
+
+    background:#263244 !important;
+
+    color:white !important;
+
+}
+
+body.night-mode textarea{
+
+    background:#263244 !important;
+
+    color:white !important;
+
+}
+
+body.night-mode select{
+
+    background:#263244 !important;
+
+    color:white !important;
+
+}
+
+/* BORDAS */
+
+body.night-mode .border-outline{
+
+    border-color:#475569 !important;
+
+}
+
+body.night-mode .border-outline-variant{
+
+    border-color:#475569 !important;
+
+}
+
+/* HEADER */
+
+body.night-mode header{
+
+    background:#13263d !important;
+
+}
+
+/* MODAIS */
+
+body.night-mode .shadow-lg,
+body.night-mode .shadow-xl,
+body.night-mode .shadow-2xl{
+
+    box-shadow:
+
+        0 0 25px rgba(0,0,0,.45);
+
+}
+
+/* IMAGENS */
+
+body.night-mode img{
+
+    transition:.3s;
+
+}
+
+/* SCROLLBAR */
+
+body.night-mode::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+body.night-mode::-webkit-scrollbar-thumb{
+
+    background:#475569;
+
+    border-radius:20px;
+
+}
+
+/* ==========================
+   BOTÃO DE TEMA
+========================== */
+
+body.night-mode #iconeTema{
+
+    color:#F8FAFC !important;
+
+}
+
+body.night-mode button:hover #iconeTema{
+
+    color:#7DB7FF !important;
+
+}
+
+/* ==========================
+   BOTÃO FLUTUANTE
+========================== */
+
+#themeButton{
+
+    box-shadow:
+        0 8px 24px rgba(0,0,0,.20);
+
+}
+
+#themeButton:hover{
+
+    transform:translateY(-2px);
+
+}
+
+#themeButton:active{
+
+    transform:scale(.92);
+
+}
+
+/* Dark Mode */
+
+body.night-mode #themeButton{
+
+    background:#1E293B;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.45);
+
+}
+
+/* ==========================
+   TEXTOS DOS CARDS
+========================== */
+
+body.night-mode .text-primary{
+
+    color:#7DB7FF !important;
+
+}
+
+body.night-mode .text-on-surface-variant{
+
+    color:#005dce !important;
+
+}
+
