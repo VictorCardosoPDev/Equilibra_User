@@ -32,41 +32,38 @@ function alternarModoNoturno(){
 
 }
 
-function atualizarIcone(){
+function atualizarIcone() {
 
-    const icone =
-        document.getElementById("iconeTema");
+    const icone = document.getElementById("iconeTema");
 
-    if(!icone) return;
+    if (!icone) return;
+
+    // Descobre automaticamente onde está a pasta assets
+    const base =
+        window.location.pathname.includes("/pages/")
+            ? "../assets/imagens/"
+            : "./assets/imagens/";
 
     icone.style.transform = "rotate(180deg)";
     icone.style.opacity = "0";
 
-    setTimeout(()=>{
+    setTimeout(() => {
 
-        if(document.body.classList.contains("night-mode")){
+        if (document.body.classList.contains("night-mode")) {
 
-            icone.src =
-                "../assets/imagens/sun.png";
+            icone.src = base + "sun.png";
+            icone.alt = "Modo Claro";
 
-            icone.alt =
-                "Modo Claro";
+        } else {
 
-        }
-
-        else{
-
-            icone.src =
-                "../assets/imagens/moon.png";
-
-            icone.alt =
-                "Modo Escuro";
+            icone.src = base + "moon.png";
+            icone.alt = "Modo Escuro";
 
         }
 
         icone.style.opacity = "1";
         icone.style.transform = "rotate(360deg)";
 
-    },150);
+    }, 150);
 
 }
