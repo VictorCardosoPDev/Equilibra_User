@@ -218,11 +218,65 @@ document
             </span>
 
         </div>
-
     </div>
 
 </header>
 <main class="pt-20 pb-24 px-margin-mobile md:px-margin-desktop max-w-7xl mx-auto">
+    <!-- ========================================= -->
+<!-- INTRODUÇÃO DA BIBLIOTECA -->
+<!-- ========================================= -->
+
+<section class="mb-8">
+
+    <div class="relative overflow-hidden
+                rounded-2xl
+                bg-[#EEF7F7]
+                border border-[#DDE9E9]
+                p-6">
+
+        <!-- Elemento decorativo -->
+        <div class="absolute right-6 top-1/2
+                    -translate-y-1/2
+                    opacity-10
+                    pointer-events-none">
+
+            <span class="material-symbols-outlined text-[110px] text-[#0B4D86]">
+                menu_book
+            </span>
+
+        </div>
+
+
+        <!-- Conteúdo -->
+        <div class="relative z-10 max-w-[75%]">
+
+            <h2 class="text-[#245B65]
+                       font-bold
+                       text-[22px]
+                       leading-tight
+                       mb-2">
+
+                Informação também é uma forma de cuidado.
+
+            </h2>
+
+
+            <p class="text-[#37474F]
+                      text-[15px]
+                      leading-[1.5]">
+
+                Aqui você encontra conteúdos confiáveis para compreender
+                melhor suas emoções, reconhecer sinais de sobrecarga e
+                conhecer estratégias que podem ajudar no cuidado com o
+                bem-estar emocional.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
 <!-- Search Bar -->
 <section class="mb-8">
 <div class="relative group">
@@ -243,8 +297,12 @@ document
     Cartilhas
 </button>
 
+<button id="filter-materias" class="px-6 py-2.5 bg-surface-container-low text-on-surface-variant border border-outline-variant rounded-full font-label-md hover:bg-surface-container-high transition-all">
+    Matérias
+</button>
+
 <button id="filter-saude" class="px-6 py-2.5 bg-surface-container-low text-on-surface-variant border border-outline-variant rounded-full font-label-md hover:bg-surface-container-high transition-all">
-    Saúde Mental
+    Ansiedade
 </button>
 
 <button id="filter-burnout" class="px-6 py-2.5 bg-surface-container-low text-on-surface-variant border border-outline-variant rounded-full font-label-md hover:bg-surface-container-high transition-all">
@@ -273,6 +331,18 @@ document
 <h2 class="font-headline-md text-headline-md text-on-surface border-l-4 border-secondary pl-4">Cartilhas Educativas</h2>
 </div>
 <div id="cartilhasContainer" class="space-y-2">
+<!-- Booklet Accordion 1 -->
+
+<!-- Booklet Accordion 2 -->
+
+</div>
+</section>
+<!-- List Section: Matérias (Horizontal Layout) -->
+<section class="mb-12">
+<div class="flex items-center justify-between mb-6">
+<h2 class="font-headline-md text-headline-md text-on-surface border-l-4 border-secondary pl-4">Matérias</h2>
+</div>
+<div id="materiasContainer" class="space-y-2">
 <!-- Booklet Accordion 1 -->
 
 <!-- Booklet Accordion 2 -->
@@ -309,7 +379,6 @@ document
         </span>
 
     </a>
-
 </nav>
 <script>
     const supabaseUrl =
@@ -374,6 +443,9 @@ document.getElementById("filter-artigos")
 document.getElementById("filter-cartilhas")
     .addEventListener("click", () => filterContent("cartilha"));
 
+document.getElementById("filter-materias")
+    .addEventListener("click", () => filterContent("materia"));
+
 document.getElementById("filter-saude")
     .addEventListener("click", () => filterContent("saude-mental"));
 
@@ -410,8 +482,14 @@ async function carregarBiblioteca() {
             "cartilhasContainer"
         );
 
+    const materias =
+        document.getElementById(
+            "materiasContainer"
+        );
+
     artigos.innerHTML = "";
     cartilhas.innerHTML = "";
+    materias.innerHTML = "";
 
     data.forEach(item => {
 
@@ -513,10 +591,24 @@ async function carregarBiblioteca() {
 
             cartilhas.innerHTML += card;
 
-        } else {
+        }else if (
+            item.tipo
+                .toLowerCase()
+                .includes("matéria") ||
+            item.tipo
+                .toLowerCase()
+                .includes("materia")
+        ) {
+
+            materias.innerHTML += card;
+
+        }
+         else {
 
             artigos.innerHTML += card;
+            
         }
+        
     });
 }
 carregarBiblioteca();
@@ -571,6 +663,8 @@ document
         class="w-8 h-8 transition-all duration-300">
 
 </button>
+<script src="../scripts/supabase.js"></script>
 <script src="../scripts/theme.js"></script>
 <script src="../scripts/global.js"></script>
+<script src="../scripts/auth.js"></script>
 </body></html>
