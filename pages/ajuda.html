@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html><html lang="pt-BR"><head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>equilibra - Ajuda</title>
+<title>equilibra - Praticas</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="../scripts/supabase.js"></script>
@@ -395,6 +395,7 @@ function openTechniqueInfo(type) {
             "Exercício Diafragmático";
 
         benefits.innerHTML = `
+            <p>Uma prática simples que pode ajudar a desacelerar a respiração e reduzir a tensão.</p><br>
             <strong>Benefícios</strong><br>
             • Reduz ansiedade<br>
             • Promove relaxamento<br>
@@ -420,6 +421,7 @@ function openTechniqueInfo(type) {
             "Narinas Alternadas";
 
         benefits.innerHTML = `
+            <p>Uma prática simples que pode ajudar a desacelerar a respiração e reduzir a tensão.</p><br>
             <strong>Benefícios</strong><br>
             • Melhora concentração<br>
             • Promove equilíbrio emocional<br>
@@ -767,7 +769,10 @@ stars.forEach(star=>{
 </div>
 <h1 class="font-headline-md text-headline-md font-bold text-[#6EAF8B]">equilibra</h1>
 </div>
-
+<button onclick="logout()" class="text-on-primary flex items-center gap-2">
+    <span class="material-symbols-outlined">logout</span>
+    Sair
+</button>
 </header>
 <main class="pt-24 px-margin-mobile md:px-margin-desktop max-w-container-max-width mx-auto">
 <!-- Hero Section -->
@@ -778,8 +783,8 @@ stars.forEach(star=>{
 <div class="absolute inset-0 bg-gradient-to-r from-primary/40 to-transparent"></div>
 </div>
 <div class="relative z-10 max-w-lg">
-<h2 class="font-headline-lg text-headline-lg text-on-primary mb-2">Momento de Calma</h2>
-<p class="text-on-primary opacity-90 font-body-lg">Encontre equilíbrio e restaure sua energia com exercícios guiados.</p>
+<h2 class="font-headline-lg text-headline-lg text-on-primary mb-2">Uma pausa para você</h2>
+<p class="text-on-primary opacity-90 font-body-lg">Nem sempre é possível parar por muito tempo. Escolha uma prática breve, respeite seu ritmo e permita-se alguns minutos de cuidado.</p>
 </div>
 </div>
 </section>
@@ -795,7 +800,7 @@ stars.forEach(star=>{
 <span class="font-label-sm text-on-surface-variant bg-surface-container px-2 py-1 rounded">5 min</span>
 </div>
 <h3 class="font-headline-md text-headline-md text-primary mb-2">Respiração Guiada</h3>
-<p class="text-on-surface-variant font-body-sm mb-6 flex-grow">Técnica 4-7-8 para reduzir a ansiedade instantaneamente entre as aulas.</p>
+<p class="text-on-surface-variant font-body-sm mb-6 flex-grow">Práticas breves para desacelerar, regular a respiração e trazer mais tranquilidade ao momento presente.</p>
 <div class="flex items-center justify-between">
 <div class="flex gap-1">
 <span class="px-2 py-0.5 bg-surface-container-low text-primary rounded-full text-[10px] font-bold uppercase tracking-wider">Calma</span>
@@ -844,7 +849,7 @@ stars.forEach(star=>{
 
         <p class="text-on-surface-variant mb-6">
 
-            Escolha uma técnica para iniciar.
+            Práticas disponíveis:
 
         </p>
 
@@ -1205,7 +1210,7 @@ stars.forEach(star=>{
     <!-- Título -->
     <h2 class="text-3xl font-bold text-primary mb-2">
 
-        Meditação Rápida
+        Meditação
 
     </h2>
 
@@ -1290,8 +1295,8 @@ stars.forEach(star=>{
 </div>
 <span class="font-label-sm text-on-surface-variant bg-surface-container px-2 py-1 rounded">5 min</span>
 </div>
-<h3 class="font-headline-md text-headline-md text-primary mb-2">Meditação Rápida</h3>
-<p class="text-on-surface-variant font-body-sm mb-6 flex-grow">Foco pleno no presente para organizar pensamentos durante o intervalo.</p>
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Meditação</h3>
+<p class="text-on-surface-variant font-body-sm mb-6 flex-grow">Práticas breves para direcionar a atenção ao momento presente, desacelerar e organizar os pensamentos.</p>
 <div class="flex items-center justify-between">
 <div class="flex gap-1">
 <span class="px-2 py-0.5 bg-surface-container-low text-primary rounded-full text-[10px] font-bold uppercase tracking-wider">Foco</span>
@@ -1418,8 +1423,8 @@ stars.forEach(star=>{
 </div>
 <span class="font-label-sm text-on-surface-variant bg-surface-container px-2 py-1 rounded">1 min</span>
 </div>
-<h3 class="font-headline-md text-headline-md text-primary mb-2">Alongamento no Trabalho</h3>
-<p class="text-on-surface-variant font-body-sm mb-6 flex-grow">Movimentos simples para aliviar a tensão cervical e lombar acumulada.</p>
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Alongamento</h3>
+<p class="text-on-surface-variant font-body-sm mb-6 flex-grow">Movimentos simples para aliviar tensões, perceber o corpo e fazer uma pausa durante o dia.</p>
 <div class="flex items-center justify-between">
 <div class="flex gap-1">
 <span class="px-2 py-0.5 bg-surface-container-low text-primary rounded-full text-[10px] font-bold uppercase tracking-wider">Corpo</span>
@@ -1434,7 +1439,8 @@ stars.forEach(star=>{
 </section>
 <!-- Secondary Section: Recent Sessions -->
 <section class="mb-stack-lg">
-<h2 class="font-headline-md text-headline-md text-primary mb-stack-sm px-2">Playlist</h2>
+<h2 class="font-headline-md text-headline-md text-primary mb-stack-sm px-2">Áudios e vídeos</h2>
+<p class="text-on-surface-variant font-body-sm mb-6 flex-grow">Encontre recursos de áudios e vídeos para acompanhar seus momentos de cuidado e bem-estar.</p>
 <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/episode/5l8SLXOEHAjo23EJmgkhKD?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 <div class="flex items-center gap-4 p-3 hover:bg-surface-container-low rounded-lg transition-colors cursor-pointer group">
 <div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 relative">
@@ -1459,7 +1465,7 @@ stars.forEach(star=>{
         </span>
 
     </a>
-    <!-- Ajuda -->
+    <!-- Praticas -->
     <a href="ajuda.html"
        class="flex flex-col items-center justify-center bg-secondary-container dark:bg-primary-container text-on-secondary-container dark:text-on-primary-container rounded-full px-5 py-2 shadow-sm ring-1 ring-primary/10 active:scale-90 transition-all duration-300">
 
@@ -1468,7 +1474,7 @@ stars.forEach(star=>{
             volunteer_activism
         </span>
         <span class="font-label-sm text-label-sm">
-            Ajuda
+            Praticas
         </span>
 
     </a>
@@ -1521,4 +1527,5 @@ stars.forEach(star=>{
 </button>
 <script src="../scripts/theme.js"></script>
 <script src="../scripts/global.js"></script>
+<script src="../scripts/auth.js"></script>
 </body></html>

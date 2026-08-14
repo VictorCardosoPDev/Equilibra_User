@@ -218,6 +218,21 @@ document
             </span>
 
         </div>
+
+        <button
+            onclick="window.location.href='bibliotecaAdmin.html'"
+            class="w-10 h-10 flex items-center justify-center hover:bg-white/10 rounded-full transition-colors">
+
+            <span class="material-symbols-outlined text-[#FAF6EF]">
+                settings
+            </span>
+
+        </button>
+
+        <button onclick="logout()" class="flex items-center gap-2 text-on-primary">
+            <span class="material-symbols-outlined">logout</span>
+            Sair
+        </button>
     </div>
 
 </header>
@@ -285,30 +300,290 @@ document
 </div>
 </section>
 <!-- Categories/Tabs -->
-<section class="mb-10 overflow-x-auto hide-scrollbar -mx-margin-mobile px-margin-mobile">
-<div class="flex gap-3 whitespace-nowrap">
-<button id="filter-all"class="px-6 py-2.5 bg-primary text-on-primary rounded-full font-label-md transition-transform active:scale-95" >Tudo</button>
+<!-- ================================================= -->
+<!-- FILTROS DA BIBLIOTECA -->
+<!-- ================================================= -->
 
-<button id="filter-artigos" class="px-6 py-2.5 bg-surface-container-low text-on-surface-variant border border-outline-variant rounded-full font-label-md hover:bg-surface-container-high transition-all">
-    Artigos
-</button>
+<section class="mb-6">
 
-<button id="filter-cartilhas" class="px-6 py-2.5 bg-surface-container-low text-on-surface-variant border border-outline-variant rounded-full font-label-md hover:bg-surface-container-high transition-all">
-    Cartilhas
-</button>
+    <!-- Filtros principais -->
+    <div class="flex items-center gap-3 flex-wrap">
 
-<button id="filter-materias" class="px-6 py-2.5 bg-surface-container-low text-on-surface-variant border border-outline-variant rounded-full font-label-md hover:bg-surface-container-high transition-all">
-    Matérias
-</button>
+        <!-- Tudo -->
+        <button
+            onclick="selecionarTipo('todos')"
+            id="filtroTodos"
+            class="filtro-principal px-6 py-2.5 rounded-full
+                   bg-[#062F80] text-white
+                   border border-[#062F80]
+                   transition-all duration-200
+                   hover:opacity-90">
 
-<button id="filter-saude" class="px-6 py-2.5 bg-surface-container-low text-on-surface-variant border border-outline-variant rounded-full font-label-md hover:bg-surface-container-high transition-all">
-    Ansiedade
-</button>
+            Tudo
 
-<button id="filter-burnout" class="px-6 py-2.5 bg-surface-container-low text-on-surface-variant border border-outline-variant rounded-full font-label-md hover:bg-surface-container-high transition-all">
-    Burnout
-</button>
-</div>
+        </button>
+
+
+        <!-- Artigos -->
+        <button
+            onclick="selecionarTipo('Artigo')"
+            id="filtroArtigos"
+            class="filtro-principal px-6 py-2.5 rounded-full
+                   bg-white text-[#52637A]
+                   border border-[#C7D0DE]
+                   transition-all duration-200
+                   hover:border-[#062F80]
+                   hover:text-[#062F80]">
+
+            Artigos
+
+        </button>
+
+
+        <!-- Matérias -->
+        <button
+            onclick="selecionarTipo('Matéria')"
+            id="filtroMaterias"
+            class="filtro-principal px-6 py-2.5 rounded-full
+                   bg-white text-[#52637A]
+                   border border-[#C7D0DE]
+                   transition-all duration-200
+                   hover:border-[#062F80]
+                   hover:text-[#062F80]">
+
+            Matérias
+
+        </button>
+
+
+        <!-- Cartilhas -->
+        <button
+            onclick="selecionarTipo('Cartilha')"
+            id="filtroCartilhas"
+            class="filtro-principal px-6 py-2.5 rounded-full
+                   bg-white text-[#52637A]
+                   border border-[#C7D0DE]
+                   transition-all duration-200
+                   hover:border-[#062F80]
+                   hover:text-[#062F80]">
+
+            Cartilhas
+
+        </button>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- PAINEL DE CATEGORIAS -->
+    <!-- ================================================= -->
+
+    <div
+        id="painelCategorias"
+        class="hidden mt-4 p-5
+               bg-white
+               dark:bg-[#1E293B]
+               border border-[#D8DEE8]
+               rounded-2xl
+               shadow-sm
+               transition-all duration-300">
+
+
+        <div class="flex items-center justify-between mb-4">
+
+            <div>
+
+                <h3 class="font-semibold text-[#172B4D]">
+                    Filtrar por tema
+                </h3>
+
+                <p class="text-sm text-[#718096] mt-1">
+                    Escolha um tema para refinar os conteúdos.
+                </p>
+
+            </div>
+
+
+            <!-- Fechar -->
+            <button
+                onclick="fecharCategorias()"
+                class="w-8 h-8 rounded-full
+                       flex items-center justify-center
+                       text-[#718096]
+                       hover:bg-[#F1F4F8]
+                       transition">
+
+                <span class="material-symbols-outlined text-[20px]">
+                    close
+                </span>
+
+            </button>
+
+        </div>
+
+
+        <!-- Categorias -->
+        <div
+            id="listaCategorias"
+            class="flex flex-wrap gap-2">
+
+
+            <button
+                onclick="selecionarCategoria('todos')"
+                class="categoria-filtro ativo
+                       px-4 py-2 rounded-full
+                       bg-[#EAF0FF]
+                       text-[#062F80]
+                       border border-[#BFD0F5]
+                       text-sm
+                       transition">
+
+                Todos
+
+            </button>
+
+
+            <button
+                onclick="selecionarCategoria('Ansiedade')"
+                class="categoria-filtro
+                       px-4 py-2 rounded-full
+                       bg-white
+                       dark:bg-[#1E293B]
+                       text-[#52637A]
+                       border border-[#D0D7E2]
+                       text-sm
+                       hover:border-[#062F80]
+                       hover:text-[#062F80]
+                       transition">
+
+                Ansiedade
+
+            </button>
+
+
+            <button
+                onclick="selecionarCategoria('Irritação')"
+                class="categoria-filtro
+                       px-4 py-2 rounded-full
+                       bg-white
+                       dark:bg-[#1E293B]
+                       text-[#52637A]
+                       border border-[#D0D7E2]
+                       text-sm
+                       hover:border-[#062F80]
+                       hover:text-[#062F80]
+                       transition">
+
+                Irritação
+
+            </button>
+
+
+            <button
+                onclick="selecionarCategoria('Tristeza')"
+                class="categoria-filtro
+                       px-4 py-2 rounded-full
+                       bg-white
+                       dark:bg-[#1E293B]
+                       text-[#52637A]
+                       border border-[#D0D7E2]
+                       text-sm
+                       hover:border-[#062F80]
+                       hover:text-[#062F80]
+                       transition">
+
+                Tristeza
+
+            </button>
+
+
+            <button
+                onclick="selecionarCategoria('Sobrecarga')"
+                class="categoria-filtro
+                       px-4 py-2 rounded-full
+                       bg-white
+                       dark:bg-[#1E293B]
+                       text-[#52637A]
+                       border border-[#D0D7E2]
+                       text-sm
+                       hover:border-[#062F80]
+                       hover:text-[#062F80]
+                       transition">
+
+                Sobrecarga
+
+            </button>
+
+
+            <button
+                onclick="selecionarCategoria('Cansaço Emocional')"
+                class="categoria-filtro
+                       px-4 py-2 rounded-full
+                       bg-white
+                       dark:bg-[#1E293B]
+                       text-[#52637A]
+                       border border-[#D0D7E2]
+                       text-sm
+                       hover:border-[#062F80]
+                       hover:text-[#062F80]
+                       transition">
+
+                Cansaço Emocional
+
+            </button>
+
+
+            <button
+                onclick="selecionarCategoria('Autocuidado')"
+                class="categoria-filtro
+                       px-4 py-2 rounded-full
+                       bg-white
+                       dark:bg-[#1E293B]
+                       text-[#52637A]
+                       border border-[#D0D7E2]
+                       text-sm
+                       hover:border-[#062F80]
+                       hover:text-[#062F80]
+                       transition">
+
+                Autocuidado
+
+            </button>
+
+
+            <button
+                onclick="selecionarCategoria('Burnout')"
+                class="categoria-filtro
+                       px-4 py-2 rounded-full
+                       bg-white
+                       dark:bg-[#1E293B]
+                       text-[#52637A]
+                       border border-[#D0D7E2]
+                       text-sm
+                       hover:border-[#062F80]
+                       hover:text-[#062F80]
+                       transition">
+
+                Burnout
+
+            </button>
+
+        </div>
+
+
+        <!-- Resumo do filtro -->
+        <div
+            id="filtroSelecionado"
+            class="mt-5 pt-4
+                   border-t border-[#E8ECF2]
+                   text-sm text-[#718096]">
+
+            Mostrando todos os conteúdos.
+
+        </div>
+
+    </div>
+
 </section>
 
 <!-- List Section: Artigos Recentes -->
@@ -352,7 +627,7 @@ document
 </main>
 <!-- BottomNavBar -->
 <nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 py-3 bg-surface-container-lowest dark:bg-inverse-surface rounded-t-xl shadow-[0_-4px_12px_rgba(0,35,111,0.05)]">
-<a href="../index.html" class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-container px-4 py-1 hover:text-primary dark:hover:text-primary-fixed transition-all duration-300 active:scale-90" >
+<a href="home.html" class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-container px-4 py-1 hover:text-primary dark:hover:text-primary-fixed transition-all duration-300 active:scale-90" >
 <span class="material-symbols-outlined" data-icon="home" style="font-variation-settings: 'FILL' 0;">home</span>
 <span class="font-label-sm text-label-sm">Início</span>
 </a>
@@ -379,8 +654,10 @@ document
         </span>
 
     </a>
+
 </nav>
 <script>
+    
     const supabaseUrl =
     "https://xashpazesqmnqsmxtedk.supabase.co";
 
@@ -405,53 +682,294 @@ const supabaseClient =
             });
         });
 
-        function filterContent(category) {
+        // =================================================
+// FILTROS DA BIBLIOTECA
+// =================================================
 
-    const items =
-        document.querySelectorAll(
-            ".content-item"
-        );
+let tipoSelecionado = "todos";
+let categoriaSelecionada = "todos";
 
-    items.forEach(item => {
 
-        item.style.display = "none";
+// Normaliza textos para comparação
+function normalizarTexto(texto) {
 
-        if (category === "all") {
+    return (texto || "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
 
-            item.style.display = "";
-
-            return;
-        }
-
-        if (
-            item.classList.contains(
-                category
-            )
-        ) {
-
-            item.style.display = "";
-        }
-    });
 }
 
-document.getElementById("filter-all")
-    .addEventListener("click", () => filterContent("all"));
 
-document.getElementById("filter-artigos")
-    .addEventListener("click", () => filterContent("artigo"));
+// Seleciona o tipo principal
+function selecionarTipo(tipo) {
 
-document.getElementById("filter-cartilhas")
-    .addEventListener("click", () => filterContent("cartilha"));
+    tipoSelecionado = tipo;
 
-document.getElementById("filter-materias")
-    .addEventListener("click", () => filterContent("materia"));
+    // Se clicar em Tudo, limpa a categoria
+    if (tipo === "todos") {
+        categoriaSelecionada = "todos";
 
-document.getElementById("filter-saude")
-    .addEventListener("click", () => filterContent("saude-mental"));
+        document
+            .getElementById("painelCategorias")
+            .classList.add("hidden");
+    }
 
-document.getElementById("filter-burnout")
-    .addEventListener("click", () => filterContent("burnout"));
+    else {
 
+        document
+            .getElementById("painelCategorias")
+            .classList.remove("hidden");
+    }
+
+
+    // Atualiza aparência dos botões principais
+    document
+        .querySelectorAll(".filtro-principal")
+        .forEach(botao => {
+
+            botao.classList.remove(
+                "bg-[#062F80]",
+                "text-white",
+                "border-[#062F80]"
+            );
+
+            botao.classList.add(
+                "bg-white",
+                "text-[#52637A]",
+                "border-[#C7D0DE]"
+            );
+
+        });
+
+
+    let botaoAtivo = null;
+
+
+    if (tipo === "todos") {
+        botaoAtivo =
+            document.getElementById("filtroTodos");
+    }
+
+    else if (tipo === "Artigo") {
+        botaoAtivo =
+            document.getElementById("filtroArtigos");
+    }
+
+    else if (tipo === "Matéria") {
+        botaoAtivo =
+            document.getElementById("filtroMaterias");
+    }
+
+    else if (tipo === "Cartilha") {
+        botaoAtivo =
+            document.getElementById("filtroCartilhas");
+    }
+
+
+    if (botaoAtivo) {
+
+        botaoAtivo.classList.remove(
+            "bg-white",
+            "text-[#52637A]",
+            "border-[#C7D0DE]"
+        );
+
+        botaoAtivo.classList.add(
+            "bg-[#062F80]",
+            "text-white",
+            "border-[#062F80]"
+        );
+
+    }
+
+
+    atualizarTextoFiltro();
+
+    aplicarFiltrosBiblioteca();
+
+}
+
+
+// Seleciona uma categoria
+function selecionarCategoria(categoria) {
+
+    categoriaSelecionada = categoria;
+
+
+    // Atualiza aparência dos botões de categoria
+    document
+        .querySelectorAll(".categoria-filtro")
+        .forEach(botao => {
+
+            botao.classList.remove(
+                "bg-[#EAF0FF]",
+                "text-[#062F80]",
+                "border-[#BFD0F5]"
+            );
+
+            botao.classList.add(
+                "bg-white",
+                "text-[#52637A]",
+                "border-[#D0D7E2]"
+            );
+
+        });
+
+
+    document
+        .querySelectorAll(".categoria-filtro")
+        .forEach(botao => {
+
+            if (
+                normalizarTexto(
+                    botao.textContent.trim()
+                ) ===
+                normalizarTexto(categoria)
+            ) {
+
+                botao.classList.remove(
+                    "bg-white",
+                    "text-[#52637A]",
+                    "border-[#D0D7E2]"
+                );
+
+                botao.classList.add(
+                    "bg-[#EAF0FF]",
+                    "text-[#062F80]",
+                    "border-[#BFD0F5]"
+                );
+
+            }
+
+        });
+
+
+    atualizarTextoFiltro();
+
+    aplicarFiltrosBiblioteca();
+
+}
+
+
+// Fecha o painel
+function fecharCategorias() {
+
+    document
+        .getElementById("painelCategorias")
+        .classList.add("hidden");
+
+}
+
+
+// Texto que aparece no rodapé do painel
+function atualizarTextoFiltro() {
+
+    const texto =
+        document.getElementById(
+            "filtroSelecionado"
+        );
+
+
+    if (
+        tipoSelecionado === "todos" &&
+        categoriaSelecionada === "todos"
+    ) {
+
+        texto.textContent =
+            "Mostrando todos os conteúdos.";
+
+        return;
+    }
+
+
+    const filtros = [];
+
+
+    if (tipoSelecionado !== "todos") {
+        filtros.push(tipoSelecionado);
+    }
+
+
+    if (categoriaSelecionada !== "todos") {
+        filtros.push(categoriaSelecionada);
+    }
+
+
+    texto.textContent =
+        "Filtros ativos: " +
+        filtros.join(" + ");
+
+}
+
+
+// Aplica Tipo + Categoria + Busca
+function aplicarFiltrosBiblioteca() {
+
+    const termo =
+        normalizarTexto(
+            document.getElementById(
+                "searchInput"
+            )?.value
+        );
+
+
+    document
+        .querySelectorAll(".content-item")
+        .forEach(item => {
+
+            const tipo =
+                normalizarTexto(
+                    item.dataset.tipo
+                );
+
+            const categoria =
+                normalizarTexto(
+                    item.dataset.categoria
+                );
+
+            const texto =
+                normalizarTexto(
+                    item.innerText
+                );
+
+
+            // Verifica o tipo
+            const correspondeTipo =
+                tipoSelecionado === "todos" ||
+                tipo ===
+                    normalizarTexto(
+                        tipoSelecionado
+                    );
+
+
+            // Verifica categoria
+            const correspondeCategoria =
+                categoriaSelecionada === "todos" ||
+                categoria ===
+                    normalizarTexto(
+                        categoriaSelecionada
+                    );
+
+
+            // Verifica busca
+            const correspondeBusca =
+                !termo ||
+                texto.includes(termo);
+
+
+            // Só aparece se passar pelos 3 filtros
+            item.style.display =
+                correspondeTipo &&
+                correspondeCategoria &&
+                correspondeBusca
+                    ? ""
+                    : "none";
+
+        });
+
+}
+    
 async function carregarBiblioteca() {
 
     const { data, error } =
@@ -494,91 +1012,165 @@ async function carregarBiblioteca() {
     data.forEach(item => {
 
         const card = `
-        <details
+<article
+    class="
+        content-item
+        group
+        bg-surface-container-lowest
+        border
+        border-outline-variant
+        rounded-2xl
+        overflow-hidden
+        shadow-sm
+        hover:shadow-md
+        transition-all
+        duration-300
+        hover:-translate-y-1
+        flex
+        flex-col
+    "
+    data-tipo="${item.tipo || ""}"
+    data-categoria="${item.categoria || ""}"
+>
+
+    <!-- CAPA -->
+    <div class="relative w-full h-40 overflow-hidden">
+
+        <img
+            src="${item.thumbnail_url || ''}"
+            alt="${item.title || 'Imagem do conteúdo'}"
             class="
-                content-item
-                ${(item.tipo || "")
-                    .toLowerCase()}
-                ${(item.categoria || "")
-                    .toLowerCase()
-                    .normalize('NFD')
-                    .replace(/[\u0300-\u036f]/g, '')
-                    .replaceAll(' ', '-')}
-                group
-                bg-surface-container-lowest
-                border
-                border-outline-variant
-                rounded-xl
-                overflow-hidden">
+                w-full
+                h-full
+                object-cover
+                transition-transform
+                duration-500
+                group-hover:scale-105
+            "
+        >
 
-            <summary class="flex items-center justify-between p-4 cursor-pointer list-none">
+        <!-- Tipo do conteúdo -->
+        <span
+            class="
+                absolute
+                top-3
+                left-3
+                px-3
+                py-1
+                rounded-full
+                bg-white/90
+                backdrop-blur-sm
+                text-[#245B65]
+                text-xs
+                font-bold
+                uppercase
+                tracking-wide
+                shadow-sm
+            "
+        >
+            ${item.tipo || "Conteúdo"}
+        </span>
 
-                <div class="flex flex-col">
+    </div>
 
-                    <span class="text-[10px] text-primary font-bold uppercase tracking-wider mb-1">
 
-                        #${item.categoria}
+    <!-- CONTEÚDO DO CARD -->
+    <div class="p-5 flex flex-col flex-1">
 
-                    </span>
+        <!-- Categoria -->
+        <span
+            class="
+                text-[11px]
+                text-primary
+                font-bold
+                uppercase
+                tracking-wider
+                mb-2
+            "
+        >
+            #${item.categoria || "Geral"}
+        </span>
 
-                    <h4 class="font-label-md text-on-surface">
 
-                        ${item.title}
+        <!-- Título -->
+        <h3
+            class="
+                font-headline-md
+                text-on-surface
+                text-lg
+                font-semibold
+                leading-snug
+                mb-3
+            "
+        >
+            ${item.title}
+        </h3>
 
-                    </h4>
 
-                </div>
+        <!-- Resumo -->
+        <p
+            class="
+                text-on-surface-variant
+                text-sm
+                leading-relaxed
+                mb-5
+                line-clamp-3
+            "
+        >
+            ${item.resumo || ""}
+        </p>
 
-                <span class="material-symbols-outlined">
 
-                    expand_more
+        <!-- Rodapé -->
+        <div
+            class="
+                mt-auto
+                flex
+                items-center
+                justify-between
+                gap-3
+            "
+        >
 
-                </span>
+            <!-- Autor -->
+            <span
+                class="
+                    text-xs
+                    text-outline
+                    truncate
+                "
+            >
+                ${item.autores || "Equipe Equilibra"}
+            </span>
 
-            </summary>
 
-            <div class="p-4 pt-0 border-t border-outline-variant/30">
+            <!-- Botão -->
+            <a
+                href="${item.pdf_url || '#'}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="
+                    bg-primary
+                    text-on-primary
+                    px-4
+                    py-2
+                    rounded-lg
+                    text-sm
+                    font-medium
+                    whitespace-nowrap
+                    hover:opacity-90
+                    transition-all
+                "
+            >
+                Ler Agora
+            </a>
 
-                <div class="flex flex-col md:flex-row gap-4 mt-4">
+        </div>
 
-                    <img
-                        src="${item.thumbnail_url}"
-                        class="w-full md:w-32 h-32 object-cover rounded-lg">
+    </div>
 
-                    <div class="flex-1 flex flex-col">
+</article>
 
-                        <p class="font-body-md text-sm text-on-surface-variant mb-4">
-
-                            ${item.resumo}
-
-                        </p>
-
-                        <div class="mt-auto flex items-center justify-between">
-
-                            <span class="text-xs text-outline">
-
-                                ${item.autores}
-
-                            </span>
-
-                            <a
-                                href="${item.pdf_url}"
-                                target="_blank"
-                                class="bg-primary text-on-primary px-4 py-2 rounded-lg text-sm">
-
-                                Ler Agora
-
-                            </a>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </details>
         `;
 
         if (
@@ -611,36 +1203,72 @@ async function carregarBiblioteca() {
         
     });
 }
-carregarBiblioteca();
-document
-    .getElementById("searchInput")
-    .addEventListener(
-        "input",
-        function () {
+async function iniciarBiblioteca() {
 
-            const termo =
-                this.value
+    await carregarBiblioteca();
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+    const categoriaURL =
+        params.get("categoria");
+
+    if (categoriaURL) {
+
+        selecionarCategoria(categoriaURL);
+
+    }
+
+}
+
+iniciarBiblioteca();
+document
+    .querySelectorAll(
+        "#artigosContainer, #cartilhasContainer, #materiasContainer"
+    )
+    .forEach(container => {
+
+        container.classList.add(
+            "grid",
+            "grid-cols-1",
+            "md:grid-cols-2",
+            "xl:grid-cols-3",
+            "gap-5"
+        );
+
+    });
+
+    document
+    .getElementById("searchInput")
+    .addEventListener("input", function () {
+
+        const termo = this.value
+            .toLowerCase()
+            .trim();
+
+        document
+            .querySelectorAll(".content-item")
+            .forEach(item => {
+
+                const texto = item.innerText
                     .toLowerCase();
 
-            document
-                .querySelectorAll(
-                    ".content-item"
-                )
-                .forEach(item => {
+                if (texto.includes(termo)) {
+                    item.style.display = "";
+                } else {
+                    item.style.display = "none";
+                }
 
-                    const texto =
-                        item.innerText
-                            .toLowerCase();
+            });
+    });
+    const params = new URLSearchParams(window.location.search);
+    const categoriaURL = params.get("categoria");
 
-                    item.style.display =
-                        texto.includes(
-                            termo
-                        )
-                        ? ""
-                        : "none";
-                });
-        }
-    );
+    if (categoriaURL) {
+        selecionarCategoria(categoriaURL);
+    }
 </script>
 <!-- Modal de Avaliação -->
 

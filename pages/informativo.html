@@ -107,7 +107,7 @@
         {
             title: "Problemas com o Sono",
             description: "Dificuldade persistente para dormir ou descansar adequadamente após períodos intensos de trabalho.",
-            image: "assets/images/sono.jpg",
+            image: "../assets/imagens/sono.png",
             icon: "bed",
             iconColor: "text-red-500",
             overlay: "from-red-100/95",
@@ -118,7 +118,7 @@
         {
             title: "Irritabilidade Aumentada",
             description: "Reações emocionais intensificadas, tensão frequente e sensação constante de sobrecarga.",
-            image: "assets/images/irritabilidade.jpg",
+            image: "../assets/imagens/irritacao.png",
             icon: "mood_bad",
             iconColor: "text-orange-500",
             overlay: "from-orange-100/95",
@@ -129,7 +129,7 @@
         {
             title: "Dificuldade de Concentração",
             description: "Lapsos de memória, dificuldade de foco e sensação de confusão mental durante a rotina.",
-            image: "assets/images/concentracao.jpg",
+            image: "../assets/imagens/cansaco_emocional.png",
             icon: "psychology",
             iconColor: "text-yellow-600",
             overlay: "from-yellow-100/95",
@@ -140,7 +140,7 @@
         {
             title: "Sobrecarga Emocional",
             description: "Sensação persistente de cansaço físico e emocional associada às demandas do trabalho.",
-            image: "assets/images/esgotamento.jpg",
+            image: "../assets/imagens/sobrecarga.png",
             icon: "sentiment_stressed",
             iconColor: "text-pink-500",
             overlay: "from-pink-100/95",
@@ -200,7 +200,49 @@
 
     }, 7000);
 
-    </script>
+    function abrirModalAtendimento() {
+
+    document
+        .getElementById("modalAtendimento")
+        .classList.remove("hidden");
+
+    document.body.classList.add("overflow-hidden");
+}
+
+
+function fecharModalAtendimento() {
+
+    document
+        .getElementById("modalAtendimento")
+        .classList.add("hidden");
+
+    document.body.classList.remove("overflow-hidden");
+}
+document
+    .getElementById("buscaAtendimento")
+    .addEventListener("input", function () {
+
+        const termo =
+            this.value
+                .toLowerCase()
+                .trim();
+
+        document
+            .querySelectorAll(".atendimento-item")
+            .forEach(item => {
+
+                const texto =
+                    item.innerText.toLowerCase();
+
+                item.style.display =
+                    texto.includes(termo)
+                        ? ""
+                        : "none";
+
+            });
+
+    });
+</script>
 <style>
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
@@ -225,7 +267,10 @@
 </div>
 <h1 class="font-headline-md text-headline-md font-bold text-[#6EAF8B]">equilibra</h1>
 </div>
-
+<button onclick="logout()" class="flex items-center gap-2 text-on-primary">
+    <span class="material-symbols-outlined">logout</span>
+    Sair
+</button>
 </div>
 </header>
 <main class="pt-24 pb-32 px-margin-mobile md:px-margin-desktop max-w-container-max-width mx-auto">
@@ -235,16 +280,6 @@
 
     <!-- HEADER -->
     <div class="mb-8" >
-
-        <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-container text-primary font-label-md text-label-md mb-4">
-
-            <span class="material-symbols-outlined text-[20px]">
-                health_and_safety
-            </span>
-
-            Saúde Mental no Trabalho
-
-        </span>
 
         <h2 class="font-display-sm text-display-sm text-on-surface mb-3 max-w-[800px]">
 
@@ -286,16 +321,7 @@
 
         <div class="relative">
 
-            <!-- BOTÃO ESQUERDA -->
-            <button
-                onclick="changeMentalHealthCard(-1)"
-                class="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/90 backdrop-blur-sm shadow-lg border border-outline-variant flex items-center justify-center hover:scale-105 transition-all duration-300">
-
-                <span class="material-symbols-outlined">
-                    chevron_left
-                </span>
-
-            </button>
+           
 
             <!-- CARD -->
             <div
@@ -331,7 +357,7 @@
 
                     <h3
                         id="mentalHealthTitle"
-                        class="font-display-xs text-display-xs text-on-surface mb-3">
+                        class="font-display-xs text-display-xs text-[#18233A] mb-3">
 
                         Problemas com o sono
 
@@ -349,121 +375,10 @@
 
             </div>
 
-            <!-- BOTÃO DIREITA -->
-            <button
-                onclick="changeMentalHealthCard(1)"
-                class="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/90 backdrop-blur-sm shadow-lg border border-outline-variant flex items-center justify-center hover:scale-105 transition-all duration-300">
-
-                <span class="material-symbols-outlined">
-                    chevron_right
-                </span>
-
-            </button>
 
         </div>
 
     </div>
-
-    <!-- ================================================= -->
-    <!-- CARDS - CUIDADOS RECOMENDADOS -->
-    <!-- ================================================= -->
-
-    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 mb-10">
-
-        <!-- CARD -->
-        <div class="p-6 rounded-3xl bg-blue-50 border border-blue-100">
-
-            <div class="w-14 h-14 rounded-2xl bg-blue-100 flex items-center justify-center mb-5">
-
-                <span class="material-symbols-outlined text-blue-500 text-[28px]">
-                    self_improvement
-                </span>
-
-            </div>
-
-            <h4 class="font-headline-sm text-on-surface mb-2">
-                Pausas Regulares
-            </h4>
-
-            <p class="text-body-md text-on-surface-variant leading-relaxed">
-
-                Pequenos intervalos durante o expediente auxiliam na redução da tensão física e emocional.
-
-            </p>
-
-        </div>
-
-        <!-- CARD -->
-        <div class="p-6 rounded-3xl bg-cyan-50 border border-cyan-100">
-
-            <div class="w-14 h-14 rounded-2xl bg-cyan-100 flex items-center justify-center mb-5">
-
-                <span class="material-symbols-outlined text-cyan-500 text-[28px]">
-                    water_drop
-                </span>
-
-            </div>
-
-            <h4 class="font-headline-sm text-on-surface mb-2">
-                Hidratação e Alimentação
-            </h4>
-
-            <p class="text-body-md text-on-surface-variant leading-relaxed">
-
-                Manter cuidados básicos ajuda na recuperação física e emocional durante jornadas intensas.
-
-            </p>
-
-        </div>
-
-        <!-- CARD -->
-        <div class="p-6 rounded-3xl bg-indigo-50 border border-indigo-100">
-
-            <div class="w-14 h-14 rounded-2xl bg-indigo-100 flex items-center justify-center mb-5">
-
-                <span class="material-symbols-outlined text-indigo-500 text-[28px]">
-                    groups
-                </span>
-
-            </div>
-
-            <h4 class="font-headline-sm text-on-surface mb-2">
-                Rede de Apoio
-            </h4>
-
-            <p class="text-body-md text-on-surface-variant leading-relaxed">
-
-                Compartilhar experiências com colegas fortalece o suporte emocional coletivo.
-
-            </p>
-
-        </div>
-
-        <!-- CARD -->
-        <div class="p-6 rounded-3xl bg-green-50 border border-green-100">
-
-            <div class="w-14 h-14 rounded-2xl bg-green-100 flex items-center justify-center mb-5">
-
-                <span class="material-symbols-outlined text-green-500 text-[28px]">
-                    favorite
-                </span>
-
-            </div>
-
-            <h4 class="font-headline-sm text-on-surface mb-2">
-                Respeite seus Limites
-            </h4>
-
-            <p class="text-body-md text-on-surface-variant leading-relaxed">
-
-                Reconhecer sinais de cansaço e permitir pausas é parte importante do autocuidado.
-
-            </p>
-
-        </div>
-
-    </div>
-
 
 
     <!-- ================================================= -->
@@ -527,50 +442,166 @@
 
             </div>
 
-            <!-- CARTILHA -->
-            <div class="p-6 rounded-3xl bg-surface-container-low border border-outline-variant flex items-start gap-5">
 
-                <div class="w-16 h-16 rounded-2xl bg-error-container flex items-center justify-center flex-shrink-0">
 
-                    <span class="material-symbols-outlined text-error text-[32px]">
-                        emergency_home
-                    </span>
+        </div>
+
+    </div>
+
+ <!-- ================================================= -->
+    <!-- CARDS - CUIDADOS RECOMENDADOS -->
+    <!-- ================================================= -->
+<section>
+    <div class="p-6 rounded-3xl bg-surface-container-low border border-outline-variant flex items-start gap-5 mb-6">
+
+        <div class="w-16 h-16 rounded-2xl bg-error-container flex items-center justify-center flex-shrink-0">
+
+            <span class="material-symbols-outlined text-error text-[32px]">
+                emergency_home
+            </span>
 
                 </div>
 
                 <div>
 
                     <h4 class="font-headline-sm text-on-surface mb-2">
-                        Sinais para Buscar Ajuda
+                        O que pode ajudar?
                     </h4>
 
                     <p class="text-body-md text-on-surface-variant mb-4 leading-relaxed">
 
-                        Conheça sinais emocionais e comportamentais que indicam necessidade de apoio especializado.
+                        Pequenas atitudes podem contribuir para o seu bem-estar:
 
                     </p>
 
-                    <button class="px-5 py-2 rounded-full bg-error text-on-error hover:opacity-90 transition-all duration-300">
+                    <span class="px-5 py-2 rounded-full bg-error text-on-error hover:opacity-90 transition-all duration-300">
 
-                        Ver Orientações
+                        Conheça os sinais:
 
-                    </button>
+                    </span>
 
                 </div>
 
             </div>
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 mb-10">
+
+        <!-- CARD -->
+        <div class="p-6 rounded-3xl bg-blue-50 border border-blue-100">
+
+            <div class="w-14 h-14 rounded-2xl bg-blue-100 flex items-center justify-center mb-5">
+
+                <span class="material-symbols-outlined text-blue-500 text-[28px]">
+                    self_improvement
+                </span>
+
+            </div>
+
+            <h4 class="font-headline-sm text-[#18233A] mb-2">
+                Faça pausas
+            </h4>
+
+            <p class="text-body-md text-on-surface-variant leading-relaxed">
+                Reserve alguns minutos para respirar e se afastar das demandas quando possível.
+            </p>
+
+        </div>
+
+        <!-- CARD -->
+        <div class="p-6 rounded-3xl bg-cyan-50 border border-cyan-100">
+
+            <div class="w-14 h-14 rounded-2xl bg-cyan-100 flex items-center justify-center mb-5">
+
+                <span class="material-symbols-outlined text-cyan-500 text-[28px]">
+                    pan_tool
+                </span>
+
+            </div>
+
+            <h4 class="font-headline-sm text-[#18233A] mb-2">
+                Respeite seus limites
+            </h4>
+
+            <p class="text-body-md text-on-surface-variant leading-relaxed">
+                Nem tudo precisa ser resolvido imediatamente. Reconheça o que está ou não sob seu controle.
+
+            </p>
+
+        </div>
+
+        <!-- CARD -->
+        <div class="p-6 rounded-3xl bg-indigo-50 border border-indigo-100 mb-4">
+
+            <div class="w-14 h-14 rounded-2xl bg-indigo-100 flex items-center justify-center mb-5">
+
+                <span class="material-symbols-outlined text-indigo-500 text-[28px]">
+                    bedtime
+                </span>
+
+            </div>
+
+            <h4 class="font-headline-sm text-[#18233A] mb-2">
+                Cuide das necessidades básicas
+            </h4>
+
+            <p class="text-body-md text-on-surface-variant leading-relaxed">
+                Sono, alimentação, hidratação e descanso também fazem parte do cuidado da saúde.
+            </p>
+
+        </div>
+
+        <!-- CARD -->
+        <div class="p-6 rounded-3xl bg-green-50 border border-green-100">
+
+            <div class="w-14 h-14 rounded-2xl bg-green-100 flex items-center justify-center mb-5">
+
+                <span class="material-symbols-outlined text-green-500 text-[28px]">
+                    groups
+                </span>
+
+            </div>
+
+            <h4 class="font-headline-sm text-[#18233A] mb-2">
+                Fortaleça sua rede de apoio
+            </h4>
+
+            <p class="text-body-md text-on-surface-variant leading-relaxed">
+
+               Compartilhar o que você está vivendo com pessoas de confiança pode tornar os momentos difíceis mais leves.
+
+            </p>
+
+        </div>
+        <!-- CARD -->
+        <div class="p-6 rounded-3xl bg-green-50 border border-green-100">
+
+            <div class="w-14 h-14 rounded-2xl bg-green-100 flex items-center justify-center mb-5">
+
+                <span class="material-symbols-outlined text-green-500 text-[28px]">
+                    psychology
+                </span>
+
+            </div>
+
+            <h4 class="font-headline-sm text-[#18233A] mb-2">
+                Busque estratégias de regulação
+            </h4>
+
+            <p class="text-body-md text-on-surface-variant leading-relaxed">
+
+                Respiração, atenção plena e outras práticas podem ajudar a lidar com momentos de tensão.
+
+            </p>
 
         </div>
 
     </div>
-
-
+</section>
 
     <!-- ================================================= -->
     <!-- BANNER FINAL -->
     <!-- ================================================= -->
 
-    <div class="relative overflow-hidden rounded-[32px] bg-gradient-to-r from-primary to-blue-700 p-10">
+    <div class="relative overflow-hidden rounded-[32px] bg-gradient-to-r from-primary to-blue-700 p-10 mb-6">
 
         <div class="absolute top-0 right-0 w-[320px] h-[320px] bg-white/5 rounded-full blur-3xl"></div>
 
@@ -582,7 +613,7 @@
                     favorite
                 </span>
 
-                Apoio Psicossocial
+                Você não precisa lidar com tudo sozinho
 
             </span>
 
@@ -595,80 +626,53 @@
             <p class="text-body-lg text-white/90 leading-relaxed max-w-[700px]">
 
                 Buscar apoio emocional, reconhecer limites e adotar estratégias de autocuidado são atitudes fundamentais para preservar a saúde mental e fortalecer o cuidado oferecido aos outros.
-
+                Procure ajuda imediatamente se estiver em uma situação de crise ou risco à sua própria segurança.
             </p>
         </div>
+        
     </div>
 </section>
+
+<section>
+    <div class="p-6 rounded-3xl bg-surface-container-low border border-outline-variant flex items-start gap-5 mb-6">
+
+        <div class="w-16 h-16 rounded-2xl bg-error-container flex items-center justify-center flex-shrink-0">
+
+            <span class="material-symbols-outlined text-error text-[32px]">
+                emergency_home
+            </span>
+
+                </div>
+
+                <div>
+
+                    <h4 class="font-headline-sm text-on-surface mb-2">
+                        Perceba quando pode ser importante pedir apoio.
+                    </h4>
+
+                    <p class="text-body-md text-on-surface-variant mb-4 leading-relaxed">
+
+                        Algumas mudanças persistentes no modo como você se sente, pensa ou age podem indicar que é hora de conversar com alguém e buscar cuidado ou ajuda.
+
+                    </p>
+
+                    <span class="px-5 py-2 rounded-full bg-error text-on-error hover:opacity-90 transition-all duration-300">
+
+                        Conheça os sinais:
+
+                    </span>
+
+                </div>
+
+            </div>
+
+</section>
+
+
 <!-- ================================================= -->
 <!-- SEÇÃO - PREVENÇÃO E APOIO EM SAÚDE MENTAL -->
 <!-- ================================================= -->
 <section class="mb-stack-xl" >
-
-    <!-- HEADER -->
-    <div class="mb-8">
-
-        <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-100 text-yellow-800 font-label-md text-label-md mb-4">
-
-            <span class="material-symbols-outlined text-[20px]">
-                health_and_safety
-            </span>
-
-            Apoio Emocional e Prevenção
-
-        </span>
-
-        <h2 class="font-display-sm text-display-sm text-on-surface mb-3 max-w-[850px]">
-
-            Falar sobre sofrimento emocional também é uma forma de cuidado.
-
-        </h2>
-
-        <p class="text-body-lg text-on-surface-variant leading-relaxed max-w-[900px]">
-
-            Situações de estresse intenso, sobrecarga emocional e esgotamento prolongado podem impactar significativamente a saúde mental. Reconhecer sinais de sofrimento e buscar apoio é um passo importante para a preservação da vida e do bem-estar.
-
-        </p>
-
-    </div>
-
-    <!-- ================================================= -->
-    <!-- BANNER PRINCIPAL -->
-    <!-- ================================================= -->
-
-    <div class="relative overflow-hidden rounded-[32px] bg-gradient-to-r from-yellow-500 to-orange-500 p-10 mb-10" id="valorizacaovida">
-
-        <div class="absolute top-0 right-0 w-[320px] h-[320px] bg-white/10 rounded-full blur-3xl"></div>
-
-        <div class="relative z-10 max-w-[800px]">
-
-            <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/15 text-white font-label-md text-label-md mb-5">
-
-                <span class="material-symbols-outlined text-[20px]">
-                    favorite
-                </span>
-
-                Você não precisa enfrentar isso sozinho
-
-            </span>
-
-            <h3 class="font-display-sm text-display-sm text-white mb-4">
-
-                Buscar ajuda é um ato de coragem e cuidado consigo mesmo.
-
-            </h3>
-
-            <p class="text-body-lg text-white/90 leading-relaxed">
-
-                Conversar com profissionais de saúde, colegas de confiança ou serviços especializados pode auxiliar na redução do sofrimento emocional e fortalecer estratégias de enfrentamento em momentos difíceis.
-
-            </p>
-
-        </div>
-
-    </div>
-
-
 
     <!-- ================================================= -->
     <!-- SINAIS DE ALERTA -->
@@ -676,109 +680,142 @@
 
     <div class="mb-10">
 
-        <div class="mb-5">
-
-            <h3 class="font-headline-md text-headline-md text-on-surface mb-2">
-                Sinais que Merecem Atenção
-            </h3>
-
-            <p class="text-body-md text-on-surface-variant">
-                Alguns sinais emocionais e comportamentais podem indicar sofrimento intenso e necessidade de apoio especializado.
-            </p>
-
-        </div>
-
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
 
             <!-- CARD -->
-            <div class="p-6 rounded-3xl bg-red-50 border border-red-100">
+            <div class="p-3 rounded-3xl bg-red-100 border border-red-100">
 
                 <div class="w-14 h-14 rounded-2xl bg-red-100 flex items-center justify-center mb-5">
 
                     <span class="material-symbols-outlined text-red-500 text-[28px]">
+                        sentiment_dissatisfied
+                    </span>
+
+                </div>
+
+                <h4 class="font-headline-sm text-on-surface-variant mb-2">
+                    Cansaço ou desânimo persistente
+                </h4>
+
+            </div>
+
+            <!-- CARD -->
+            <div class="p-6 rounded-3xl bg-red-100 border border-orange-100">
+
+                <div class="w-14 h-14 rounded-2xl bg-orange-100 flex items-center justify-center mb-5">
+
+                    <span class="material-symbols-outlined text-orange-500 text-[28px]">
+                        bedtime
+                    </span>
+
+                </div>
+
+                <h4 class="font-headline-sm text-on-surface-variant mb-2">
+                    Alterações importantes no sono ou apetite
+
+                </h4>
+
+            </div>
+
+            <!-- CARD -->
+            <div class="p-6 rounded-3xl bg-red-100 border border-yellow-100">
+
+                <div class="w-14 h-14 rounded-2xl bg-yellow-100 flex items-center justify-center mb-5">
+
+                    <span class="material-symbols-outlined text-yellow-600 text-[28px]">
                         mood_bad
                     </span>
 
                 </div>
 
-                <h4 class="font-headline-sm text-on-surface mb-2">
-                    Desânimo Persistente
+                <h4 class="font-headline-sm text-on-surface-variant mb-2">
+                    Ansiedade, irritabilidade ou tristeza intensas
                 </h4>
-
-                <p class="text-body-md text-on-surface-variant leading-relaxed">
-
-                    Sensação constante de tristeza, desesperança ou perda de interesse pelas atividades diárias.
-
-                </p>
 
             </div>
 
             <!-- CARD -->
-            <div class="p-6 rounded-3xl bg-orange-50 border border-orange-100">
+            <div class="p-6 rounded-3xl bg-red-100 border border-pink-100">
 
-                <div class="w-14 h-14 rounded-2xl bg-orange-100 flex items-center justify-center mb-5">
+                <div class="w-14 h-14 rounded-2xl bg-pink-100 flex items-center justify-center mb-5">
 
-                    <span class="material-symbols-outlined text-orange-500 text-[28px]">
-                        bed
-                    </span>
-
-                </div>
-
-                <h4 class="font-headline-sm text-on-surface mb-2">
-                    Alterações no Sono
-                </h4>
-
-                <p class="text-body-md text-on-surface-variant leading-relaxed">
-
-                    Dificuldade frequente para dormir, descansar ou manter uma rotina adequada de sono.
-
-                </p>
-
-            </div>
-
-            <!-- CARD -->
-            <div class="p-6 rounded-3xl bg-yellow-50 border border-yellow-100">
-
-                <div class="w-14 h-14 rounded-2xl bg-yellow-100 flex items-center justify-center mb-5">
-
-                    <span class="material-symbols-outlined text-yellow-600 text-[28px]">
+                    <span class="material-symbols-outlined text-pink-500 text-[28px]">
                         psychology
                     </span>
 
                 </div>
 
-                <h4 class="font-headline-sm text-on-surface mb-2">
-                    Sobrecarga Mental
+                <h4 class="font-headline-sm text-on-surface-variant mb-2">
+                    Dificuldade para se concentrar ou realizar atividades habituais
                 </h4>
 
-                <p class="text-body-md text-on-surface-variant leading-relaxed">
-
-                    Pensamentos recorrentes, dificuldade de concentração e sensação constante de pressão emocional.
-
-                </p>
-
             </div>
-
             <!-- CARD -->
-            <div class="p-6 rounded-3xl bg-pink-50 border border-pink-100">
+            <div class="p-6 rounded-3xl bg-red-100 border border-pink-100">
 
                 <div class="w-14 h-14 rounded-2xl bg-pink-100 flex items-center justify-center mb-5">
 
                     <span class="material-symbols-outlined text-pink-500 text-[28px]">
-                        groups
+                        battery_alert
                     </span>
 
                 </div>
 
-                <h4 class="font-headline-sm text-on-surface mb-2">
-                    Isolamento Social
+                <h4 class="font-headline-sm text-on-surface-variant mb-2">
+                    Sensação de sobrecarga que não melhora
+
                 </h4>
 
-                <p class="text-body-md text-on-surface-variant leading-relaxed">
+            </div>
+            <!-- CARD -->
+            <div class="p-6 rounded-3xl bg-red-100 border border-pink-100">
 
-                    Afastamento de colegas, familiares e redução do contato com a rede de apoio.
+                <div class="w-14 h-14 rounded-2xl bg-pink-100 flex items-center justify-center mb-5">
 
-                </p>
+                    <span class="material-symbols-outlined text-pink-500 text-[28px]">
+                        person_off
+                    </span>
+
+                </div>
+
+                <h4 class="font-headline-sm text-on-surface-variant mb-2">
+                    Isolamento ou perda de interesse por atividades
+
+                </h4>
+
+            </div>
+            <!-- CARD -->
+            <div class="p-6 rounded-3xl bg-red-100 border border-pink-100">
+
+                <div class="w-14 h-14 rounded-2xl bg-pink-100 flex items-center justify-center mb-5">
+
+                    <span class="material-symbols-outlined text-pink-500 text-[28px]">
+                        local_bar
+                    </span>
+
+                </div>
+
+                <h4 class="font-headline-sm text-on-surface-variant mb-2">
+                    Uso aumentado de álcool ou outras substâncias para lidar com o sofrimento
+
+                </h4>
+
+            </div>
+            <!-- CARD -->
+            <div class="p-6 rounded-3xl bg-red-100 border border-pink-100">
+
+                <div class="w-14 h-14 rounded-2xl bg-pink-100 flex items-center justify-center mb-5">
+
+                    <span class="material-symbols-outlined text-pink-500 text-[28px]">
+                        emergency
+                    </span>
+
+                </div>
+
+                <h4 class="font-headline-sm text-on-surface-variant mb-2">
+                    Pensamentos de morte, de desaparecer ou de não querer mais viver
+
+                </h4>
 
             </div>
 
@@ -788,6 +825,8 @@
 
 
 
+
+    
     <!-- ================================================= -->
     <!-- CONTATOS DE APOIO -->
     <!-- ================================================= -->
@@ -872,18 +911,17 @@
                     </div>
 
                     <h4 class="font-display-xs text-display-xs text-on-surface mb-3">
-                        Rede de Atenção Psicossocial
+                        Onde buscar atendimento
                     </h4>
 
                     <p class="text-body-lg text-on-surface-variant mb-5 leading-relaxed">
 
-                        Unidades de saúde, CAPS e serviços da rede pública podem auxiliar no acolhimento e acompanhamento em saúde mental.
-
+                        Serviços de saúde, psicologia e atenção psicossocial podem oferecer acolhimento, orientação e acompanhamento em saúde mental.
                     </p>
 
-                    <button class="px-5 py-3 rounded-full bg-primary text-on-primary hover:opacity-90 transition-all duration-300">
+                    <button onclick="abrirModalAtendimento()" class="px-5 py-3 rounded-full bg-primary text-on-primary hover:opacity-90 transition-all duration-300">
 
-                        Buscar Atendimento
+                        Ver serviços disponíveis
 
                     </button>
 
@@ -916,13 +954,11 @@
             <div>
 
                 <h3 class="font-headline-md text-headline-md text-on-surface mb-3">
-                    Cuidar de si também é parte do cuidado com o outro.
+                    Seu cuidado também importa.
                 </h3>
 
                 <p class="text-body-lg text-on-surface-variant leading-relaxed max-w-[900px]">
-
-                    Reconhecer limites, conversar sobre emoções e buscar apoio especializado são atitudes importantes para preservar a saúde mental e fortalecer vínculos de cuidado dentro e fora do ambiente profissional.
-
+                    Reconhecer seus limites, falar sobre o que você sente e buscar apoio quando necessário são formas de cuidar da sua saúde mental e fortalecer suas relações, dentro e fora do trabalho.
                 </p>
 
             </div>
@@ -972,7 +1008,7 @@
         </span>
 
     </a>
-    
+
 </a>
 </nav>
 <button
@@ -994,6 +1030,1239 @@
         class="w-8 h-8 transition-all duration-300">
 
 </button>
+<!-- ================================================= -->
+<!-- MODAL - ONDE BUSCAR ATENDIMENTO -->
+<!-- ================================================= -->
+
+<div
+    id="modalAtendimento"
+    class="hidden fixed inset-0 z-50
+           bg-black/50 backdrop-blur-sm
+           flex items-center justify-center
+           p-4">
+
+    <div
+        class="relative w-full max-w-3xl
+               max-h-[90vh]
+               overflow-hidden
+               bg-white dark:bg-[#18233A]
+               rounded-3xl
+               shadow-2xl
+               border border-[#D8DEE8]
+               dark:border-[#3B4A63]">
+
+        <!-- CABEÇALHO -->
+        <div
+            class="flex items-start justify-between
+                   p-6
+                   border-b border-[#E8ECF2]
+                   dark:border-[#3B4A63]">
+
+            <div>
+
+                <h2
+                    class="text-xl font-semibold
+                           text-[#18233A]
+                           dark:text-white">
+
+                    Onde buscar atendimento
+
+                </h2>
+
+                <p
+                    class="mt-1 text-sm
+                           text-[#718096]
+                           dark:text-[#CBD5E1]">
+
+                    Encontre serviços e contatos que podem
+                    oferecer apoio e atendimento.
+
+                </p>
+
+            </div>
+
+            <!-- FECHAR -->
+            <button
+                onclick="fecharModalAtendimento()"
+                class="w-9 h-9 rounded-full
+                       flex items-center justify-center
+                       bg-[#F1F4F8]
+                       dark:bg-[#26354D]
+                       text-[#52637A]
+                       dark:text-[#CBD5E1]
+                       hover:bg-[#E2E8F0]
+                       transition">
+
+                <span class="material-symbols-outlined">
+                    close
+                </span>
+
+            </button>
+
+        </div>
+
+
+        <!-- CONTEÚDO COM SCROLL -->
+        <div
+            class="p-6 overflow-y-auto
+                   max-h-[calc(90vh-100px)]">
+
+
+            <!-- BUSCA -->
+            <div class="relative mb-6">
+
+                <span
+                    class="material-symbols-outlined
+                           absolute left-4 top-1/2
+                           -translate-y-1/2
+                           text-[#718096]">
+
+                    search
+
+                </span>
+
+                <input
+                    id="buscaAtendimento"
+                    type="text"
+                    placeholder="Buscar por serviço, instituição ou cidade..."
+                    class="w-full
+                           pl-12 pr-4 py-3
+                           rounded-xl
+                           border border-[#D0D7E2]
+                           dark:border-[#52637A]
+                           bg-[#F8FAFC]
+                           dark:bg-[#26354D]
+                           text-[#18233A]
+                           dark:text-white
+                           placeholder:text-[#718096]
+                           outline-none
+                           focus:border-[#062F80]
+                           transition">
+
+            </div>
+
+
+            <!-- ================================================= -->
+<!-- LISTA DE SERVIÇOS -->
+<!-- ================================================= -->
+
+<div class="space-y-4">
+
+
+    <!-- ================================================= -->
+    <!-- CANOAS -->
+    <!-- ================================================= -->
+
+    <details class="grupo-atendimento" open>
+
+        <summary
+            class="flex items-center justify-between
+                   cursor-pointer
+                   px-4 py-3
+                   rounded-xl
+                   bg-[#F1F5FF]
+                   dark:bg-[#202F49]
+                   text-[#18233A]
+                   dark:text-white
+                   font-semibold">
+
+            <span class="flex items-center gap-2">
+
+                <span class="material-symbols-outlined text-blue-500">
+                    location_on
+                </span>
+
+                Canoas – RS
+
+            </span>
+
+            <span class="material-symbols-outlined">
+                expand_more
+            </span>
+
+        </summary>
+
+
+        <div class="lista-atendimentos mt-3 space-y-3">
+
+
+            <!-- CAPS II NOVOS TEMPOS -->
+
+            <div class="atendimento-item
+                        p-4 rounded-2xl
+                        border border-[#E2E8F0]
+                        dark:border-[#3B4A63]
+                        bg-white dark:bg-[#202F49]">
+
+                <h4 class="font-semibold text-[#18233A] dark:text-white">
+                    CAPS II Novos Tempos
+                </h4>
+
+                <div class="mt-2 space-y-1 text-sm
+                            text-[#718096] dark:text-[#CBD5E1]">
+
+                    <div class="flex gap-2">
+                        <span class="material-symbols-outlined text-[18px]">
+                            location_on
+                        </span>
+
+                        Rua São Caetano, 102 – Marechal Rondon
+                    </div>
+
+                    <div class="flex gap-2">
+                        <span class="material-symbols-outlined text-[18px]">
+                            phone
+                        </span>
+
+                        (51) 3076-9741
+                    </div>
+
+                </div>
+
+                <div class="flex gap-2 mt-4">
+
+                    <a href="tel:5130769741"
+                       class="px-4 py-2 rounded-xl bg-[#062F80]
+                              text-white text-sm font-semibold">
+                        Ligar
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- CAPS III RECANTO DOS GIRASSÓIS -->
+
+            <div class="atendimento-item p-4 rounded-2xl border border-[#E2E8F0]
+                        dark:border-[#3B4A63] bg-white dark:bg-[#202F49]">
+
+                <h4 class="font-semibold text-[#18233A] dark:text-white">
+                    CAPS III Recanto dos Girassóis
+                </h4>
+
+                <div class="mt-2 space-y-1 text-sm text-[#718096] dark:text-[#CBD5E1]">
+
+                    <div class="flex gap-2">
+                        <span class="material-symbols-outlined text-[18px]">location_on</span>
+                        Rua Domingos Martins, 310 – Centro
+                    </div>
+
+                    <div class="flex gap-2">
+                        <span class="material-symbols-outlined text-[18px]">phone</span>
+                        (51) 3076-9744
+                    </div>
+
+                </div>
+
+                <div class="mt-4">
+                    <a href="tel:5130769744"
+                       class="px-4 py-2 rounded-xl bg-[#062F80] text-white text-sm font-semibold">
+                        Ligar
+                    </a>
+                </div>
+
+            </div>
+
+
+            <!-- CAPS AD III TRAVESSIA -->
+
+            <div class="atendimento-item p-4 rounded-2xl border border-[#E2E8F0]
+                        dark:border-[#3B4A63] bg-white dark:bg-[#202F49]">
+
+                <h4 class="font-semibold text-[#18233A] dark:text-white">
+                    CAPS AD III Travessia
+                </h4>
+
+                <div class="mt-2 space-y-1 text-sm text-[#718096] dark:text-[#CBD5E1]">
+
+                    <div class="flex gap-2">
+                        <span class="material-symbols-outlined text-[18px]">location_on</span>
+                        Rua Coronel Marcelino, 25 – Centro
+                    </div>
+
+                    <div class="flex gap-2">
+                        <span class="material-symbols-outlined text-[18px]">phone</span>
+                        (51) 3076-9742
+                    </div>
+
+                </div>
+
+                <div class="mt-4">
+                    <a href="tel:5130769742"
+                       class="px-4 py-2 rounded-xl bg-[#062F80] text-white text-sm font-semibold">
+                        Ligar
+                    </a>
+                </div>
+
+            </div>
+
+
+            <!-- CAPS AD III AMANHECER -->
+
+            <div class="atendimento-item p-4 rounded-2xl border border-[#E2E8F0]
+                        dark:border-[#3B4A63] bg-white dark:bg-[#202F49]">
+
+                <h4 class="font-semibold text-[#18233A] dark:text-white">
+                    CAPS AD III Amanhecer
+                </h4>
+
+                <div class="mt-2 space-y-1 text-sm text-[#718096] dark:text-[#CBD5E1]">
+
+                    <div class="flex gap-2">
+                        <span class="material-symbols-outlined text-[18px]">location_on</span>
+                        Rua Dona Rafaela, 591 – Marechal Rondon
+                    </div>
+
+                    <div class="flex gap-2">
+                        <span class="material-symbols-outlined text-[18px]">phone</span>
+                        (51) 3076-9743
+                    </div>
+
+                </div>
+
+                <div class="mt-4">
+                    <a href="tel:5130769743"
+                       class="px-4 py-2 rounded-xl bg-[#062F80] text-white text-sm font-semibold">
+                        Ligar
+                    </a>
+                </div>
+
+            </div>
+
+
+            <!-- CAPS I ARCO ÍRIS -->
+
+            <div class="atendimento-item p-4 rounded-2xl border border-[#E2E8F0]
+                        dark:border-[#3B4A63] bg-white dark:bg-[#202F49]">
+
+                <h4 class="font-semibold text-[#18233A] dark:text-white">
+                    CAPS I Arco Íris (CAPSi)
+                </h4>
+
+                <div class="mt-2 space-y-1 text-sm text-[#718096] dark:text-[#CBD5E1]">
+
+                    <div class="flex gap-2">
+                        <span class="material-symbols-outlined text-[18px]">location_on</span>
+                        Rua Major Ernesto Wittrock, 51 – Centro
+                    </div>
+
+                    <div class="flex gap-2">
+                        <span class="material-symbols-outlined text-[18px]">phone</span>
+                        (51) 3236-1626
+                    </div>
+
+                </div>
+
+                <div class="mt-4">
+                    <a href="tel:5132361626"
+                       class="px-4 py-2 rounded-xl bg-[#062F80] text-white text-sm font-semibold">
+                        Ligar
+                    </a>
+                </div>
+
+            </div>
+
+
+            <!-- SERVIÇO ESCOLA LA SALLE -->
+
+            <div class="atendimento-item p-4 rounded-2xl border border-[#E2E8F0]
+                        dark:border-[#3B4A63] bg-white dark:bg-[#202F49]">
+
+                <h4 class="font-semibold text-[#18233A] dark:text-white">
+                    Serviço Escola de Psicologia – Universidade La Salle
+                </h4>
+
+                <div class="mt-2 space-y-1 text-sm text-[#718096] dark:text-[#CBD5E1]">
+
+                    <div class="flex gap-2">
+                        <span class="material-symbols-outlined text-[18px]">location_on</span>
+                        Rua XV de Janeiro, 423 / Av. Getúlio Vargas, 5524 – Centro
+                    </div>
+
+                    <div class="flex gap-2">
+                        <span class="material-symbols-outlined text-[18px]">phone</span>
+                        (51) 3476-8333
+                    </div>
+
+                </div>
+
+                <div class="mt-4">
+                    <a href="tel:5134768333"
+                       class="px-4 py-2 rounded-xl bg-[#062F80] text-white text-sm font-semibold">
+                        Ligar
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+
+    </details>
+
+
+
+    <!-- ================================================= -->
+    <!-- PORTO ALEGRE -->
+    <!-- ================================================= -->
+
+    <details class="grupo-atendimento">
+
+        <summary
+            class="flex items-center justify-between
+                   cursor-pointer px-4 py-3 rounded-xl
+                   bg-[#F1F5FF] dark:bg-[#202F49]
+                   text-[#18233A] dark:text-white
+                   font-semibold">
+
+            <span class="flex items-center gap-2">
+
+                <span class="material-symbols-outlined text-indigo-500">
+                    location_on
+                </span>
+
+                Porto Alegre – RS
+
+            </span>
+
+            <span class="material-symbols-outlined">
+                expand_more
+            </span>
+
+        </summary>
+
+
+        <div class="lista-atendimentos mt-3 space-y-3">
+
+
+            <!-- UFRGS -->
+
+            <div class="atendimento-item p-4 rounded-2xl border border-[#E2E8F0]
+                        dark:border-[#3B4A63] bg-white dark:bg-[#202F49]">
+
+                <h4 class="font-semibold text-[#18233A] dark:text-white">
+                    Clínica Psicológica da UFRGS
+                </h4>
+
+                <div class="mt-2 space-y-1 text-sm text-[#718096] dark:text-[#CBD5E1]">
+                    <div class="flex gap-2">
+                        <span class="material-symbols-outlined text-[18px]">location_on</span>
+                        Av. Protásio Alves, 297 – Protásio Alves
+                    </div>
+                    <div class="flex gap-2">
+                        <span class="material-symbols-outlined text-[18px]">phone</span>
+                        (51) 3308-2024
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <a href="tel:5133082024"
+                       class="px-4 py-2 rounded-xl bg-[#062F80] text-white text-sm font-semibold">
+                        Ligar
+                    </a>
+                </div>
+
+            </div>
+
+
+            <!-- CEFI -->
+
+            <div class="atendimento-item p-4 rounded-2xl border border-[#E2E8F0]
+                        dark:border-[#3B4A63] bg-white dark:bg-[#202F49]">
+
+                <h4 class="font-semibold text-[#18233A] dark:text-white">
+                    CEFI
+                </h4>
+
+                <div class="mt-2 space-y-1 text-sm text-[#718096] dark:text-[#CBD5E1]">
+                    <div class="flex gap-2">
+                        <span class="material-symbols-outlined text-[18px]">location_on</span>
+                        Rua Carlos Trein Filho, 34 – Auxiliadora
+                    </div>
+                    <div class="flex gap-2">
+                        <span class="material-symbols-outlined text-[18px]">phone</span>
+                        (51) 99420-7008
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <a href="tel:51994207008"
+                       class="px-4 py-2 rounded-xl bg-[#062F80] text-white text-sm font-semibold">
+                        Ligar
+                    </a>
+                </div>
+
+            </div>
+
+
+            <!-- SAPP PUCRS -->
+
+            <div class="atendimento-item p-4 rounded-2xl border border-[#E2E8F0]
+                        dark:border-[#3B4A63] bg-white dark:bg-[#202F49]">
+
+                <h4 class="font-semibold text-[#18233A] dark:text-white">
+                    Serviço de Atendimento e Pesquisa em Psicologia (SAPP) – PUCRS
+                </h4>
+
+                <div class="mt-2 space-y-1 text-sm text-[#718096] dark:text-[#CBD5E1]">
+                    <div class="flex gap-2">
+                        <span class="material-symbols-outlined text-[18px]">location_on</span>
+                        Av. Ipiranga, 6681 – Prédio 11, Sala 209 – Partenon
+                    </div>
+                    <div class="flex gap-2">
+                        <span class="material-symbols-outlined text-[18px]">phone</span>
+                        (51) 3320-3561
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <a href="tel:5133203561"
+                       class="px-4 py-2 rounded-xl bg-[#062F80] text-white text-sm font-semibold">
+                        Ligar
+                    </a>
+                </div>
+
+            </div>
+
+
+            <!-- InTCC -->
+
+            <div class="atendimento-item p-4 rounded-2xl border border-[#E2E8F0]
+                        dark:border-[#3B4A63] bg-white dark:bg-[#202F49]">
+
+                <h4 class="font-semibold text-[#18233A] dark:text-white">
+                    InTCC
+                </h4>
+
+                <div class="mt-2 space-y-1 text-sm text-[#718096] dark:text-[#CBD5E1]">
+                    <div class="flex gap-2">
+                        <span class="material-symbols-outlined text-[18px]">location_on</span>
+                        Av. Chicago, 36 – Floresta
+                    </div>
+                    <div class="flex gap-2">
+                        <span class="material-symbols-outlined text-[18px]">phone</span>
+                        (51) 3022-3006
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <a href="tel:5130223006"
+                       class="px-4 py-2 rounded-xl bg-[#062F80] text-white text-sm font-semibold">
+                        Ligar
+                    </a>
+                </div>
+
+            </div>
+
+
+            <!-- INSTITUTO BION -->
+
+            <div class="atendimento-item p-4 rounded-2xl border border-[#E2E8F0]
+                        dark:border-[#3B4A63] bg-white dark:bg-[#202F49]">
+
+                <h4 class="font-semibold text-[#18233A] dark:text-white">
+                    Instituto Bion
+                </h4>
+
+                <div class="mt-2 space-y-1 text-sm text-[#718096] dark:text-[#CBD5E1]">
+                    <div class="flex gap-2">
+                        <span class="material-symbols-outlined text-[18px]">location_on</span>
+                        Rua Pedro Pieretti, 80 – Jardim Botânico
+                    </div>
+                    <div class="flex gap-2">
+                        <span class="material-symbols-outlined text-[18px]">phone</span>
+                        (51) 3337-5657
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <a href="tel:5133375657"
+                       class="px-4 py-2 rounded-xl bg-[#062F80] text-white text-sm font-semibold">
+                        Ligar
+                    </a>
+                </div>
+
+            </div>
+
+
+            <!-- ESMA ASSIS BRASIL -->
+
+            <div class="atendimento-item p-4 rounded-2xl border border-[#E2E8F0]
+                        dark:border-[#3B4A63] bg-white dark:bg-[#202F49]">
+
+                <h4 class="font-semibold text-[#18233A] dark:text-white">
+                    ESMA Assis Brasil – Equipe de Saúde Mental Adulto
+                </h4>
+
+                <div class="mt-2 space-y-1 text-sm text-[#718096] dark:text-[#CBD5E1]">
+                    <div class="flex gap-2">
+                        <span class="material-symbols-outlined text-[18px]">location_on</span>
+                        Rua Rodrigues da Costa, 11 – Sarandi
+                    </div>
+                    <div class="flex gap-2">
+                        <span class="material-symbols-outlined text-[18px]">phone</span>
+                        (51) 3289-8230
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <a href="tel:5132898230"
+                       class="px-4 py-2 rounded-xl bg-[#062F80] text-white text-sm font-semibold">
+                        Ligar
+                    </a>
+                </div>
+
+            </div>
+
+
+            <!-- ESMA IAPI -->
+
+            <div class="atendimento-item p-4 rounded-2xl border border-[#E2E8F0]
+                        dark:border-[#3B4A63] bg-white dark:bg-[#202F49]">
+
+                <h4 class="font-semibold text-[#18233A] dark:text-white">
+                    ESMA IAPI – Equipe de Saúde Mental Adulto
+                </h4>
+
+                <div class="mt-2 space-y-1 text-sm text-[#718096] dark:text-[#CBD5E1]">
+                    <div>📍 Rua 3 de Abril, nº 90 – Posto IAPI, Área 13 – Passo d’Areia</div>
+                    <div>📞 (51) 3289-3407</div>
+                </div>
+
+                <div class="mt-4">
+                    <a href="tel:5132893407"
+                       class="px-4 py-2 rounded-xl bg-[#062F80] text-white text-sm font-semibold">
+                        Ligar
+                    </a>
+                </div>
+
+            </div>
+
+
+            <!-- ESMA CAMAQUÃ -->
+
+            <div class="atendimento-item p-4 rounded-2xl border border-[#E2E8F0]
+                        dark:border-[#3B4A63] bg-white dark:bg-[#202F49]">
+
+                <h4 class="font-semibold text-[#18233A] dark:text-white">
+                    ESMA Camaquã – Equipe de Saúde Mental Adulto
+                </h4>
+
+                <div class="mt-2 space-y-1 text-sm text-[#718096] dark:text-[#CBD5E1]">
+                    <div>📍 Rua João Pitta Pinheiro Filho, nº 176 – Camaquã</div>
+                    <div>📞 (51) 3289-5609</div>
+                </div>
+
+                <div class="mt-4">
+                    <a href="tel:5132895609"
+                       class="px-4 py-2 rounded-xl bg-[#062F80] text-white text-sm font-semibold">
+                        Ligar
+                    </a>
+                </div>
+
+            </div>
+
+
+            <!-- ESMA RESTINGA -->
+
+            <div class="atendimento-item p-4 rounded-2xl border border-[#E2E8F0]
+                        dark:border-[#3B4A63] bg-white dark:bg-[#202F49]">
+
+                <h4 class="font-semibold text-[#18233A] dark:text-white">
+                    ESMA Restinga – Equipe de Saúde Mental Adulto
+                </h4>
+
+                <div class="mt-2 space-y-1 text-sm text-[#718096] dark:text-[#CBD5E1]">
+                    <div>📍 Rua Abolição, nº 850, fundos – Restinga</div>
+                    <div>📞 (51) 3289-5246</div>
+                </div>
+
+                <div class="mt-4">
+                    <a href="tel:5132895246"
+                       class="px-4 py-2 rounded-xl bg-[#062F80] text-white text-sm font-semibold">
+                        Ligar
+                    </a>
+                </div>
+
+            </div>
+
+
+            <!-- ESMA MORRO SANTANA -->
+
+            <div class="atendimento-item p-4 rounded-2xl border border-[#E2E8F0]
+                        dark:border-[#3B4A63] bg-white dark:bg-[#202F49]">
+
+                <h4 class="font-semibold text-[#18233A] dark:text-white">
+                    ESMA Morro Santana – Equipe de Saúde Mental Adulto
+                </h4>
+
+                <div class="mt-2 space-y-1 text-sm text-[#718096] dark:text-[#CBD5E1]">
+                    <div>📍 Rua Marieta Menna Barreto, nº 210 – Alto Petrópolis</div>
+                    <div>📞 (51) 3289-8262</div>
+                </div>
+
+                <div class="mt-4">
+                    <a href="tel:5132898262"
+                       class="px-4 py-2 rounded-xl bg-[#062F80] text-white text-sm font-semibold">
+                        Ligar
+                    </a>
+                </div>
+
+            </div>
+
+
+            <!-- ESMA TOBIAS BARRETO -->
+
+            <div class="atendimento-item p-4 rounded-2xl border border-[#E2E8F0]
+                        dark:border-[#3B4A63] bg-white dark:bg-[#202F49]">
+
+                <h4 class="font-semibold text-[#18233A] dark:text-white">
+                    ESMA Tobias Barreto – Equipe de Saúde Mental Adulto
+                </h4>
+
+                <div class="mt-2 space-y-1 text-sm text-[#718096] dark:text-[#CBD5E1]">
+                    <div>📍 Rua Tobias Barreto, nº 216 – Partenon</div>
+                    <div>📞 (51) 3289-5776</div>
+                </div>
+
+                <div class="mt-4">
+                    <a href="tel:5132895776"
+                       class="px-4 py-2 rounded-xl bg-[#062F80] text-white text-sm font-semibold">
+                        Ligar
+                    </a>
+                </div>
+
+            </div>
+
+
+            <!-- CAPS ALTOS DA GLÓRIA -->
+
+            <div class="atendimento-item p-4 rounded-2xl border border-[#E2E8F0]
+                        dark:border-[#3B4A63] bg-white dark:bg-[#202F49]">
+
+                <h4 class="font-semibold text-[#18233A] dark:text-white">
+                    CAPS Altos da Glória
+                </h4>
+
+                <div class="mt-2 space-y-1 text-sm text-[#718096] dark:text-[#CBD5E1]">
+                    <div>📍 Av. Oscar Pereira, nº 3391 – Cascata</div>
+                    <div>📞 (51) 3289-8258</div>
+                </div>
+
+                <div class="mt-4">
+                    <a href="tel:5132898258"
+                       class="px-4 py-2 rounded-xl bg-[#062F80] text-white text-sm font-semibold">
+                        Ligar
+                    </a>
+                </div>
+
+            </div>
+
+
+            <!-- CAPS II BEM VIVER -->
+
+            <div class="atendimento-item p-4 rounded-2xl border border-[#E2E8F0]
+                        dark:border-[#3B4A63] bg-white dark:bg-[#202F49]">
+
+                <h4 class="font-semibold text-[#18233A] dark:text-white">
+                    CAPS II Bem Viver
+                </h4>
+
+                <div class="mt-2 space-y-1 text-sm text-[#718096] dark:text-[#CBD5E1]">
+                    <div>📍 Rua Marco Polo, 278 – Cristo Redentor</div>
+                    <div>📞 (51) 3337-0726</div>
+                </div>
+
+                <div class="mt-4">
+                    <a href="tel:5133370726"
+                       class="px-4 py-2 rounded-xl bg-[#062F80] text-white text-sm font-semibold">
+                        Ligar
+                    </a>
+                </div>
+
+            </div>
+
+
+            <!-- CAPS II CAIS MENTAL -->
+
+            <div class="atendimento-item p-4 rounded-2xl border border-[#E2E8F0]
+                        dark:border-[#3B4A63] bg-white dark:bg-[#202F49]">
+
+                <h4 class="font-semibold text-[#18233A] dark:text-white">
+                    CAPS II Cais Mental
+                </h4>
+
+                <div class="mt-2 space-y-1 text-sm text-[#718096] dark:text-[#CBD5E1]">
+                    <div>📍 Av. José Bonifácio, 71 – Bom Fim</div>
+                    <div>📞 (51) 3289-5519</div>
+                </div>
+
+                <div class="mt-4">
+                    <a href="tel:5132895519"
+                       class="px-4 py-2 rounded-xl bg-[#062F80] text-white text-sm font-semibold">
+                        Ligar
+                    </a>
+                </div>
+
+            </div>
+
+
+            <!-- CAPS II FLOR DE MAIO -->
+
+            <div class="atendimento-item p-4 rounded-2xl border border-[#E2E8F0]
+                        dark:border-[#3B4A63] bg-white dark:bg-[#202F49]">
+
+                <h4 class="font-semibold text-[#18233A] dark:text-white">
+                    CAPS II Flor de Maio
+                </h4>
+
+                <div class="mt-2 space-y-1 text-sm text-[#718096] dark:text-[#CBD5E1]">
+                    <div>📍 Rua Dr. Campos Velho, 1718 – Cristal</div>
+                    <div>📞 (51) 3289-5728</div>
+                </div>
+
+                <div class="mt-4">
+                    <a href="tel:5132895728"
+                       class="px-4 py-2 rounded-xl bg-[#062F80] text-white text-sm font-semibold">
+                        Ligar
+                    </a>
+                </div>
+
+            </div>
+
+
+            <!-- CAPS II HOSPITAL DE CLÍNICAS -->
+
+            <div class="atendimento-item p-4 rounded-2xl border border-[#E2E8F0]
+                        dark:border-[#3B4A63] bg-white dark:bg-[#202F49]">
+
+                <h4 class="font-semibold text-[#18233A] dark:text-white">
+                    CAPS II Hospital de Clínicas
+                </h4>
+
+                <div class="mt-2 space-y-1 text-sm text-[#718096] dark:text-[#CBD5E1]">
+                    <div>📍 Rua São Manoel, nº 285 – Rio Branco</div>
+                    <div>📞 (51) 3359-8710</div>
+                </div>
+
+                <div class="mt-4">
+                    <a href="tel:5133598710"
+                       class="px-4 py-2 rounded-xl bg-[#062F80] text-white text-sm font-semibold">
+                        Ligar
+                    </a>
+                </div>
+
+            </div>
+
+
+            <!-- CAPS III NORTE -->
+
+            <div class="atendimento-item p-4 rounded-2xl border border-[#E2E8F0]
+                        dark:border-[#3B4A63] bg-white dark:bg-[#202F49]">
+
+                <h4 class="font-semibold text-[#18233A] dark:text-white">
+                    CAPS III Norte
+                </h4>
+
+                <div class="mt-2 space-y-1 text-sm text-[#718096] dark:text-[#CBD5E1]">
+                    <div>📍 Rua Conde de Porto Alegre, 71 – Floresta</div>
+                    <div>📞 (51) 99946-0593</div>
+                </div>
+
+                <div class="mt-4">
+                    <a href="tel:51999460593"
+                       class="px-4 py-2 rounded-xl bg-[#062F80] text-white text-sm font-semibold">
+                        Ligar
+                    </a>
+                </div>
+
+            </div>
+
+
+            <!-- CAPS AD II ESPERANÇA -->
+
+            <div class="atendimento-item p-4 rounded-2xl border border-[#E2E8F0]
+                        dark:border-[#3B4A63] bg-white dark:bg-[#202F49]">
+
+                <h4 class="font-semibold text-[#18233A] dark:text-white">
+                    CAPS AD II Esperança
+                </h4>
+
+                <div class="mt-2 space-y-1 text-sm text-[#718096] dark:text-[#CBD5E1]">
+                    <div>📍 Rua Raul Moreira, 253 – Cristal</div>
+                    <div>📞 (51) 3289-5734</div>
+                </div>
+
+                <div class="mt-4">
+                    <a href="tel:5132895734"
+                       class="px-4 py-2 rounded-xl bg-[#062F80] text-white text-sm font-semibold">
+                        Ligar
+                    </a>
+                </div>
+
+            </div>
+
+
+            <!-- CAPS AD III PASSO A PASSO -->
+
+            <div class="atendimento-item p-4 rounded-2xl border border-[#E2E8F0]
+                        dark:border-[#3B4A63] bg-white dark:bg-[#202F49]">
+
+                <h4 class="font-semibold text-[#18233A] dark:text-white">
+                    CAPS AD III Passo a Passo
+                </h4>
+
+                <div class="mt-2 space-y-1 text-sm text-[#718096] dark:text-[#CBD5E1]">
+                    <div>📍 Av. Carneiro da Fontoura, 57 – Jardim São Pedro</div>
+                    <div>📞 (51) 3345-1759</div>
+                </div>
+
+                <div class="mt-4">
+                    <a href="tel:5133451759"
+                       class="px-4 py-2 rounded-xl bg-[#062F80] text-white text-sm font-semibold">
+                        Ligar
+                    </a>
+                </div>
+
+            </div>
+
+
+            <!-- CAPS AD III SCS -->
+
+            <div class="atendimento-item p-4 rounded-2xl border border-[#E2E8F0]
+                        dark:border-[#3B4A63] bg-white dark:bg-[#202F49]">
+
+                <h4 class="font-semibold text-[#18233A] dark:text-white">
+                    CAPS AD III SCS
+                </h4>
+
+                <div class="mt-2 space-y-1 text-sm text-[#718096] dark:text-[#CBD5E1]">
+                    <div>📍 Av. Cavalhada, 1930 – Cavalhada</div>
+                    <div>📞 (51) 3230-6364</div>
+                </div>
+
+                <div class="mt-4">
+                    <a href="tel:5132306364"
+                       class="px-4 py-2 rounded-xl bg-[#062F80] text-white text-sm font-semibold">
+                        Ligar
+                    </a>
+                </div>
+
+            </div>
+
+
+            <!-- CAPS AD III PLP -->
+
+            <div class="atendimento-item p-4 rounded-2xl border border-[#E2E8F0]
+                        dark:border-[#3B4A63] bg-white dark:bg-[#202F49]">
+
+                <h4 class="font-semibold text-[#18233A] dark:text-white">
+                    CAPS AD III PLP
+                </h4>
+
+                <div class="mt-2 space-y-1 text-sm text-[#718096] dark:text-[#CBD5E1]">
+                    <div>📍 Rua Dona Firmina, 144 – São José</div>
+                    <div>📞 (51) 3230-6360</div>
+                </div>
+
+                <div class="mt-4">
+                    <a href="tel:5132306360"
+                       class="px-4 py-2 rounded-xl bg-[#062F80] text-white text-sm font-semibold">
+                        Ligar
+                    </a>
+                </div>
+
+            </div>
+
+
+            <!-- CAPS AD III CAMINHOS DO SOL -->
+
+            <div class="atendimento-item p-4 rounded-2xl border border-[#E2E8F0]
+                        dark:border-[#3B4A63] bg-white dark:bg-[#202F49]">
+
+                <h4 class="font-semibold text-[#18233A] dark:text-white">
+                    CAPS AD III Caminhos do Sol
+                </h4>
+
+                <div class="mt-2 space-y-1 text-sm text-[#718096] dark:text-[#CBD5E1]">
+                    <div>📍 Av. Protásio Alves, 7585 – Alto Petrópolis</div>
+                    <div>📞 (51) 3407-5225</div>
+                </div>
+
+                <div class="mt-4">
+                    <a href="tel:5134075225"
+                       class="px-4 py-2 rounded-xl bg-[#062F80] text-white text-sm font-semibold">
+                        Ligar
+                    </a>
+                </div>
+
+            </div>
+
+
+            <!-- CAPS AD III GIRASSOL -->
+
+            <div class="atendimento-item p-4 rounded-2xl border border-[#E2E8F0]
+                        dark:border-[#3B4A63] bg-white dark:bg-[#202F49]">
+
+                <h4 class="font-semibold text-[#18233A] dark:text-white">
+                    CAPS AD III Girassol
+                </h4>
+
+                <div class="mt-2 space-y-1 text-sm text-[#718096] dark:text-[#CBD5E1]">
+                    <div>📍 Estr. João Antônio da Silveira, nº 440 – Restinga</div>
+                    <div>📞 (51) 3248-7704</div>
+                </div>
+
+                <div class="mt-4">
+                    <a href="tel:5132487704"
+                       class="px-4 py-2 rounded-xl bg-[#062F80] text-white text-sm font-semibold">
+                        Ligar
+                    </a>
+                </div>
+
+            </div>
+
+
+            <!-- CAPS AD III PERNAMBUCO -->
+
+            <div class="atendimento-item p-4 rounded-2xl border border-[#E2E8F0]
+                        dark:border-[#3B4A63] bg-white dark:bg-[#202F49]">
+
+                <h4 class="font-semibold text-[#18233A] dark:text-white">
+                    CAPS AD III Pernambuco
+                </h4>
+
+                <div class="mt-2 space-y-1 text-sm text-[#718096] dark:text-[#CBD5E1]">
+                    <div>📍 Av. Pernambuco, 1700</div>
+                    <div>📞 (51) 3230-6362</div>
+                </div>
+
+                <div class="mt-4">
+                    <a href="tel:5132306362"
+                       class="px-4 py-2 rounded-xl bg-[#062F80] text-white text-sm font-semibold">
+                        Ligar
+                    </a>
+                </div>
+
+            </div>
+
+
+            <!-- CAPS AD IV CÉU ABERTO -->
+
+            <div class="atendimento-item p-4 rounded-2xl border border-[#E2E8F0]
+                        dark:border-[#3B4A63] bg-white dark:bg-[#202F49]">
+
+                <h4 class="font-semibold text-[#18233A] dark:text-white">
+                    CAPS AD IV Céu Aberto
+                </h4>
+
+                <div class="mt-2 space-y-1 text-sm text-[#718096] dark:text-[#CBD5E1]">
+                    <div>📍 Av. João Pessoa, 1318</div>
+                    <div>📞 (51) 3230-6367</div>
+                </div>
+
+                <div class="mt-4">
+                    <a href="tel:5132306367"
+                       class="px-4 py-2 rounded-xl bg-[#062F80] text-white text-sm font-semibold">
+                        Ligar
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+
+    </details>
+
+
+
+    <!-- ================================================= -->
+    <!-- NOVO HAMBURGO -->
+    <!-- ================================================= -->
+
+    <details class="grupo-atendimento">
+
+        <summary
+            class="flex items-center justify-between
+                   cursor-pointer px-4 py-3 rounded-xl
+                   bg-[#F1F5FF] dark:bg-[#202F49]
+                   text-[#18233A] dark:text-white
+                   font-semibold">
+
+            <span class="flex items-center gap-2">
+
+                <span class="material-symbols-outlined text-purple-500">
+                    location_on
+                </span>
+
+                Novo Hamburgo – RS
+
+            </span>
+
+            <span class="material-symbols-outlined">
+                expand_more
+            </span>
+
+        </summary>
+
+
+        <div class="lista-atendimentos mt-3 space-y-3">
+
+            <div class="atendimento-item p-4 rounded-2xl border border-[#E2E8F0]
+                        dark:border-[#3B4A63] bg-white dark:bg-[#202F49]">
+
+                <h4 class="font-semibold text-[#18233A] dark:text-white">
+                    Centro Integrado de Psicologia (CIP) – FEEVALE
+                </h4>
+
+                <div class="mt-2 space-y-1 text-sm text-[#718096] dark:text-[#CBD5E1]">
+
+                    <div class="flex gap-2">
+                        <span class="material-symbols-outlined text-[18px]">
+                            location_on
+                        </span>
+
+                        Câmpus II da Feevale, Prédio Branco, 4º andar,
+                        ERS-239, 2755
+                    </div>
+
+                    <div class="flex gap-2">
+                        <span class="material-symbols-outlined text-[18px]">
+                            phone
+                        </span>
+
+                        (51) 3586-8861
+                    </div>
+
+                </div>
+
+                <div class="mt-4">
+
+                    <a href="tel:5135868861"
+                       class="px-4 py-2 rounded-xl bg-[#062F80]
+                              text-white text-sm font-semibold">
+
+                        Ligar
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </details>
+
+
+
+    <!-- ================================================= -->
+    <!-- SÃO LEOPOLDO -->
+    <!-- ================================================= -->
+
+    <details class="grupo-atendimento">
+
+        <summary
+            class="flex items-center justify-between
+                   cursor-pointer px-4 py-3 rounded-xl
+                   bg-[#F1F5FF] dark:bg-[#202F49]
+                   text-[#18233A] dark:text-white
+                   font-semibold">
+
+            <span class="flex items-center gap-2">
+
+                <span class="material-symbols-outlined text-green-500">
+                    location_on
+                </span>
+
+                São Leopoldo – RS
+
+            </span>
+
+            <span class="material-symbols-outlined">
+                expand_more
+            </span>
+
+        </summary>
+
+
+        <div class="lista-atendimentos mt-3 space-y-3">
+
+            <div class="atendimento-item p-4 rounded-2xl border border-[#E2E8F0]
+                        dark:border-[#3B4A63] bg-white dark:bg-[#202F49]">
+
+                <h4 class="font-semibold text-[#18233A] dark:text-white">
+                    Serviço Escola de Psicologia – SEP – Unisinos
+                </h4>
+
+                <div class="mt-2 space-y-1 text-sm text-[#718096] dark:text-[#CBD5E1]">
+
+                    <div class="flex gap-2">
+                        <span class="material-symbols-outlined text-[18px]">
+                            location_on
+                        </span>
+
+                        Av. Unisinos, 950 – Cristo Rei
+                    </div>
+
+                    <div class="flex gap-2">
+                        <span class="material-symbols-outlined text-[18px]">
+                            phone
+                        </span>
+
+                        (51) 3591-1234
+                    </div>
+
+                    <div class="flex gap-2">
+                        <span class="material-symbols-outlined text-[18px]">
+                            chat
+                        </span>
+
+                        WhatsApp: (51) 3591-1234
+                    </div>
+
+                </div>
+
+                <div class="flex flex-wrap gap-2 mt-4">
+
+                    <a href="tel:5135911234"
+                       class="px-4 py-2 rounded-xl
+                              bg-[#062F80]
+                              text-white text-sm font-semibold">
+
+                        Ligar
+
+                    </a>
+
+                    <a href="https://wa.me/555135911234"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="px-4 py-2 rounded-xl
+                              border border-[#BFD0F5]
+                              text-[#062F80]
+                              dark:text-white
+                              text-sm font-semibold">
+
+                        WhatsApp
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </details>
+
+</div>
+
+        </div>
+
+    </div>
+
+</div>
 <script src="../scripts/theme.js"></script>
 <script src="../scripts/global.js"></script>
+<script src="../scripts/auth.js"></script>
 </body></html>

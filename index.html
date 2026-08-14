@@ -112,35 +112,35 @@
             left: "10%",
             title: "Estou bem",
             description: "Sinto-me estável e com energia para seguir o dia. Consigo me concentrar, realizar minhas atividades e lidar com as demandas sem desgaste significativo.",
-            page: "./pages/ajuda.html#bem-estar"
+            page: "../pages/biblioteca.html"
         },
 
         {
             left: "30%",
             title: "Um pouco cansado(a)",
             description: "Percebo algum cansaço ou tensão, mas ainda consigo lidar bem com as demandas. Posso notar menor disposição, necessidade de descanso ou irritação ocasional.",
-            page: "./pages/ajuda.html#prevencao"
+            page: "../pages/biblioteca.html"
         },
 
         {
             left: "50%",
             title: "Sobrecarregado(a)",
             description: "Percebo sinais de desgaste e sinto que as demandas estão exigindo mais de mim. Posso apresentar cansaço mais intenso, tensão, irritabilidade, dificuldade de concentração ou sensação de ter coisas demais para dar conta.",
-            page: "./pages/ajuda.html#respiracao"
+            page: "../pages/ajuda.html"
         },
 
         {
             left: "70%",
             title: "Está difícil",
             description: "O desconforto emocional está mais presente e começa a interferir no meu dia. Posso perceber alterações no sono, dificuldade de concentração, irritabilidade, preocupação ou tristeza mais frequentes, além de dificuldade para realizar algumas atividades habituais.",
-            page: "./pages/informativo.html#atencao"
+            page: "../pages/informativo.html"
         },
 
         {
             left: "90%",
             title: "Preciso de apoio",
             description: "Sinto que está difícil lidar com este momento sozinho(a). O sofrimento pode estar intenso, persistente ou interferindo de forma importante no meu dia, e conversar com alguém ou buscar apoio profissional pode ser importante.",
-            page: "./pages/informativo.html#cvv"
+            page: "../pages/informativo.html#cvv"
         }
     ];
 
@@ -203,6 +203,7 @@
             overlay: "from-red-100/95",
             border: "border-red-100",
             bg: "bg-red-50",
+            categoria: "Ansiedade",
             page: "../pages/biblioteca.html"
         },
 
@@ -215,6 +216,7 @@
             overlay: "from-orange-100/95",
             border: "border-orange-100",
             bg: "bg-orange-50",
+            categoria: "Irritação",
             page: "../pages/biblioteca.html"
         },
 
@@ -227,6 +229,7 @@
             overlay: "from-blue-100/95",
             border: "border-blue-100",
             bg: "bg-yellow-50",
+            categoria: "Tristeza",
             page: "../pages/biblioteca.html"
         },
 
@@ -239,6 +242,7 @@
             overlay: "from-pink-100/95",
             border: "border-pink-100",
             bg: "bg-pink-50",
+            categoria: "Sobrecarga",
             page: "../pages/biblioteca.html"
         },
 
@@ -251,6 +255,7 @@
             overlay: "from-purple-100/95",
             border: "border-purple-100",
             bg: "bg-pink-50",
+            categoria: "Cansaço emocional",
             page: "../pages/biblioteca.html"
         }
 
@@ -302,9 +307,14 @@
 
 function openWarningPage() {
 
-    window.location.href = warningCards[currentWarningIndex].page;
+    const card = warningCards[currentWarningIndex];
+
+    window.location.href =
+        `${card.page}?categoria=${encodeURIComponent(card.categoria)}`;
 }
 
+// Carrega o primeiro card imediatamente
+// Aguarda o HTML inteiro carregar antes de inicializar o card
 document.addEventListener("DOMContentLoaded", () => {
 
     updateWarningCard();
@@ -331,7 +341,7 @@ setInterval(() => {
             overlay: "from-blue-100/95",
             border: "border-blue-100",
             bg: "bg-blue-50",
-            page: "./pages/biblioteca.html"
+            page: "./pages/ajuda.html#pausas"
         },
 
         {
@@ -343,7 +353,7 @@ setInterval(() => {
             overlay: "from-cyan-100/95",
             border: "border-cyan-100",
             bg: "bg-cyan-50",
-            page: "./pages/biblioteca.html"
+            page: "./pages/dicas.html#hidratacao"
         },
 
         {
@@ -355,7 +365,7 @@ setInterval(() => {
             overlay: "from-indigo-100/95",
             border: "border-indigo-100",
             bg: "bg-indigo-50",
-            page: "./pages/biblioteca.html"
+            page: "./pages/relaxe.html#respiracao"
         },
 
         {
@@ -367,7 +377,7 @@ setInterval(() => {
             overlay: "from-green-100/95",
             border: "border-green-100",
             bg: "bg-green-50",
-            page: "./pages/biblioteca.html"
+            page: "./pages/dicas.html#alongamento"
         }
         
     ];
@@ -415,12 +425,13 @@ setInterval(() => {
 
         updateCareCard();
     }
+    // Carrega o primeiro card imediatamente
+    // Aguarda o HTML inteiro carregar antes de inicializar o card
     document.addEventListener("DOMContentLoaded", () => {
 
-    updateCareCard();
+        updateCareCard();
 
-});
-
+    });
     function openCarePage() {
 
         window.location.href = careCards[currentCareIndex].page;
@@ -504,14 +515,19 @@ body{
     <div class="relative overflow-hidden rounded-xl
                 bg-[#EEF7F7]
                 border border-[#DDE9E9]
-                min-h-[180px]
-                p-7">
+                min-h-[300px] sm:min-h-[180px]
+                p-5 sm:p-7">
 
 
-        <!-- Ilustração decorativa -->
+        <!-- ================================================= -->
+        <!-- ILUSTRAÇÃO DECORATIVA -->
+        <!-- ================================================= -->
+
         <div class="absolute right-0 bottom-0
-                    w-[40%] h-full
-                    pointer-events-none">
+                    w-[32%] sm:w-[40%]
+                    h-[75%] sm:h-full
+                    pointer-events-none
+                    z-0">
 
             <img
                 src="../assets/imagens/card_inicio.png"
@@ -523,31 +539,61 @@ body{
         </div>
 
 
-        <!-- Conteúdo -->
-        <div class="relative z-10 max-w-[60%]">
+        <!-- ================================================= -->
+        <!-- CONTEÚDO -->
+        <!-- ================================================= -->
 
-            <h2 class="text-[#245B65] font-bold text-[25px] leading-tight mb-3">
+        <div class="relative z-10
+                    w-[68%]
+                    sm:max-w-[60%]
+                    text-[#37474F]">
+
+            <h2 class="text-[#245B65]
+                       font-bold
+                       text-[22px] sm:text-[25px]
+                       leading-tight
+                       mb-3">
+
                 Que bom ter você aqui.
+
             </h2>
 
 
-            <p class="text-[#37474F] leading-[1.4] mb-10">
+            <p class="text-[#37474F]
+                      text-[15px] sm:text-[18px]
+                      leading-[1.5]
+                      mb-7 sm:mb-10">
+
                 Este é o seu espaço de cuidado. O Equilibra reúne
                 conteúdos psicoeducativos, práticas de cuidado e
                 recursos desenvolvidos para apoiar seu bem-estar
                 emocional e ajudar você a cuidar de si no dia a dia.
+
             </p>
 
+
+            <!-- ================================================= -->
+            <!-- PROFISSIONAIS DA SAÚDE -->
+            <!-- ================================================= -->
 
             <div class="flex items-center gap-2">
 
                 <span class="material-symbols-outlined
-                             text-[#0B4D86] text-[30px]">
+                             text-[#0B4D86]
+                             text-[26px] sm:text-[30px]
+                             shrink-0">
+
                     verified_user
+
                 </span>
 
-                <span class="text-[#455A64] text-[20px] leading-tight">
+
+                <span class="text-[#455A64]
+                             text-[15px] sm:text-[20px]
+                             leading-tight">
+
                     Conteúdo desenvolvido por profissionais da saúde
+
                 </span>
 
             </div>
@@ -587,26 +633,36 @@ body{
     <div class="relative overflow-hidden
                 bg-surface-container-lowest
                 border border-outline-variant
-                p-stack-md
+                p-5 sm:p-stack-md
                 rounded-xl
                 shadow-sm">
 
 
-        
-
-
         <!-- ========================================= -->
-        <!-- CONTEÚDO SUPERIOR -->
+        <!-- TÍTULO E EXPLICAÇÃO -->
         <!-- ========================================= -->
 
-        <div class="relative z-10 mb-8 max-w-[68%]">
+        <div class="relative z-10
+                    mb-8
+                    max-w-full
+                    sm:max-w-[68%]">
 
-            <h2 class="font-headline-md text-headline-md text-on-surface mb-2">
+            <h2 class="font-headline-md
+                       text-on-surface
+                       text-[21px] sm:text-[24px]
+                       leading-tight
+                       mb-2">
+
                 Como você está se sentindo agora?
+
             </h2>
 
 
-            <p class="text-body-md text-on-surface-variant text-[15px]">
+            <p class="text-body-md
+                      text-on-surface-variant
+                      text-[15px]
+                      leading-relaxed">
+
                 Reserve um momento para perceber como você está. Não existe
                 resposta certa ou errada, escolha a opção que mais se aproxima
                 do seu momento.
@@ -617,6 +673,7 @@ body{
                     persistentes, intensas ou que estejam interferindo no seu
                     bem-estar e na sua rotina.
                 </strong>
+
             </p>
 
         </div>
@@ -686,21 +743,28 @@ body{
 
 
         <!-- ========================================= -->
-        <!-- TEXTO DINÂMICO -->
+        <!-- TEXTO DINÂMICO + BOTÃO -->
         <!-- ========================================= -->
 
         <div class="relative z-10
-                    flex items-center
+                    flex flex-col
+                    sm:flex-row
+                    items-stretch
+                    sm:items-center
                     justify-between
-                    flex-wrap
-                    gap-4">
+                    gap-5">
 
 
-            <div>
+            <!-- Texto -->
+            <div class="min-w-0 flex-1">
 
                 <p
                     id="stressTitle"
-                    class="font-headline-md text-on-surface">
+                    class="font-headline-md
+                           text-on-surface
+                           text-[20px] sm:text-[24px]
+                           leading-tight
+                           mb-1">
 
                     Estou bem
 
@@ -709,26 +773,33 @@ body{
 
                 <p
                     id="stressDescription"
-                    class="text-body-md text-on-surface-variant">
+                    class="text-body-md
+                           text-on-surface-variant
+                           leading-relaxed">
 
-                    Sinto-me estável e com energia para seguir o dia. Consigo me concentrar, realizar minhas atividades e lidar com as demandas sem desgaste significativo.
+                    Sinto-me estável e com energia para seguir o dia. Consigo
+                    me concentrar, realizar minhas atividades e lidar com as
+                    demandas sem desgaste significativo.
 
                 </p>
 
             </div>
 
 
+            <!-- Botão -->
             <button
                 id="stressAction"
                 onclick="redirectStressPage()"
-                class="px-6 py-3
+                class="w-full sm:w-auto
+                       shrink-0
+                       px-6 py-3
                        rounded-xl
                        bg-primary
                        text-on-primary
                        hover:opacity-90
                        transition-all duration-300">
 
-                Continuar
+                Sugerir Ajuda
 
             </button>
 
@@ -762,121 +833,147 @@ body{
 
     <div class="relative">
 
-
         <!-- CARD -->
+<div
+    id="warningCard"
+    class="w-full
+           min-h-[500px]
+           md:h-[280px] md:min-h-0
+           relative overflow-hidden
+           rounded-3xl
+           border border-red-100
+           bg-red-50
+           text-left
+           transition-all duration-500">
+
+
+    <!-- ================================================= -->
+    <!-- IMAGEM -->
+    <!-- ================================================= -->
+
+    <img
+        id="warningImage"
+        src="assets/images/sono.png"
+        alt=""
+        class="absolute
+               right-0 bottom-0
+               w-full h-[45%]
+               md:top-0 md:right-0 md:bottom-auto
+               md:w-[80%] md:h-full
+               object-cover
+               object-center
+               md:object-right
+               opacity-100">
+
+
+    <!-- ================================================= -->
+    <!-- OVERLAY -->
+    <!-- ================================================= -->
+
+    <div
+        id="warningOverlay"
+        class="absolute inset-0
+               bg-gradient-to-b
+               from-red-50
+               via-red-50/90
+               to-transparent
+               md:bg-gradient-to-r
+               md:from-red-50
+               md:via-red-50/95
+               md:to-transparent">
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- CONTEÚDO -->
+    <!-- ================================================= -->
+
+    <div
+        class="relative z-10
+               min-h-[500px]
+               md:h-full
+               flex flex-col
+               justify-start
+               p-6
+               md:justify-center
+               md:p-8
+               md:pr-[45%]">
+
+
+        <!-- Ícone -->
         <div
-            id="warningCard"
-            class="w-full h-[280px]
-                   relative overflow-hidden
-                   rounded-3xl
-                   border border-red-100
-                   bg-red-50
-                   text-left
-                   transition-all duration-500">
+            id="warningIconContainer"
+            class="w-14 h-14
+                   md:w-16 md:h-16
+                   shrink-0
+                   rounded-2xl
+                   bg-white/90
+                   backdrop-blur-sm
+                   flex items-center justify-center
+                   mb-4 md:mb-5">
 
+            <span
+                id="warningIcon"
+                class="material-symbols-outlined
+                       text-red-500
+                       text-[28px] md:text-[32px]">
 
-            <!-- Imagem abstrata -->
-            <img
-                id="warningImage"
-                src="assets/images/sono.png"
-                alt=""
-                class="absolute right-0 top-0
-                       w-[80%] h-full
-                       object-cover
-                       opacity-100">
+                bed
 
-
-            <!-- Overlay -->
-            <div
-                id="warningOverlay"
-                class="absolute inset-0
-                       bg-gradient-to-r
-                       from-red-50
-                       via-red-50/95
-                       to-transparent">
-            </div>
-
-
-            <!-- Conteúdo -->
-            <div
-                class="relative z-10
-                       h-full
-                       flex flex-col
-                       justify-center
-                       p-8
-                       pr-[45%]">
-
-
-                <!-- Ícone -->
-                <div
-                    id="warningIconContainer"
-                    class="w-16 h-16
-                           rounded-2xl
-                           bg-white/90
-                           backdrop-blur-sm
-                           flex items-center justify-center
-                           mb-5">
-
-                    <span
-                        id="warningIcon"
-                        class="material-symbols-outlined
-                               text-red-500
-                               text-[32px]">
-
-                        bed
-
-                    </span>
-
-                </div>
-
-
-                <!-- Título -->
-                <h3
-                    id="warningTitle"
-                    class="font-headline-lg
-                           text-on-surface
-                           mb-3">
-
-                    Alterações no Sono
-                </h3>
-
-
-                <!-- Descrição -->
-                <p
-                    id="warningDescription"
-                    class="text-body-lg
-                           text-on-surface-variant
-                           max-w-[600px]
-                           mb-5">
-
-                    Dificuldade persistente para dormir ou descansar adequadamente.
-
-                </p>
-
-
-                <!-- Entenda melhor -->
-                <button
-                    onclick="openWarningPage()"
-                    class="self-start
-                           text-primary
-                           font-label-md
-                           text-sm
-                           font-semibold
-                           hover:underline
-                           transition-all">
-
-                    Entenda melhor →
-
-                </button>
-
-
-            </div>
+            </span>
 
         </div>
 
 
+        <!-- Título -->
+        <h3
+            id="warningTitle"
+            class="font-headline-lg
+                   text-[#18233A]
+                   text-xl md:text-2xl
+                   mb-3">
+
+            Ansiedade
+
+        </h3>
 
 
+        <!-- Descrição -->
+        <p
+            id="warningDescription"
+            class="text-body-lg
+                   text-on-surface-variant
+                   text-[15px] md:text-base
+                   leading-relaxed
+                   max-w-none
+                   md:max-w-[600px]
+                   mb-5">
+
+            Dificuldade persistente para dormir ou descansar adequadamente.
+
+        </p>
+
+
+        <!-- Entenda melhor -->
+        <button
+            onclick="openWarningPage()"
+            class="self-start
+                   shrink-0
+                   text-primary
+                   font-label-md
+                   text-sm
+                   font-semibold
+                   hover:underline
+                   transition-all">
+
+            Entenda melhor →
+
+        </button>
+
+
+    </div>
+
+</div>
     </div>
 
 </section>
@@ -903,9 +1000,8 @@ body{
 
 
         <!-- CARD -->
-        <button
+        <section
             id="careCard"
-            onclick="openCarePage()"
             class="w-full h-[280px] relative overflow-hidden rounded-3xl border border-blue-100 bg-blue-50 text-left transition-all duration-500">
 
             <!-- Imagem -->
@@ -934,7 +1030,7 @@ body{
                 </div>
 
                 <h3 id="careTitle"
-                    class="font-headline-lg text-on-surface mb-3">
+                    class="font-headline-lg text-[#18233A] mb-3">
 
                     Pausas Regulares
 
@@ -949,28 +1045,96 @@ body{
 
             </div>
 
-        </button>
+        </section>
 
 
     </div>
 
 </section>
 
-
-<!-- Emotional Health Metric -->
 <!-- Support Banner -->
-<div class="md:col-span-12 lg:col-span-8 bg-error-container/20 border border-error/10 p-6 rounded-xl flex items-center gap-6">
-<div class="w-14 h-14 shrink-0 bg-error-container text-on-error-container rounded-full flex items-center justify-center">
-<span class="material-symbols-outlined" data-icon="emergency_home">emergency_home</span>
-</div>
-<div class="flex-grow">
-<h4 class="font-headline-md text-headline-md text-on-error-container text-[18px]">Precisa de suporte imediato?</h4>
-<p class="text-body-sm text-on-error-container/80">Nossos conselheiros estão disponíveis 24/7 para uma conversa acolhedora e segura.</p>
-</div>
-<a href="./pages/informativo.html#cvv" class="bg-error text-white px-6 py-3 rounded-full font-label-md text-label-md hover:bg-error/90 transition-colors shrink-0">
-    Falar Agora
-</a>
-</div>
+<div
+    class="md:col-span-12 lg:col-span-8
+           bg-error-container/20
+           border border-error/10
+           p-5 sm:p-6
+           rounded-xl
+           flex flex-col
+           md:flex-row
+           md:items-center
+           gap-5 md:gap-6">
+
+    <!-- Ícone -->
+    <div
+        class="w-14 h-14
+               shrink-0
+               bg-error-container
+               text-on-error-container
+               rounded-full
+               flex items-center justify-center">
+
+        <span
+            class="material-symbols-outlined"
+            data-icon="emergency_home">
+
+            emergency_home
+
+        </span>
+
+    </div>
+
+
+    <!-- Conteúdo -->
+    <div class="flex-grow min-w-0">
+
+        <h4
+            class="font-headline-md
+                   text-headline-md
+                   text-on-error-container
+                   text-[20px]
+                   sm:text-[18px]
+                   leading-tight
+                   mb-2">
+
+            Precisa de suporte imediato?
+
+        </h4>
+
+
+        <p
+            class="text-body-sm
+                   text-on-error-container/80
+                   text-[15px]
+                   leading-relaxed">
+
+            Nossos conselheiros estão disponíveis 24/7
+            para uma conversa acolhedora e segura.
+
+        </p>
+
+    </div>
+
+
+    <!-- Botão -->
+    <a
+        href="./pages/informativo.html#cvv"
+        class="bg-error
+               text-white
+               px-6 py-3
+               rounded-full
+               font-label-md
+               text-label-md
+               hover:bg-error/90
+               transition-colors
+               shrink-0
+               self-start
+               md:self-auto
+               whitespace-nowrap">
+
+        Falar Agora
+
+    </a>
+
 </div>
 </main>
 <button
@@ -994,25 +1158,23 @@ body{
 </button>
 <!-- BottomNavBar -->
 <nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 py-3 bg-surface-container-lowest dark:bg-inverse-surface rounded-t-xl shadow-[0_-4px_12px_rgba(0,35,111,0.05)]">
-<!-- Home -->
-<a href="#" class="flex flex-col items-center justify-center bg-secondary-container dark:bg-primary-container text-on-secondary-container dark:text-on-primary-container rounded-full px-4 py-1 active:scale-90 transition-all duration-150" >
-<span class="material-symbols-outlined" data-icon="home" style="font-variation-settings: 'FILL' 1;">home</span>
+<a href="#" class="bg-[#6FA8FF] rounded-full flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-container px-4 py-1 hover:text-primary dark:hover:text-primary-fixed transition-colors active:scale-90 duration-150" >
+<span class="material-symbols-outlined" data-icon="home" style="font-variation-settings: 'FILL' 0;">home</span>
 <span class="font-label-sm text-label-sm">Início</span>
 </a>
-<!-- Ajuda -->
-<a href="ajuda.html" class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-container px-4 py-1 hover:text-primary dark:hover:text-primary-fixed transition-colors active:scale-90 duration-150" >
+<a href="./pages/ajuda.html" class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-container px-4 py-1 hover:text-primary dark:hover:text-primary-fixed transition-colors active:scale-90 duration-150" >
 <span class="material-symbols-outlined">
             volunteer_activism
         </span><span class="font-label-sm text-label-sm"><span class="" style="letter-spacing: 0.48px; text-align: center;">Ajuda</span></span>
 </a>
-<!-- Informativo -->
-<a href="informativo.html" class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-container px-4 py-1 hover:text-primary dark:hover:text-primary-fixed transition-colors active:scale-90 duration-150" >
+
+<a href="./pages/informativo.html" class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-container px-4 py-1 hover:text-primary dark:hover:text-primary-fixed transition-colors active:scale-90 duration-150" >
 <span class="material-symbols-outlined" data-icon="menu_book">menu</span>
 <span class="font-label-sm text-label-sm">Informativo</span>
 </a>
 <!-- Biblioteca -->
-    <a href="biblioteca.html"
-       class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-container px-4 py-1 hover:text-primary dark:hover:text-primary-fixed transition-all duration-300 active:scale-90">
+    <a href="./pages/biblioteca.html"
+       class=" rounded-full flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-container px-4 py-1 hover:text-primary dark:hover:text-primary-fixed transition-colors active:scale-90 duration-150">
 
         <span class="material-symbols-outlined">
             menu_book
@@ -1023,20 +1185,6 @@ body{
         </span>
 
     </a>
-<!-- Jornada -->
-    <a href="jornada.html" class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-container px-4 py-1 hover:text-primary dark:hover:text-primary-fixed transition-all duration-300 active:scale-90">
-
-    <span class="material-symbols-outlined"
-          style="font-variation-settings: 'FILL' 0;">
-
-        directions_walk
-
-    </span>
-
-    <span class="font-label-sm text-label-sm">
-        Jornada
-    </span>
-</a>
 </nav>
 <!-- Modal de Avaliação -->
 
